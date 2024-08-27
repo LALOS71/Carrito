@@ -1,0 +1,5 @@
+<%
+'****************************
+'LITERALES EN INGLES DE LA PAGINA PLANTILLA_PERSONALIZACION.ASP
+
+%>

@@ -1,0 +1,169 @@
+<!--#include virtual="/DB_Manager.inc"-->
+<!--#include file="JSONData.inc"-->
+<%
+	Dim sql
+	Dim query_options
+
+	Response.CharSet = "iso-8859-15"
+
+	hoja_ruta_seleccionada 		= "" & request.QueryString("p_hoja_ruta")
+	estado_seleccionado 		= "" & request.QueryString("p_estado")
+	cliente_seleccionado 		= "" & request.QueryString("p_cliente")
+	referencia_seleccionada 	= "" & request.QueryString("p_referencia")
+	subcontratista_seleccionado = "" & request.QueryString("p_subcontratista")
+	fecha_entrega_seleccionada  = "" & request.QueryString("p_fecha_entrega")
+	ejecutar_consulta 			= "" & request.QueryString("p_ejecutar")
+	
+	'cualquier insercion nueva de hojas de ruta en graphisoft, la añado a nuestro sistema con el estado de EMITIDO
+	'y lo hago antes de cada consulta para que siempre vengan con el estado en la tabla		
+	sql = "INSERT GESTION_GRAPHISOFT_HOJAS(HOJA_RUTA,ESTADO, FECHA_IMPORTACION)"
+	sql = sql & " SELECT A.HOJA_DE_RUTA, 'EMITIDO',  { fn NOW() } FROM"
+	'sql = sql & " [MAYLLUGRAPH01\GRAPHISOFT2012].GRAPHIPLUS.dbo.V_GESTION_HOJAS_RUTA A"
+	sql = sql & " GESTION_GRAPHISOFT_V_GESTION_HOJAS_RUTA A"
+	sql = sql & " LEFT JOIN GESTION_GRAPHISOFT_HOJAS B"
+	sql = sql & " ON A.HOJA_DE_RUTA=B.HOJA_RUTA COLLATE Modern_Spanish_CS_AS"
+	sql = sql & " WHERE B.HOJA_RUTA IS NULL"
+	sql = sql & " AND A.HOJA_DE_RUTA>2019010000"
+	
+	query_options = adCmdText + adExecuteNoRecords
+	execute_sql_with_options conn_gag, sql, query_options
+	'conn_gag.Execute sql,,adCmdText + adExecuteNoRecords
+				
+
+
+
+
+
+
+
+
+
+
+
+
+	sql = "SELECT"
+	'sql = sql & " PRESUPUESTISTA"
+	sql = sql & " A.HOJA_DE_RUTA"
+	sql = sql & ",B.ESTADO"
+	'sql = sql & ", FECHA_EMISION"
+	'sql = sql & ", PRODUCTO"
+	sql = sql & ", A.CLIENTE_NOMBRE"
+	sql = sql & ", REPLACE(A.REFERENCIA, '""', '\""') REFERENCIA"
+	'sql = sql & ", CANTIDAD"
+	sql = sql & ", A.SUBCONTRATISTA"
+	sql = sql & ", A.FECHA_ENTREGA"
+	sql = sql & ", STUFF("
+	sql = sql & "		(SELECT ';' + CONVERT(nvarchar(50), IdAlbaran, 103)"
+	sql = sql & "			FROM Albaranes_Detalles"
+	sql = sql & "			WHERE IdNTrabajo=A.HOJA_DE_RUTA COLLATE Modern_Spanish_CS_AS"
+	sql = sql & "			FOR XML PATH (''))"
+	sql = sql & "		, 1, 1, '') CADENA_ALBARANES"
+
+	'sql = sql & " FROM [MAYLLUGRAPH01\GRAPHISOFT2012].GRAPHIPLUS.dbo.V_GESTION_HOJAS_RUTA A"	
+	sql = sql & " FROM GESTION_GRAPHISOFT_V_GESTION_HOJAS_RUTA A"	
+	sql = sql & " LEFT JOIN GESTION_GRAPHISOFT_HOJAS B"
+	sql = sql & " ON A.HOJA_DE_RUTA=B.HOJA_RUTA COLLATE Modern_Spanish_CS_AS"
+			
+	sql = sql & " WHERE A.HOJA_DE_RUTA>2019010000"
+	If hoja_ruta_seleccionada <> "" Then
+		sql = sql & " AND UPPER(A.HOJA_DE_RUTA)=" & hoja_ruta_seleccionada 
+	End If
+	If estado_seleccionado <> "" Then
+		sql = sql & " AND UPPER(B.ESTADO)='" & UCASE(estado_seleccionado) &"'"
+	End If
+	If cliente_seleccionado <> "" Then
+		sql = sql & " AND UPPER(A.CLIENTE_NOMBRE) LIKE '%" & UCASE(cliente_seleccionado) & "%'"
+	End If
+	If referencia_seleccionada <> "" Then
+		sql = sql & " AND UPPER(A.REFERENCIA) LIKE '%" & UCASE(referencia_seleccionada) & "%'"
+	End If
+	If subcontratista_seleccionado <> "" Then
+		sql = sql & " AND UPPER(A.SUBCONTRATISTA) LIKE '%" & UCASE(subcontratista_seleccionado) & "%'"
+	End If
+	If fecha_entrega_seleccionada <> "" Then
+		sql = sql & " AND CONVERT(VARCHAR, A.FECHA_ENTREGA, 103)=CONVERT(VARCHAR, '" & cdate(fecha_entrega_seleccionada) & "', 103)"
+	End If
+		
+	'para que no muestre toda la lista de articulos si no se selecciona nada
+	'If empresa_seleccionada="" and codigo_sap_seleccionado="" and descripcion_seleccionada="" and campo_eliminado="NO" and campo_autorizacion="" Then
+	If ejecutar_consulta <> "SI" Then
+		sql = sql & " AND A.HOJA_DE_RUTA=0"
+	End If
+		
+	sql = sql & " ORDER BY A.HOJA_DE_RUTA DESC"
+
+	Set hojas_ruta = execute_sql(conn_gag, sql)
+
+	'set hojas_ruta=Server.CreateObject("ADODB.Recordset")
+	'	
+	'with hojas_ruta
+	'	.ActiveConnection=conn_gag
+	'	
+	'	.Source="SELECT"
+	'	'.Source= .Source & " PRESUPUESTISTA"
+	'	.Source= .Source & " A.HOJA_DE_RUTA"
+	'	.Source= .Source & ",B.ESTADO"
+	'	'.Source= .Source & ", FECHA_EMISION"
+	'	'.Source= .Source & ", PRODUCTO"
+	'	.Source= .Source & ", A.CLIENTE_NOMBRE"
+	'	.Source= .Source & ", REPLACE(A.REFERENCIA, '""', '\""') REFERENCIA"
+	'	'.Source= .Source & ", CANTIDAD"
+	'	.Source= .Source & ", A.SUBCONTRATISTA"
+	'	.Source= .Source & ", A.FECHA_ENTREGA"
+	'	.Source= .Source & ", STUFF("
+	'	.Source= .Source & "		(SELECT ';' + CONVERT(nvarchar(50), IdAlbaran, 103)'"
+	'	.Source= .Source & "			FROM Albaranes_Detalles"
+    '    .Source= .Source & "			WHERE IdNTrabajo=A.HOJA_DE_RUTA COLLATE 'Modern_Spanish_CS_AS"
+	'	.Source= .Source & "			FOR XML PATH (''))"
+	'	.Source= .Source & "		, 1, 1, '') CADENA_ALBARANES"
+'
+	'	.Source= .Source & " FROM [MAYLLUGRAPH01\GRAPHISOFT2012]'.GRAPHIPLUS.dbo.V_GESTION_HOJAS_RUTA A"	
+	'	.Source= .Source & " LEFT JOIN GESTION_GRAPHISOFT_HOJAS B"
+	'	.Source= .Source & " ON A.HOJA_DE_RUTA=B.HOJA_RUTA COLLATE 'Modern_Spanish_CS_AS"
+	'	
+	'			
+	'	.Source= .Source & " WHERE A.HOJA_DE_RUTA>2019010000"
+	'	if hoja_ruta_seleccionada<>"" then
+	'		.Source= .Source & " AND UPPER(A.HOJA_DE_RUTA)=" & hoja_ruta_seleccionada 
+	'	end if
+	'	if estado_seleccionado<>"" then
+	'		.Source= .Source & " AND UPPER(B.ESTADO)='" & UCASE(estado_seleccionado) &'"'"
+	'	end if
+	'	if cliente_seleccionado<>"" then
+	'		.Source= .Source & " AND UPPER(A.CLIENTE_NOMBRE) LIKE '%" & UCASE'(cliente_seleccionado) & "%'"
+	'	end if
+	'	if referencia_seleccionada<>"" then
+	'		.Source= .Source & " AND UPPER(A.REFERENCIA) LIKE '%" & UCASE'(referencia_seleccionada) & "%'"
+	'	end if
+	'	if subcontratista_seleccionado<>"" then
+	'		.Source= .Source & " AND UPPER(A.SUBCONTRATISTA) LIKE '%" & UCASE'(subcontratista_seleccionado) & "%'"
+	'	end if
+	'	if fecha_entrega_seleccionada<>"" then
+	'		.Source= .Source & " AND CONVERT(VARCHAR, A.FECHA_ENTREGA, 103)=CONVERT'(VARCHAR, '" & cdate(fecha_entrega_seleccionada) & "', 103)"
+	'	end if
+	'		
+	'		
+	'	'para que no muestre toda la lista de articulos si no se selecciona nada
+	'	'if empresa_seleccionada="" and codigo_sap_seleccionado="" and 'descripcion_seleccionada="" and campo_eliminado="NO" and campo_autorizacion="" 'then
+	'	if ejecutar_consulta<>"SI" then
+	'		.Source= .Source & " AND A.HOJA_DE_RUTA=0"
+	'	end if
+	'		
+	'		
+	'	.Source= .Source & " ORDER BY A.HOJA_DE_RUTA DESC"
+	'		
+	'	'RESPONSE.WRITE("<BR>" & .Source)
+	'	.Open
+	'end with
+
+	Response.ContentType = "application/json"
+	Response.Write "{" & JSONData(hojas_ruta, "ROWSET") & "}"
+
+	close_connection(hojas_ruta)
+	'articulos.close
+	'set hojas_ruta=Nothing
+	
+	close_connection(conn_gag)
+	'conn_gag.close
+	'set conn_gag=Nothing
+%>

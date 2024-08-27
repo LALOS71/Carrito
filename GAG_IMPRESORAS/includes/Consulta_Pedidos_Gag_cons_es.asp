@@ -1,0 +1,52 @@
+<%
+'****************************
+'LITERALES EN ESPAÑOL DE LA PAGINA CONSULTA_PEDIDOS_GAG.ASP
+
+consulta_pedidos_gag_title="Carrito Imprenta"
+consulta_pedidos_gag_panel_datos_pedido_cabecera="Datos del Pedido"
+consulta_pedidos_gag_panel_datos_pedido_articulos="Art&iacute;culos"
+consulta_pedidos_gag_panel_datos_pedido_boton_ver="Ver Pedido"
+consulta_pedidos_gag_panel_datos_pedido_boton_borrar="Borrar Pedido"
+consulta_pedidos_gag_panel_pedidos_cabecera="Pedidos Realizados"
+consulta_pedidos_gag_panel_pedidos_boton_consultar="Consultar"
+consulta_pedidos_gag_panel_lista_pedidos_cabecera="Pedidos Realizados"
+consulta_pedidos_gag_panel_lista_pedidos_filtro_num_pedido="N&uacute;m. Ped."
+consulta_pedidos_gag_panel_lista_pedidos_filtro_num_pedido_alter="N&uacute;mero de Pedido"
+consulta_pedidos_gag_panel_lista_pedidos_filtro_estado="Estado"
+consulta_pedidos_gag_panel_lista_pedidos_filtro_estado_combo_seleccionar="Seleccionar Estado"
+consulta_pedidos_gag_panel_lista_pedidos_filtro_fecha_inicio="Fec. Ini."
+consulta_pedidos_gag_panel_lista_pedidos_filtro_fecha_inicio_alter="Fecha de Inicio"
+consulta_pedidos_gag_panel_lista_pedidos_filtro_fecha_inicio_calendar_alter="Pulsa Aqu&iacute; Para Seleccionar Una Fecha de Inicio"
+consulta_pedidos_gag_panel_lista_pedidos_filtro_fecha_fin="Fec. Fin"
+consulta_pedidos_gag_panel_lista_pedidos_filtro_fecha_fin_alter="Fecha Fin"
+consulta_pedidos_gag_panel_lista_pedidos_filtro_fecha_fin_calendar_alter="Pulsa Aqu&iacute; Para Seleccionar Una Fecha de Fin"
+consulta_pedidos_gag_panel_lista_pedidos_boton_buscar="Buscar"
+consulta_pedidos_gag_panel_lista_pedidos_img_ascender="Ascender en La Lista de Pedidos"
+consulta_pedidos_gag_panel_lista_pedidos_img_descender="Descender en La Lista de Pedidos"
+consulta_pedidos_gag_panel_lista_pedidos_cabecera_columna_num_pedido="N&uacute;m. Pedido"
+consulta_pedidos_gag_panel_lista_pedidos_cabecera_columna_num_pedido_alter="N&uacute;mero de Pedido"
+consulta_pedidos_gag_panel_lista_pedidos_cabecera_columna_fecha="Fecha"
+consulta_pedidos_gag_panel_lista_pedidos_cabecera_columna_estado="Estado"
+consulta_pedidos_gag_panel_lista_pedidos_cabecera_columna_accion="Acci&oacute;n"
+consulta_pedidos_gag_panel_lista_pedidos_no_hay_pedidos="A&uacute;n No Se Han Realizado Pedidos..."
+consulta_pedidos_gag_panel_lista_pedidos_boton_quitar="Quitar"
+consulta_pedidos_gag_panel_lista_pedidos_boton_quitar_alter="Borrar Pedido"
+consulta_pedidos_gag_panel_lista_pedidos_boton_modificar="Modificar"
+consulta_pedidos_gag_panel_lista_pedidos_boton_modificar_alter="Modificar Pedido"
+consulta_pedidos_gag_boton_volver="Volver"
+consulta_pedidos_gag_pantalla_avisos_carrito_vaciado="El Carrito Ha Sido Vaciado..."
+consulta_pedidos_gag_pantalla_avisos_cabecera="Avisos"
+consulta_pedidos_gag_pantalla_avisos_boton_cerrar="Cerrar"
+consulta_pedidos_gag_pantalla_borrar_pedido_cabecera="Avisos"
+consulta_pedidos_gag_pantalla_borrar_pedido_mensaje="¿ Seguro Que Desea Borrar el Pedido N&uacute;mero XXX ?"
+consulta_pedidos_gag_pantalla_borrar_pedido_boton_si="Si"
+consulta_pedidos_gag_pantalla_borrar_pedido_boton_no="No"
+consulta_pedidos_gag_error_ajax="¡Por favor, actualice su navegador!"
+consulta_pedidos_gag_ventana_mensajes_boton_cerrar="Cerrar"
+consulta_pedidos_gag_ventana_mensajes_espera="Espere mientras se carga la p&aacute;gina..."
+consulta_pedidos_gag_ventana_mensajes_cabezera_avisos="Avisos"
+
+
+
+%>
+

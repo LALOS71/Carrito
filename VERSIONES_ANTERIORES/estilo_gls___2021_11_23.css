@@ -1,0 +1,28 @@
+/*********************************************/
+/* EN GLS QUIEREN APLICAR ESTE TIPO DE LETRA */
+/*********************************************/
+
+/*
+HAY QUE AÑADIR ESTE NUEVO TIPO DE FONT-FAMILY EN LAS
+DECLARACIONES DE LOS CSS DE BOOTSTRAP, EN EL FICHERO:
+plugins\bootstrap-3.3.6\css\bootstrap.min.css
+*/
+
+@font-face {
+    font-family: "TheSansGLS";
+    /*
+	src: url('/fonts/TheSans_GLS/TheSansGLS-Bold.eot');
+	*/
+    src: url('fonts/TheSans_GLS/TheSansGLS-Light.eot?#iefix') format('embedded-opentype'),
+         url('fonts/TheSans_GLS/TheSansGLS-Light.woff') format('woff'),
+         url('fonts/TheSans_GLS/TheSansGLS-Light.ttf') format('truetype'),
+         url('fonts/TheSans_GLS/TheSansGLS-Light.svg#TheSansGLS-Light') format('svg');
+		
+	/*
+	src: local("TheSansGLS"), url("/fonts/TheSans_GLS/TheSansGLS-Black.otf") format("otf");
+	*/
+    font-style: normal;
+    font-weight: normal;
+ 
+
+}

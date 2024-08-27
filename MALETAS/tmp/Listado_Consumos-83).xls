@@ -1,0 +1,995 @@
+
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+
+<title>...:: Informe Imprenta ::...</title>
+
+
+<style>
+
+.cajatexto {
+	BORDER-STYLE:groove;
+	FONT-SIZE: 9px; 
+	FONT-WEIGHT: bold;
+	COLOR: #003366; 
+	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; 
+	TEXT-TRANSFORM:capitalize;
+	BACKGROUND-COLOR: #FFFFFF;
+}
+
+.cajatexto_lectura {
+	BORDER-STYLE:groove;
+	FONT-SIZE: 9px; 
+	FONT-WEIGHT: bold;
+	COLOR: #003366; 
+	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; 
+	BACKGROUND-COLOR: lightcyan;
+}
+
+.opciones_menu{margin-left: 5px}
+.opciones_menu {margin-right: 6px;text-align: center;font-family:Calibri;font-weight:bold;font-size:14px}
+.opciones_menu a{display:block;width: 10em;padding: 5px 0;background: #E7F1F8;text-decoration:none;color: #666}
+.opciones_menu a:hover{background: #FFA826;color: #FFF}
+#opcion_menu_activo a,#opcion_menu_activo a:hover{background: #FFF;color: #003}
+
+.titulo_opcion{background: #FFFFFF;float:left;text-align:right;;padding-top:3px;padding-bottom:5px;
+				font-family:Verdana, Arial, Helvetica, sans-serif;font-size:9px;font-weight:bold;color:#555555}	
+
+.cabeceras_grises{background: #666666;text-align:center;
+				font-family:Calibri;font-weight:bold;font-size:15px;color:#eeeeee;}	
+.caja_opcion_2{background: #bbbbbb;}	
+.titulo_opcion_2{background: #888888;font-family:Calibri;font-weight:bold;font-size:15px;color:#000000}					
+
+body {
+	margin-top: 4px;
+}
+
+
+
+
+
+.apartado{clear:both;width:150px;background: #888888;padding:2px 0;text-align:right;
+				font-family:Calibri;font-weight:bold;font-size:25px;color:#eeeeee}
+				
+.texto_apartado{text-align:center;font-family:'Verdana, Arial, Helvetica, sans-serif';font-weight:bold;
+										font-size:10px;color:#FFFFFF}
+										
+.contenedor_con_borde{ border:1 solid #888888}
+
+
+.boton {
+	BORDER-RIGHT: #072a66 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #072a66 1px solid; 
+	PADDING-LEFT: 3px; BACKGROUND: #F0F5FA; PADDING-BOTTOM: 1px; BORDER-LEFT: #072a66 1px solid; PADDING-TOP: 1px; 
+	BORDER-BOTTOM: #072a66 1px solid;
+	font-family:Verdana, Arial, Helvetica, sans-serif;font-size:9px;font-weight:bold;color:#555555;
+ 
+	}
+.boton { cursor:hand; cursor:pointer; }
+</style>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+
+
+<div align="center">	
+<form action="Consultas.asp" method="post" name="frmbusqueda" id="frmbusqueda">
+	
+<table width="90%"  border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td height="10"></td>
+	</tr>
+</table>
+<!-- INICIO APARTADO DE DATOS BASICOS -->
+<table width="882"  border="0" cellspacing="0" cellpadding="0" bordercolor="#9CB6D1">
+  <tr>
+	<td>
+		<div align="left">
+			<div id="apartado_datos_basicos" class="apartado" style="width:375px">
+			  <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+				<tr>
+				  <td width="87%" height="16" class="texto_apartado" style="text-align:left ">&nbsp;Filtros de Consulta</td>
+				</tr>
+			  </table>
+			</div>
+		</div>
+		
+	</td>
+  </tr>
+  <tr>
+	<td align="center" class="contenedor_con_borde">
+		<!-- linea nombre del viajero y nº expediente-->
+		<table width="90%"  border="0" cellspacing="0" cellpadding="0">
+			<tr><td height="5"></td></tr>
+		</table>
+		<table width="97%"  border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td class="titulo_opcion" style="text-align:left">
+				
+						INFORME DE RESERVAS (PEDIDOS AUN NO ENVIADOS) CON LAS SIGUIENTES CARACTERISTICAS:
+					
+				<br>
+				Agrupado Por:&nbsp; 
+				
+					EMPRESAS.
+				
+					<br>
+					De La Empresa:&nbsp; 
+					<< SIN SELECCIONAR >>
+				
+				
+				<br>
+				Desde la La Fecha:&nbsp; 
+				<< SIN DETERMINAR >>
+				<br>
+				Hasta la Fecha:&nbsp;  
+				<< SIN DETERMINAR >>
+				<br>
+				
+			</td>
+			
+		</tr>
+		</TABLE>
+		
+		<table width="90%"  border="0" cellspacing="0" cellpadding="0">
+			<tr><td height="5"></td></tr>
+		</table>
+		
+		<!-- FIN LINEA alojamiento-->
+	</td>
+  </tr>
+  <!-- FIN APARTADO DE DATOS BASICOS -->
+  
+	<tr><td height="10"></td></tr>
+	<!-- APARTADO DE IMSERSO -->
+	<tr>
+	<td>
+		<div align="left">
+			<div id="apartado_datos_imserso" class="apartado" style="width:250px">
+			  <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+				<tr>
+				  <td width="87%" height="16" class="texto_apartado" style="text-align:left ">&nbsp;Resultados</td>
+				</tr>
+			  </table>
+			</div>
+		</div>
+		
+	</td>
+  </tr>
+  <tr>
+	<td align="center" class="contenedor_con_borde">
+		<!-- linea nombre del viajero y nº expediente-->
+		<table width="90%"  border="0" cellspacing="0" cellpadding="0">
+			<tr><td height="5"></td></tr>
+		</table>
+		<!-- FIN LINEA fase-->
+		
+		<table border="0" cellpadding="1" cellspacing="1" width="99%" class="info_table">
+			
+				<tr style="background-color:#FCFCFC" valign="top">
+					<th class="menuhdr" style="text-align:center">Empresa</th>
+					
+						<th class="menuhdr">Codigo</th>
+						<th class="menuhdr">Cliente</th>
+					
+	
+					<th class="menuhdr" style="text-align:center">Cantidad Total</th>
+					<th class="menuhdr" style="text-align:center">Total Importe</th>
+				</tr>
+				
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									3911
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									20 ASM ALBACETE
+										&nbsp(20)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								10
+							</td>
+							<td  class="ar item_row" width="101">
+								0,00
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									3982
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									217 ASM HUELVA
+										&nbsp(217)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								49
+							</td>
+							<td  class="ar item_row" width="101">
+								568,73
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									4006
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									315 ASM GUADALHORCE
+										&nbsp(315)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								16
+							</td>
+							<td  class="ar item_row" width="101">
+								524,90
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									4009
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									327 ASM TORREJON
+										&nbsp(327)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								477
+							</td>
+							<td  class="ar item_row" width="101">
+								1.790,29
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									4042
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									413 ASM CAMAS
+										&nbsp(413)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								23
+							</td>
+							<td  class="ar item_row" width="101">
+								375,71
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									4113
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									633 ASM VALLECAS
+										&nbsp(633)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								36
+							</td>
+							<td  class="ar item_row" width="101">
+								250,58
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									4168
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									740 ASM BADALONA
+										&nbsp(740)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								321
+							</td>
+							<td  class="ar item_row" width="101">
+								3.171,60
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									4223
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									862 ASM EL CUERVO 
+										&nbsp(862)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								29
+							</td>
+							<td  class="ar item_row" width="101">
+								433,31
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									4225
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									882 ASM GANDIA
+										&nbsp(882)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								20
+							</td>
+							<td  class="ar item_row" width="101">
+								0,00
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									4272
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									701 ASM TUDELA
+										&nbsp(701)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								11
+							</td>
+							<td  class="ar item_row" width="101">
+								51,36
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									4282
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									839 ASM MUTILVA BAJA
+										&nbsp(839)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								39
+							</td>
+							<td  class="ar item_row" width="101">
+								146,51
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									4309
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									270 ASM LUGO
+										&nbsp(270)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								1.060
+							</td>
+							<td  class="ar item_row" width="101">
+								1.079,62
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									4463
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									151 ASM SANTIAGO NORTE
+										&nbsp(151)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								18
+							</td>
+							<td  class="ar item_row" width="101">
+								0,00
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									4470
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									461 ASM RIBARROJA 2
+										&nbsp(461)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								8
+							</td>
+							<td  class="ar item_row" width="101">
+								124,94
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									4483
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									296 ASM MALAGA 7
+										&nbsp(296)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								23
+							</td>
+							<td  class="ar item_row" width="101">
+								136,76
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									4748
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									342 ASM POZUELO NEW
+										&nbsp(342)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								21
+							</td>
+							<td  class="ar item_row" width="101">
+								308,76
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									4920
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									*5134 ASM MONTSIA
+										&nbsp(5134)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								15
+							</td>
+							<td  class="ar item_row" width="101">
+								0,00
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									6409
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									102 ASM NAVALMORAL DE LA MATA
+										&nbsp(102)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								4.002
+							</td>
+							<td  class="ar item_row" width="101">
+								163,80
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									6549
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									506 ASM XIRIVELLA
+										&nbsp(506)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								90
+							</td>
+							<td  class="ar item_row" width="101">
+								0,00
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									6609
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									428 ASM LA LUSIANA
+										&nbsp(428)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								16
+							</td>
+							<td  class="ar item_row" width="101">
+								296,24
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									6680
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									692 ASM FUENTES DE ANDALUCIA
+										&nbsp(692)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								8
+							</td>
+							<td  class="ar item_row" width="101">
+								0,00
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									6733
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									5169 ASM PONFERRADA C. SANTIAGO
+										&nbsp(5169)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								30
+							</td>
+							<td  class="ar item_row" width="101">
+								0,00
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									6874
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									253 ASM LA SEU
+										&nbsp(253)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								7
+							</td>
+							<td  class="ar item_row" width="101">
+								0,00
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									6941
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									495 ASM LLIRIA
+										&nbsp(495)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								161
+							</td>
+							<td  class="ar item_row" width="101">
+								51,21
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									6987
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									273 ASM RABADE
+										&nbsp(273)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								5
+							</td>
+							<td  class="ar item_row" width="101">
+								199,98
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									7084
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									295 ASM ESTEPONA
+										&nbsp(295)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								17
+							</td>
+							<td  class="ar item_row" width="101">
+								72,80
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									7091
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									5203 ASM EL PARADOR
+										&nbsp(5203)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								18
+							</td>
+							<td  class="ar item_row" width="101">
+								392,72
+							</td>
+							
+							
+						</tr>
+						
+						
+					
+						<tr  valign="top" id="fila_articulo_">
+							
+							<td  class="ac item_row" width="82">ASM</td>
+							
+
+								<td  class="ac item_row" style="text-align:left; width:30px">
+									7135
+								</td>
+
+								<td  class="ac item_row" style="text-align:left" width="76">
+									485 ASM BARAKALDO
+										&nbsp(485)
+									
+								</td>
+							
+							<td  class="ar item_row" width="101">
+								66
+							</td>
+							<td  class="ar item_row" width="101">
+								2.026,56
+							</td>
+							
+							
+						</tr>
+						
+						
+			
+		</table>
+		
+		
+		
+		
+		<table width="90%"  border="0" cellspacing="0" cellpadding="0">
+			<tr><td height="5"></td></tr>
+		</table>
+		<!-- INICIO LINEA dnis-->
+		<!-- FIN LINEA dnis-->
+	</td>
+  </tr>
+  <!-- FIN APARTADO DATOS IMSERSO-->
+  
+ 
+ 
+ 
+ <tr><td height="10"></td></tr>
+	
+  
+  
+  
+  
+  
+
+</table>
+<!-- FIN FICHA -->
+<table width="90%"  border="0" cellspacing="0" cellpadding="0">
+  <tr><td height="5"></td></tr>
+</table>
+<!-- linea botones -->	
+<table width="882"  border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td align="right">
+
+			
+
+
+		</td>
+	</tr>
+</table>
+ <!-- FIN linea botones -->	
+
+
+</form>
+
+
+</div>
+
+
+
+
+</body>
+
+</html>

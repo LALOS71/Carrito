@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<!--ref: https://cdn.rawgit.com/nunof07/bootstrap-collapsible-sidebar/v0.1.0/left.html-->
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Prueba  Llamada  WS (Albaran/Factura)</title>
+    <meta charset="utf-8" />
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href="css/jquery-ui.min.css" rel="stylesheet" />    
+    <script src="js/jquery-3.2.1.min.js"></script>
+
+
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    
+
+
+<style type="text/css" media="all">
+body{margin: 10px; 
+
+}
+
+.content {
+    background-color: lightyellow;
+    width:300px;
+    padding: 20px;
+    margin: 20px;
+}
+
+.modal-header{
+        background-color:azure;        
+}
+	
+
+</style>
+
+
+<script type="text/javascript">
+
+ // ejemplo de llamada AJAX a realizar desde cualquier html --
+ $(function () {
+     $('#btGenAlbaran').click(function (e) {
+         imprimeAlbaran();
+     });
+     $('#btGenFactura').click(function (e) {
+         imprimeFactura();
+     });
+    
+ });// $(function ()--
+
+ function imprimeAlbaran() {
+     var id =  $('#txSelAlbaran').val();      
+     $.ajax({
+         type: "POST",    contentType: "application/json; charset=UTF-8",
+         async: false,      dataType: "json",
+         url: "wsGag_1.asmx/imprimeAlbaran",
+         data: '{idAlbaran: ' + id +         
+         '}',
+         success: function (data) {        },
+         /*url: "wsGag_1.asmx/Hola",
+           data: '{}', 
+           success: function (data) { alert(data.d); },
+         */
+         error: { function (request, status, error) { alert(JSON.parse(request.responseText).Message); }
+         },
+     });// $. ajax --
+     //alert('Se ha generado el albaran ' + id)
+     window.open('Informes/Alb_' +id + '.pdf', '_blank');
+
+ }// imprimeAlbaran --
+
+
+ function imprimeFactura() {
+     var id = $('#txSelFactura').val();
+     var ejercicio = $('#txSelEjer').val();
+     // ejemplo de llamada AJAX a realizar desde cualquier html --
+     $.ajax({
+         type: "POST",   contentType: "application/json; charset=UTF-8",
+         async: false, dataType: "json",
+         url: "wsGag_1.asmx/ImprimeFactura",
+         data: '{idFactura: ' + id +
+             ',Ejercicio: ' + ejercicio +
+         '}',
+         success: function (data) { },         
+         error: {
+             function (request, status, error) { alert(JSON.parse(request.responseText).Message); }
+         },
+     });// $. ajax --          
+     window.open('Informes/Fact_' + id + '_' + ejercicio + '.pdf', '_blank');
+
+ }// imprimeFactura --
+
+
+</script>
+</head>
+
+<body>
+    <h2> Prueba generación de Albaran / Factura con WS</h2>
+    <div class="row">
+        <div class="content col-md-5">
+            <div class="modal-header"> <h3>Albaran</h3> </div>
+            <div class="modal-body">
+                <div form-group>
+                    <input id="txSelAlbaran" class="form-control" placeholder="Albaran" />
+                </div>
+                <div id="btGenAlbaran" class="btn-group" role="group" aria-label="Controls">
+                    <button type="button" class="btn btn-default ">Generar Albaran</button>
+                </div>
+            </div>
+        </div>
+        <div class="content col-md-6">
+            <div class="modal-header"><h3>Factura</h3></div>
+            <div class="modal-body">
+                <div form-group>
+                    <input id="txSelFactura" class="form-control" placeholder="Factura" />
+                    <input id="txSelEjer" class="form-control" placeholder="Ejercicio" />
+                </div>
+                <div id="btGenFactura" class="btn-group" role="group" aria-label="Controls">
+                    <button type="button" class="btn btn-default ">Generar Factura</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

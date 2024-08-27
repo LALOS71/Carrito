@@ -1,0 +1,70 @@
+INSTALACION DE PHP CON IIS
+
+podemos seguir las instrucciones de estos videos
+https://www.youtube.com/watch?v=9Hskt9VkQ70
+https://www.youtube.com/watch?v=gGcejiDVX5I
+
+
+- descargar PHP (he descargado la version 8.1.22, de 64bits)
+
+- descomprimir el contenido en una carpeta del equipo, por ejemplo c:\php_8_1_22
+
+- podemos añadir la variable de entorno del path para que contenga esa ruta nueva
+
+- podemos probar que funciona si desde la consola escribimos php --version
+
+- si da error indicando que falta vcrumtime140.dll o vcruntime140_1.dll, eso es que hay que 
+instalar Microsoft Visual C++ Redistibutable, en este caso la version para Visual Studio 2022, 
+en la pagina de descargas de Visual Studio, en la seccion otras herramientas
+https://visualstudio.microsoft.com/es/downloads/
+
+he dejado el paquete de instalacion en la carpeta de php c:\php_8_1_22\VC_Redistibutable_Para_VS_2022
+
+- podemos configurar el fichero ini de php, php.ini (hay 2 uno para desarrollo y otro para produccion)
+(de momento no he cambiado nada del php.ini)
+
+- modificamos estos parametros del php.ini
+		cgi.fix_pathinfo=1
+		cgi.force_redirect = 0
+		fastcgi.impersonate = 1
+		fastcgi.logging = 0
+(de momento no he cambiado nada del php.ini)
+
+- configuramos el IIS para que acepte peticiones PHP. en el sitio web, 
+ir a Asignaciones de Controlador -- Agregar asignacion de modulo y establecer estos valores
+
+Ruta de acceso de solicitudes: *.php
+Modulo: FastCgiModule
+Ejecutable: C:\php_8_1_22\php-cgi.exe
+Nombre: PHP_via_FastCGI
+
+SI NO APARECE LA OPCION DE FASTCGIMODULE, es porque hay que añadir las peticiones CGI dentro de IIS
+en el Panel de Control - Programas - Activar o desactivar caracteristicas de Windows
+instalacion basedas en caracteristicas o Roles
+se selecciona el servidor
+de todas las opciones que salen, nos vamos a Servidor WEB (IIS) - Servidor WEB - Desarrollo de Aplicaciones
+y ha de marcarse la opcion CGI
+
+despues de todo esto, ya deberia aparecer la opcion FastCgiModule
+
+
+
+
+despues ir a Restricciones de Solicitudes
+
+en la pestaña asignacion, marcar "invocar controlador solo si la solicitud esta asignada a"
+
+y seleccionar "archivo o carpeta"
+
+y ahora dejamos en nuestro sitio web un fichero php para ver que todo funciona
+
+por ejemplo info.php con algo de este estilo
+
+<?php
+phpinfo();
+?>
+
+la pagina muestra los datos de configuracion de php si se llama desde el navegador
+
+
+https://carrito.globalia-artesgraficas.com/PHP/info.php

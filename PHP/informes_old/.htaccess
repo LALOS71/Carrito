@@ -1,0 +1,4 @@
+Options All -Indexes
+
+RewriteEngine On 
+RewriteRule ^([a-aA-Z0-9/]+)$ index.php?views=$1 

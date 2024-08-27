@@ -1,0 +1,95 @@
+<font style="font-family: arial">
+
+<font color="darkviolet" size="4"><center><u>AspPDF's HTML Support</u></center></font>
+
+<P>
+A text string passed to the <B>DrawText</B> method of the <b>PdfCanvas</b> object 
+may contain certain HTML tags to facilitate
+text formatting in a PDF document. A <B>PdfParam</B> object
+or parameter string passed to DrawText must include an <i>HTML=True</i> parameter
+to enable HTML tag recognition.
+<P>
+The following HTML tags are recognized:
+<P>
+<font color="#A0A000" face="courier">
+&lt;A><BR>
+&lt;B><BR>
+&lt;BR><BR>
+&lt;CENTER><BR>
+&lt;DIV STYLE="..." ALIGN="..."><BR>
+&lt;FONT SIZE="..." FACE="..." COLOR="..."><BR>
+&lt;FONT STYLE="..."><BR>
+&lt;I><BR>
+&lt;P><BR>
+&lt;SUB><BR>
+&lt;SUP><BR>
+&lt;U><BR>
+</font>
+<P>
+When using the &lt;FONT STYLE="..."> tag, you may use the following CSS attributes:
+<P>
+<font style="color: limegreen; font-family: Courier New; font-weight: bold;">
+color<BR>
+font-size (in <i>pt</i>, <i>cm</i>, <i>mm</i>, or <i>in</i>)<BR>
+font-family<BR>
+font-weight (normal/bold)<BR>
+font-style (normal/italic)<BR>
+text-decoration (none/underline)
+</font>
+<P>
+
+To set font size, it is recommended that the <font face="courier new">STYLE</font> attribute be used
+instead of <font face="courier new">SIZE</font> as the former 
+lets you specify precise font size in units (1/72 inch), inches, centimeters or millimeters.
+<P>
+In addition to the HTML tags mentioned above, you may also use the following special
+symbols:
+<P>
+<font style="font-weight: bold; color: red; font-size: 8pt">
+&amp;amp; (&amp;)<BR>
+&amp;cent; (&cent;)<BR>
+&amp;copy; (&copy;)<BR>
+&amp;deg; (&deg;)<BR>
+&amp;euro; (&euro;)<BR>
+&amp;ge; (&ge;)<BR>
+&amp;gt; (&gt;)<BR>
+&amp;le; (&le;)<BR>
+&amp;lt; (&lt;)<BR>
+&amp;nbsp; (non-breakable space)<BR>
+&amp;ne; (&ne;)<BR>
+&amp;pound; (&pound;)<BR>
+&amp;quot; (&quot;)<BR>
+&amp;reg; (&reg;)<BR>
+&amp;trade; (&trade;)<BR>
+&amp;yen; (&yen;)<BR>
+&amp;#<i>NNN</i>; (an arbitrary character with Unicode code <i>NNN</i>)<BR>
+</font>
+<P>
+<div align="right">
+Right alignment can be achieved via the &lt;DIV> tag with the attribute 
+<font face="Courier New">ALIGN="RIGHT"</font>.
+</div>
+<P>
+<div align="justify">
+Starting with version 1.1.0.2, AspPDF also supports full justification
+(the text is aligned on both the left and right sides of a paragraph). 
+Use the &lt;DIV> tag with the ALIGN attribute
+set to <font face="Courier New">"JUSTIFY"</FONT> to take advantage
+of this extremely useful feature.
+</div>
+<P>
+The <font face="Courier New">&lt;SUB></font> and
+<font face="Courier New">&lt;SUP></font> tags are useful to write formulas, e.g.
+<P>
+<B>
+E = MC<SUP><font size="1">2</font></SUP>
+<P>
+H<SUB><font size="1">2</font></SUB>O
+</B>
+<P>
+For more information, see <A HREF="http://www.asppdf.com/manual_06.html"><font color="blue"><B><U>Chapter 6</u></B></font></A>
+on the <A HREF="http://www.asppdf.com"><font color="blue"><U>www.asppdf.com</u></font></A> web site.
+
+
+</font>
+

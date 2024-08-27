@@ -1,0 +1,309 @@
+	xelUpload por Carlos de la Orden Dijs 2001
+		http://www.aspfacil.com
+
+  Maneja ficheros subidos al servidor mediante código ASP
+
+********************************************
+Puedes redistribuir este fichero donde quieras y utilizarlo
+como quieras, siempre y cuando se mantengan los
+créditos originales y siempre y cuando no se publique
+como propio en ningún medio electrónico o escrito.
+No es mucho pedir ¿no? ;-)
+********************************************
+    Este documento describe la clase de VBS xelUpload
+
+    Ultima modificación: 6 Septiembre 2001
+********************************************
+
+INDICE
+
+	I. XELUPLOAD
+	II. PROPIEDADES Y METODOS
+	III. EJEMPLOS
+	IV. OBSERVACIONES
+	V. PREGUNTAS MAS FRECUENTES
+
+********************************************
+
+
+I. XELUPLOAD
+
+xelUpload es una solución para recibir controles de tipo FILE
+desde ASP, y su único requerimiento es que la versión del
+motor de script sea la 5.0 o superior, a partir de la cual
+se pueden utilizar clases en VBScript.
+
+El formulario HTML que envía el fichero (o los ficheros) debe incluir el
+atributo ENCTYPE con el valor "multipart/form-data", así:
+
+<FORM ACTION="pagina.asp" METHOD="post" ENCTYPE="multipart/form-data">
+
+El funcionamiento es sencillo: se utiliza el método BinaryRead del
+objeto Request, leyendo todos los datos enviados (Request.TotalBytes)
+y se va recorriendo esta cadena, buscando las partes del formulario.
+
+En las siguientes direcciones:
+http://www.w3.org/TR/html4/interact/forms.html#h-17.13.4.2
+http://www.ietf.org/rfc/rfc2388.txt
+
+se puede ver el formato de este flujo.
+
+II. PROPIEDADES Y METODOS
+
+Objeto xelUpload
+----------------
+
+* Propiedades:
+
+	Form(campo)
+
+	Devuelve el contenido del control del formulario
+	de nombre "campo".
+
+* Métodos:
+
+	Upload()
+
+	Realiza el proceso de recepción del formulario y 
+	almacena los resultados. Es *imprescindible*
+	llamar a este método antes de acceder a 	las 
+	demás propiedades o colecciones del objeto
+	xelUpload.
+
+* Colecciones:
+
+	Ficheros
+
+	Alberga un objeto Fichero para cada fichero enviado
+	con el formulario, con el nombre del campo en el 
+	formulario como clave. (ver más abajo)
+
+	eltosForm
+
+	Alberga el valor de cada campo enviado con el
+	formulario, con el nombre del campo como clave.
+
+Objeto Fichero
+--------------
+
+* Propiedades:
+
+	Nombre
+
+	Propiedad de sólo lectura que devuelve el 
+	nombre original del fichero, *sin* la ruta
+	al archivo.
+
+	Tamano 
+
+	Propiedad de sólo lectura que devuelve el tamaño
+	en bytes del fichero.
+
+	TipoContenido
+
+	Propiedad de sólo lectura que devuelve el tipo de 
+	contenido asociado al fichero, si es reconocido por
+	el servidor, o "application/octet-stream" si no lo es
+	y son datos binarios.
+
+	Datos
+
+	Devuelve la cadena de bytes correspondiente al fichero.
+	Si el fichero es una imagen GIF, por ejemplo, hacer:
+	
+	Response.ContentType = "image/gif"
+	Response.BinaryWrite(objfichero.Datos)
+	
+	enviaría la imagen al navegador.
+
+* Métodos:
+
+	Guardar (ruta)
+
+	Salva el fichero con su nombre original en disco, en
+	el directorio especificado en el argumento "ruta". Este
+	argumento debe contener una ruta de directorio física,
+	no virtual.
+
+	GuardarComo (nombre, ruta)
+
+	Salva el fichero, con el nombre "nombre" en el directorio
+	ruta. El argumento "nombre" debe especificar la extensión
+	del fichero, si se quiere guardar con extensión.
+
+	GuardarBD (objField)
+
+	Guarda los datos binarios en el objeto Field de ADO
+	pasado como argumento. El objeto Field debe pertenecer
+	a un objeto Recordset abierto, y creado con LockType
+	apropiado, que permita modificarlo. Además debe 
+	corresponder a un campo en una tabla de la base de 
+	datos que permite guardar datos binarios grandes.
+	(ver preguntas más frecuentes al final de este archivo)
+
+
+III. EJEMPLOS
+
+
+Suponemos el fichero xelupload.asp en el mismo directorio
+que la página ASP que se muestra de ejemplo, por lo que
+hacemos un #include normal.
+
+Página de envío:
+---------------
+
+<html>
+<head>
+	<title>Probando xelUpload</title>
+</head>
+<body>
+
+<form action="recibir.asp" method="post" enctype="multipart/form-data">
+Nombre: <input type="text" name="nombreusuario" size="20"><br />
+Edad:	    <input type="text" name="edad" size="5"><br />
+Fichero: <br />
+<input type="file" name="fichero"><br />
+<input type="submit" value="Enviar">
+</form>
+
+</body>
+</html>
+
+Página recibir.asp
+-----------------
+
+<!--#include file="xelupload.asp"-->
+<%
+Dim objUpload, objFich, strNombreFichero
+Dim strNombre, strEdad
+
+'Creamos el objeto 
+set objUpload = new xelUpload
+
+'Recibimos el formulario
+objUpload.Upload()
+
+'Mostramos total de ficheros recibidos
+Response.Write ( objUpload.Ficheros.Count & " ficheros recibidos.")
+
+'Mostramos los campos del formulario de texto:
+Response.Write ("<p>Tu nombre es " & objUpload.Form("nombreusuario") & "<br>")
+Response.Write ("<p>Tu edad es " & objUpload.Form("edad") & "<br>")
+
+'Y ahora mostramos los datos del fichero enviado:
+'Lo sacamos a una variable por comodidad
+set objFich = objUpload.Ficheros("fichero")
+
+Response.Write ("<p>" & objFich.Nombre & "<br>")
+Response.Write("Tamaño: " & objFich.Tamano & "<br>")
+Response.Write("Tipo de contenido: " & objFich.TipoContenido & "</p>")
+
+'Guardamos el fichero, con su nombre, en el directorio
+'en el que se encuentra esta página
+
+objFich.Guardar(Server.MapPath("."))
+
+'Y guardamos una copia, con nombre "subido.bin"
+
+objFich.GuardarComo("subido.bin", Server.MapPath("."))
+
+'Abrimos una conexión a una base de datos
+Dim oConn, rs, SQL
+
+set oConn = Server.CreateObject("ADODB.Connection")
+set rs = Server.CreateObject("ADODB.Recordset")
+
+'Nos conectamos con un DSN
+oConn.Open "DSN=Pruebas"
+
+'Y abrimos la tabla Datos
+SQL = "SELECT * FROM Datos"
+
+'Abrimos el Recordset con cerrojo 2 (adLockPessimiestic)
+'que permite modificaciones
+
+rs.Open SQL, oConn, 0, 2
+
+'Añadimos un nuevo registro
+rs.AddNew
+
+rs.Fields("nombre") = objUpload.Form("nombreusuario")
+rs.Fields("edad") = objUpload.Form("edad")
+
+'Guardamos el contenido del fichero en la base de datos:
+'el nombre del fichero, su tipo
+rs.Fields("nombrefichero") = objFich.Nombre
+rs.Fields("contenido") = objFich.TipoContenido
+
+'y los datos binarios
+objFich.GuardarBD rs.Fields("datos")
+
+rs.Update
+rs.Close
+
+Response.Write("Fichero guardado en base de datos.")
+
+'Limpiamos objetos
+set oFich = nothing
+set objUpload = nothing
+rs.Close
+set rs = nothing
+oConn.Close
+set oConn = nothing
+
+%>
+
+IV. OBSERVACIONES
+
+VBScript no ofrece mecanismos nativos para trabajar de 
+forma eficiente con datos binarios, por lo que xelUpload
+puede ofrecer un rendimiento inferior al proporcionado 
+por un componente compilado equivalente. 
+
+No se ha comprobado un límite en el tamaño del fichero
+que puede manejar xelUpload. Mis pruebas han sido, como
+máximo, con ficheros de hasta 6,5 Mb.
+
+La gran ventaja de xelUpload es que permite incluir
+funcionalidades de envío de ficheros al servidor, sin
+necesidad de registrar ningún tipo de componente, lo 
+que lo hace útil en multitud de escenarios.
+
+
+V. PREGUNTAS, DUDAS, PROBLEMAS
+
+1) La propiedad Form o la colección Ficheros no funcionan.
+2) ¿Qué tipo pongo a un campo de una tabla para poder guardar
+un fichero en la base de datos?
+3) No puedo guardar el fichero en disco, recibo errores o no 
+ocurre nada.
+--------------------------------------------------------------
+
+1) Antes de intentar acceder a obj.Form o obj.Ficheros (donde
+obj es el nombre de la variable que guarda la instancia de xelUpload)
+es IMPRESCINDIBLE llamar el método Upload() para comenzar
+el proceso.
+<%
+...
+obj.Upload()
+Response.Write(obj.Ficheros.Count & " ficheros enviados.")
+...
+%>
+
+2) En Microsoft Access, tipo Objeto OLE, que puede guardar tanto
+datos binarios. En Microsoft SQL Server, tipo binary.
+
+3) El objeto xelUpload no comprueba en forma alguna los permisos
+del directorio a la hora de Guardar o GuardarComo, así que asegúrate
+de que el directorio que escoges tiene permisos de escritura para el 
+usuario (en el caso de un sitio Web público, es la cuenta IUSR_maquina).
+
+
+*****************************************************
+(C) Carlos de la Orden Dijs				   5-6 Septiembre 2001
+*****************************************************
+¿Comentarios, quejas, felicitaciones? contacto@aspfacil.com
+*****************************************************
+Para obtener la última versión, ayuda o información actualizada, visita
+http://www.aspfacil.com
+*****************************************************

@@ -1,0 +1,260 @@
+<html>
+<head>
+	<title>JavaScript Calendar</title>
+	<meta name="description" content="Javascript popup date and time picker control (javascript calendar)">
+	<meta name="keywords" content="JavaScript Calendar, javascript, html, client side, netscape, explorer, IE, calendar, pop, popup, timestamp, date, picker, database, control">
+
+	<!-- European format dd-mm-yyyy -->
+	<script language="JavaScript" src="calendar1.js"></script><!-- Date only with year scrolling -->
+	<!-- American format mm/dd/yyyy -->
+	<script language="JavaScript" src="calendar2.js"></script><!-- Date only with year scrolling -->
+	<style>
+		a { color: #003366; }
+		ul { margin-top: 1px; margin-bottom: 10px;}
+		td { font-family: Tahoma, Verdana, sans-serif; font-size: 12px; }
+		form { margin: 5px; }
+		.ctrl {font-family: Tahoma, Verdana, sans-serif; font-size: 12px; width: 100%; }
+		.SubTitle {font-family: Tahoma, Verdana, sans-serif; font-size: 13px; font-weight: bold; background: #DBEAF5; padding: 4px; }
+		.SectionText {font-family: Tahoma, Verdana, sans-serif; font-size: 13px; padding-bottom: 15px;}
+		.NewsDate {font-family: Tahoma, Verdana, sans-serif; font-size: 12px; font-weight: bold;}
+		.NewsText {font-family: Tahoma, Verdana, sans-serif; font-size: 12px; margin-left: 10px; margin-bottom: 10px; }
+		.Answer {font-family: Tahoma, Verdana, sans-serif; font-size: 12px; margin-left: 50px; margin-bottom: 10px; }
+		.cright {font-family: Tahoma, Verdana, sans-serif; font-size: 12px; color: #FFFFFF; background: #4682B4; text-align: right; }
+	</style>
+	
+</head>
+<body bgcolor="#ffffff">
+
+<!-- HEADER -->
+<table cellspacing="3" cellpadding="5" width="100%" border="0">
+<tr>
+	<td bgcolor="#4682B4" width="100%"><font face="tahoma, verdana" size="5" color="#ffffff"><b>Tigra Calendar</b></font></td>
+	<td><a href="http://www.softcomplex.com/" title="Powered by SoftComplex"><img src="img/small_logo.gif" width="178" height="30" alt="" border="0"></a></td>
+</tr>
+</table>
+<!-- /HEADER -->
+
+<table cellspacing="1" cellpadding="2" width="100%" border="0">
+<tr>
+	<td width="70%" valign="top">
+
+	<!-- LEFT COLUMN -->
+	<table cellspacing="0" cellpadding="5" width="100%" border="0">
+	
+	<!-- description -->
+	<tr><td class="SubTitle"><a name="description">Description</a></td></tr>
+	<tr>
+		<td class="SectionText">
+		<p>Tigra Calendar - Popup timestamp picker is JavaScript applet that makes it easy for your visitors to
+		fill out the date/time field(s) of your form, by selecting the date from a popup calendar.</p>
+		<p>Script allows to save the time for those internet/intranet developers
+		who need intuitive, easy to use client-side timestamp input control.</p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<table cellpadding="0" cellspacing="0" width="100%" border="0"><tr><td bgcolor="#4682B4">
+		<table cellpadding="5" cellspacing="1" width="100%" border="0">
+		<tr><th colspan="2" bgcolor="#DBEAF5"><font face="tahoma, verdana" size="2">Try out the script with this demo form</font></table></td></tr>
+		<tr>
+			<td bgcolor="#ffffff"><font face="tahoma, verdana" size="2">European Date Format (dd-mm-yyyy)</font></td>
+			<td bgcolor="#ffffff"><font face="tahoma, verdana" size="2">American Date Format (mm/dd/yyyy)</font></td>
+		</tr>
+		<form name="tstest">
+		<tr>
+			<td bgcolor="#ffffff" valign="top">
+				<font face="tahoma, verdana" size="2">
+				Select Date (w. year scrolling):<br>
+				<input type="Text" name="input1" value="">
+				<a href="javascript:cal1.popup();"><img src="img/cal.gif" width="16" height="16" border="0" alt="Click Here to Pick up the date"></a><br>
+				Select Date (w/o year scrolling):<br>
+				<input type="Text" name="input2" value="">
+				<a href="javascript:cal2.popup();"><img src="img/cal.gif" width="16" height="16" border="0" alt="Click Here to Pick up the date"></a><br>
+				Select Date and Time (w. year scrolling):<br>
+				<input type="Text" name="input3" value="">
+				<a href="javascript:cal3.popup();"><img src="img/cal.gif" width="16" height="16" border="0" alt="Click Here to Pick up the date"></a><br>
+				Select Date and Time (w/o year scrolling):<br>
+				<input type="Text" name="input4" value="">
+				<a href="javascript:cal4.popup();"><img src="img/cal.gif" width="16" height="16" border="0" alt="Click Here to Pick up the date"></a><br>
+				</font>
+			</td>
+			<td bgcolor="#ffffff">
+				<font face="tahoma, verdana" size="2">
+				Select Date (w. year scrolling):<br>
+				<input type="Text" name="input5" value="">
+				<a href="javascript:cal5.popup();"><img src="img/cal.gif" width="16" height="16" border="0" alt="Click Here to Pick up the date"></a><br>
+				Select Date (w/o year scrolling):<br>
+				<input type="Text" name="input6" value="">
+				<a href="javascript:cal6.popup();"><img src="img/cal.gif" width="16" height="16" border="0" alt="Click Here to Pick up the date"></a><br>
+				Select Date and Time (w. year scrolling):<br>
+				<input type="Text" name="input7" value="">
+				<a href="javascript:cal7.popup();"><img src="img/cal.gif" width="16" height="16" border="0" alt="Click Here to Pick up the date"></a><br>
+				Select Date and Time (w/o year scrolling):<br>
+				<input type="Text" name="input8" value="">
+				<a href="javascript:cal8.popup();"><img src="img/cal.gif" width="16" height="16" border="0" alt="Click Here to Pick up the date"></a><br>
+				</font>
+			</td>
+		</tr>
+		</form>
+		<script language="JavaScript">
+		<!-- // create calendar object(s) just after form tag closed
+			 // specify form element as the only parameter (document.forms['formname'].elements['inputname']);
+			 // note: you can have as many calendar objects as you need for your application
+			var cal1 = new calendar1(document.forms['tstest'].elements['input1']);
+			cal1.year_scroll = true;
+			cal1.time_comp = false;
+			var cal2 = new calendar1(document.forms['tstest'].elements['input2']);
+			cal2.year_scroll = false;
+			cal2.time_comp = false;
+			var cal3 = new calendar1(document.forms['tstest'].elements['input3']);
+			cal3.year_scroll = true;
+			cal3.time_comp = true;
+			var cal4 = new calendar1(document.forms['tstest'].elements['input4']);
+			cal3.year_scroll = false;
+			cal3.time_comp = true;
+
+			var cal5 = new calendar2(document.forms['tstest'].elements['input5']);
+			cal5.year_scroll = true;
+			cal5.time_comp = false;
+			var cal6 = new calendar2(document.forms['tstest'].elements['input6']);
+			cal6.year_scroll = false;
+			cal6.time_comp = false;
+			var cal7 = new calendar2(document.forms['tstest'].elements['input7']);
+			cal7.year_scroll = true;
+			cal7.time_comp = true;
+			var cal8 = new calendar2(document.forms['tstest'].elements['input8']);
+			cal8.year_scroll = false;
+			cal8.time_comp = true;
+		//-->
+		</script>
+		<tr><td colspan="2" bgcolor="#DBEAF5">&nbsp;</td></tr>
+		</table>
+		</td></tr></table>
+		</td>
+	</tr>
+	<tr><td>&nbsp;</td></tr>
+	
+	<!-- faq -->
+	<tr><td class="SubTitle">Frequently Asked Questions</td></tr>
+	<tr>
+		<td class="SectionText">
+		<b>1. What browsers are supported?</b>
+		<div class="Answer">Shortly: Any browsers capable of running generic JavaScript.<br> Script has been actually tested on different versions of Microsoft Internet Explorer, Netscape Navigator/Communicator, and Opera.</div>
+		
+		<b>2. Is there any way to change the format of the date in the Tigra Calendar?</b><br>
+		<div class="Answer">There is no built-in parameter driven way to change date/time format. In most cases you only need one particular format to be supported, so all the code for other formats is just the waste of computer and network resource.<br>
+		Tigra Calendar is available free with European and American time/date formats. If you need some other then modify datetime parsing/generating functions at the end of the script file (see the comments in script source). If you can't do this yourself then ask someone else who can. Finally you can purchase script customization from us.</div>
+		</td>
+	</tr>
+
+	<!-- registration and download -->
+	<tr><td class="SubTitle"><a name="registration_and_download">Registration and Download</a></td></tr>
+	<tr>
+		<td class="SectionText">
+		The script Tigra Calendar ver 3.0 is free of charge for any kind of applications.<br>
+		You may wish to register in order to be notified about Tigra Calendar related updates.
+		Monthly Traffic doesn't normally exceed one message. If you don't want to be updated or believe we'll sell your email to spammers - no problems, just leave all fields blank and push 'Download!' button to get Tigra Calendar files.
+		<table cellpadding="0" cellspacing="0" border="0" width="100%">
+			<form method="post" action="http://www.softcomplex.com/cgi-bin/download.pl">
+			<input type="hidden" name="product_id" value="2">
+			<tr><td colspan="7"><img src="img/pixel.gif" width="1" height="15" border="0"></td></tr>
+			<tr><td nowrap><span style="color: #cc0000;">Full name:</span></td><td rowspan="4">&nbsp;</td><td width="50%"><input type="Text" name="full_name" class="ctrl"></td><td rowspan="2"><img src="img/pixel.gif" width="10" height="1" border="0"></td><td nowrap><span style="color: #cc0000;">E-mail:</span></td><td rowspan="2">&nbsp;</td><td width="50%"><input type="Text" name="email" class="ctrl"></td></tr>
+			<tr><td>Country:</td><td><input type="Text" name="country" class="ctrl"></td><td>Organization:</td><td><input type="Text" name="organization" class="ctrl"></td></tr>
+			<tr><td nowrap>Site URL:</td><td colspan="5"><input type="Text" name="homepage" value="http://" class="ctrl"></tr>
+			<tr><td valign="top">Comments:</td><td colspan="5"><textarea name="comments" cols="50" rows="3" class="ctrl" wrap="soft"></textarea></td></tr>
+			<tr><td colspan="7"><img src="img/pixel.gif" width="1" height="3" border="0"></td></tr>
+			<tr><td colspan="7" align="right"><input type="submit" name="submit" value="Download!"></td></tr>
+			</form>
+		</table>
+		</td>
+	</tr>
+	</table>
+	
+	
+	<!-- /LEFT COLUMN -->
+	
+	<!-- RIGHT COLUMN -->
+	<td valign="top">
+	
+	<table cellspacing="1" cellpadding="5" width="100%" border="0">
+	
+	<!-- news -->	
+	<tr><td class="SubTitle"><a name="news">News</a></td></tr>
+	<tr>
+		<td class="SectionText">
+		<div class="NewsDate">10/09/2002</div>
+		<div class="NewsText">Issue "calendar doesn't display dates prior to 1970" fixed</div>
+		<div class="NewsDate">12/08/2002</div>
+		<div class="NewsText"><a href="http://www.softcomplex.com/forum/forumdisplay.php?fid=30">Tigra Calendar Forum</a> is opened for your discussions.</div>
+		<div class="NewsDate">08/08/2002</div>
+		<div class="NewsText">Version of Tigra Calendar 3.1 is released. Fixed issue: invalid dates on 31 day of month problem. Thank You for your reports!</div>
+		<div class="NewsDate">06/21/2002</div>
+		<div class="NewsText">Version of Tigra Calendar 3.0 is released. Fixed issues: Empty pop-up window under Netscape4.x; HTTPS warnings when poping-up.</div>
+		</td>
+	</tr>
+	
+	<!-- other scripts -->	
+	<tr><td class="SubTitle">Related Products</td></tr>
+	<tr>
+		<td class="SectionText">
+		<p><a href="http://www.softcomplex.com/products/tigra_calendar_pro/"><b>Tigra Calendar PRO</b></a> - Tigra Calendar PRO is flexible JavaScript Calendar offering high reliability and wide browsers support. This script allows your visitors to select any date from on page calendar with minimum number of clicks.
+		<p><a href="http://www.softcomplex.com/products/tigra_menu/"><b>Tigra Menu</b></a> - JavaScript Menu - allows unlimited levels and multiple menus per page. Supports custom effects and geometry.
+		<p><a href="http://www.softcomplex.com/products/tigra_menu_pro/"><b>Tigra Menu PRO</b></a> - Tigra Menu PRO is flexible JavaScript DHTML menu solution for commercial applications offering high reliability and wide browsers support.
+		<p><a href="http://www.softcomplex.com/products/tigra_tree_menu/"><b>Tigra Tree Menu</b></a> - Tigra Tree Menu is free JavaScript DHTML navigation system for the web sites and web applications. Product looks and acts exactly as Microsoft Windows Tree Control.
+		<p><a href="http://www.softcomplex.com/products/tigra_tables/"><b>Tigra Tables</b></a> - JavaScript applet creating nice client-side visual effects for HTML tables making them easier to read.
+		<p><a href="http://www.softcomplex.com/products/tigra_tables_pro/"><b>Tigra Tables PRO</b></a> - Tigra Tables PRO is flexible cross-browser client side table data manipulation JavaScript offering rows sorting, filtering, paged output, altering rows coloring and other visual effects.
+		</td>
+	</tr>
+	
+	<!-- vote section -->
+	<tr><td class="SubTitle"><a name="vote">Vote for Tigra Calendar</a></td></tr>
+	<tr>
+		<td class="SectionText">
+			If you like the script, please vote for it. I do appreciate this much.
+			<form action="http://www.scriptsearch.com/cgi-bin/rateit.cgi" method="post" target="_new">
+			<input type="hidden" name="ID" value="3901">
+			<a href="http://www.scriptsearch.com/details/3901.html"><b>ScriptSearch.com</b></a> :
+			<select name="rate" size="1" style="font-size:10px;">
+				<option value="5" selected>Excellent!</option>
+				<option value="4">Very Good</option>
+				<option value="3">Good</option>
+				<option value="2">Fair</option>
+				<option value="1">Poor</option>
+			</select>&nbsp;<input type="submit" value="Vote!" style="font-size:10px;">
+			</form>
+			
+			<form action="http://www.hotscripts.com/cgi-bin/rate.cgi" method="POST" target="_new">
+			<input type=hidden name="ID" value="13844">
+			<a href="http://www.hotscripts.com/Detailed/13844.html"><b>HotScripts.com</b></a> :
+			<select name="rate" size="1" style="font-size:10px;">
+				<option selected value="5">Excellent!</option>
+				<option value="4">Very Good</option>
+				<option value="3">Good</option>
+				<option value="2">Fair</option>
+				<option value="1">Poor</option>
+			</select>&nbsp;<input type="submit" value="Rate It!" style="font-size:10px;">
+			</form>
+		</td>
+	</tr>
+
+	<!-- about softcomplex -->	
+	<tr><td class="SubTitle">SoftComplex</td></tr>
+	<tr>
+		<td class="SectionText">
+		Contact us at SoftComplex if you need any kind of software solution. For details visit our site at <a href="http://www.softcomplex.com/">www.softcomplex.com</a>. We are open to discuss your needs. You'll like our rates.
+		</td>
+	</tr>
+
+	</table>
+	</td>
+	<!-- /RIGHT COLUMN -->
+
+
+
+<!-- FOOTER -->
+<table cellspacing="1" cellpadding="5" width="100%" border="0">
+	<tr><td class="cright">&copy;2002 <a href="http://www.softcomplex.com/" style="color: white;">SoftComplex</a></td></tr>
+</table>
+<!-- /FOOTER -->
+</body>
+</html>

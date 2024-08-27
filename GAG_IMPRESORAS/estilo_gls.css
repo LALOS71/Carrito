@@ -1,0 +1,10 @@
+/****************************************************/
+/* EN GLS QUIEREN APLICAR ESTE ESTILO A LOS BOTONES */
+/****************************************************/
+.btn-primary.corporativo_gls, .btn-primary.corporativo_gls:hover, .btn-primary.corporativo_gls:active, .btn-primary.corporativo_gls:visited {
+   background-color: #F4CCD4 !important;
+   border-color: #F4CCD4 !important;
+   /*font-size: 13px !important;*/
+   color:#0033A0 !important;
+   /*font-weight: 900 !important;*/
+}

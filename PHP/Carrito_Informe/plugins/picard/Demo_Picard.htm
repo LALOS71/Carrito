@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>Example of card data encryption</title>
+<script src="lib/jsencrypt.js" type="text/javascript"></script>
+<script src="src/jspicardencryption.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+function encrypt() {
+
+//PRE
+//"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlO0L5qz4Yn0lZH1ZFeZYtHbelU9OkK7bUk9yDJv3irUkF8o/XKW6ye/jmRXBSnOk9bQSdI1rpKlBoaSaTJ6Wrl5F+AxvzdoRHb+5bD9pejkMm4kqXlB/orfGZpRfq4TlxmvOjRqOyVE/nmZ/ryo3yjt2j2VmEMMvxvjTZ+rk3ZZ+NFRBhNiFFvfvXCOG05xsUWzcVKE3080a/YtRIi4vzR7mMWDawddkwa9ijSJQ/oCJ0alSRueBPoPtfkfZk4cFx4nDeNb7Q3DY8vdWaYLrBqHIlmpNO0BD38BZODuSkWPLvUmjBff2xVTPHYSdg3uLYi0y0DNglcl8eylRjSaS4QIDAQAB"
+
+//PRO
+//"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhfhN80DuYaA4RGGvcU2dAL8wFql/22Fc63PeqsbYe65DIi3NaVFUUTQxkumb28NMH6Yu7hPhXDAd2cxQ9uNdomwj0bcOIchCi4C052EOu21P3jYQL7f7vFiDqYLZkSsgQdP8iHxbUH6+c0nJQ+qERt24J2gjaZcV6v2/MwlzZnRAvRZHccGFMggkjD7pEaUnGlYBqRf1Q0IaYAC7neWmF/oNJ9N2/hgdt67NT2Tp5eQ3fJzJjeNimm/QFDlq3GM8vSlF9seUZLmT0CByWUATKNdaHOZkffD7s4lbfC014sUQHxwqOzABq0nLqoAQ1VUEFqRYmNqKTa9sHqMr4MavBQIDAQAB"
+ 
+
+
+    var pubkey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlO0L5qz4Yn0lZH1ZFeZYtHbelU9OkK7bUk9yDJv3irUkF8o/XKW6ye/jmRXBSnOk9bQSdI1rpKlBoaSaTJ6Wrl5F+AxvzdoRHb+5bD9pejkMm4kqXlB/orfGZpRfq4TlxmvOjRqOyVE/nmZ/ryo3yjt2j2VmEMMvxvjTZ+rk3ZZ+NFRBhNiFFvfvXCOG05xsUWzcVKE3080a/YtRIi4vzR7mMWDawddkwa9ijSJQ/oCJ0alSRueBPoPtfkfZk4cFx4nDeNb7Q3DY8vdWaYLrBqHIlmpNO0BD38BZODuSkWPLvUmjBff2xVTPHYSdg3uLYi0y0DNglcl8eylRjSaS4QIDAQAB',
+        form = window.document.forms['carddetails'],
+        cardDetails, result;
+
+    if(!JSCardUtils.luhnCheck(form.cardnumber.value)) {
+       alert('Card invalid.');
+    }
+
+    cardDetails = {
+      cardNumber: form.cardnumber.value,
+      cvv: form.cvv.value,
+      cardholderName: form.cardholdername.value,
+      expiryDate: {
+        month: form.month.value,
+        year: form.year.value
+      }
+    };
+    
+    result = JSPicardEncryption.cardEncrypt(cardDetails,pubkey); 
+    
+    document.getElementById("output").value = result;
+
+}
+
+</script>
+</head>
+<body>
+  <div>
+    <h2>Card Details:</h2>
+    <form id="carddetails">
+      <label for="cardnumber">Card Number:</label>
+      <input id="cardnumber" name="cardnumber" type="text" value="4200000000000000"><br>
+      <label for="month">Expiry Date:</label>
+      <input id="month" name="month" type="text" value="01">
+      <input id="year" name="year" type="text" value="2026"><br>
+      <label for="cvv">CVV:</label>
+      <input id="cvv" name="cvv" type="text" value="111"><br>
+      <label for="cardholdername">Card Holder Name:</label>
+      <input id="cardholdername" name="cardholdername" type="text" value="Jose Martinez"><br>
+      <input id="testme" type="button" value="Test Me!!!" onclick="encrypt()">
+    </form>
+    <h2>Encrypted Card Details:</h2>
+    <textarea id="output" name="output" rows=8 cols=70></textarea>
+  </div>
+</body>
+</html>

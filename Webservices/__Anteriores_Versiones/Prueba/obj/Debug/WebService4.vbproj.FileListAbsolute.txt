@@ -1,0 +1,10 @@
+C:\Documents and Settings\19316\mis documentos\visual studio 2010\Projects\WebService4\WebService4\bin\WebService4.dll
+C:\Documents and Settings\19316\mis documentos\visual studio 2010\Projects\WebService4\WebService4\bin\WebService4.pdb
+C:\Documents and Settings\19316\mis documentos\visual studio 2010\Projects\WebService4\WebService4\bin\WebService4.xml
+C:\Documents and Settings\19316\mis documentos\visual studio 2010\Projects\WebService4\WebService4\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\19316\mis documentos\visual studio 2010\Projects\WebService4\WebService4\obj\Debug\WebService4.Resources.resources
+C:\Documents and Settings\19316\mis documentos\visual studio 2010\Projects\WebService4\WebService4\obj\Debug\GenerateResource-ResGen.read.1.tlog
+C:\Documents and Settings\19316\mis documentos\visual studio 2010\Projects\WebService4\WebService4\obj\Debug\GenerateResource-ResGen.write.1.tlog
+C:\Documents and Settings\19316\mis documentos\visual studio 2010\Projects\WebService4\WebService4\obj\Debug\WebService4.dll
+C:\Documents and Settings\19316\mis documentos\visual studio 2010\Projects\WebService4\WebService4\obj\Debug\WebService4.xml
+C:\Documents and Settings\19316\mis documentos\visual studio 2010\Projects\WebService4\WebService4\obj\Debug\WebService4.pdb
