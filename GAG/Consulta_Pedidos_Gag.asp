@@ -4,6 +4,8 @@
 <!--#include virtual="/includes/Idiomas.asp"-->
 
 <%
+	Response.Charset="UTF-8"
+
 		response.Buffer=true
 		numero_registros=0
 		
@@ -61,7 +63,7 @@
 	    set pedidos=Server.CreateObject("ADODB.Recordset")
 		
 		'porque el sql de produccion es un sql expres que debe tener el formato de
-		' de fecha con mes-dia-año
+		' de fecha con mes-dia-aï¿½o
 		connimprenta.Execute "set dateformat dmy",,adCmdText + adExecuteNoRecords
 				
 		'solo devolvemos x primeros registros		
@@ -282,7 +284,7 @@ margin: 75px auto;
 
 -moz-border-radius: 20px; /* Firefox */
 -webkit-border-radius: 20px; /* Google Chrome y Safari */
-border-radius: 20px; /* CSS3 (Opera 10.5, IE 9 y estándar a ser soportado por todos los futuros navegadores) */
+border-radius: 20px; /* CSS3 (Opera 10.5, IE 9 y estï¿½ndar a ser soportado por todos los futuros navegadores) */
 /*
 behavior:url(border-radius.htc);/* IE 8.*/
 
@@ -354,7 +356,7 @@ function cambiapuntoacoma(s)
 {
 	var saux = "";
 	//alert("pongo coma")
-	//alert("tamaño: " + s.legth)
+	//alert("tamaï¿½o: " + s.legth)
 	for (j=0;j<s.length; j++ )
 	{
 		if (s.charAt(j) == ".")
@@ -425,10 +427,10 @@ function crearAjax()
 	  Ajax.overrideMimeType('text/html; charset=iso-8859-1');
      }
    } else if (window.ActiveXObject) { // IE
-    try { //Primero se prueba con la mas reciente versión para IE
+    try { //Primero se prueba con la mas reciente versiï¿½n para IE
       Ajax = new ActiveXObject("Msxml2.XMLHTTP");
      } catch (e) {
-       try { //Si el explorer no esta actualizado se prueba con la versión anterior
+       try { //Si el explorer no esta actualizado se prueba con la versiï¿½n anterior
          Ajax = new ActiveXObject("Microsoft.XMLHTTP");
         } catch (e) {}
       }
@@ -803,7 +805,7 @@ function a_ver_todos()
 						<div align="center" style="padding-bottom:6px ">
 							<div style="display:inline-block"><span><img src="../images/Carrito_48x48.png" border="0" class="shopping-cart"/></span></div>
 	
-							<!-- NO BORRAR, es la capa que añade articulos al pedido....-->
+							<!-- NO BORRAR, es la capa que aï¿½ade articulos al pedido....-->
 							<div style="display:inline-block" id="capa_annadir_articulo">&nbsp;<b><%=session("numero_articulos")%></b> <%=consulta_pedidos_gag_panel_datos_pedido_articulos%></div>
 						</div>
 				
@@ -870,7 +872,7 @@ function a_ver_todos()
 										<span class="fas fa-reply"></span>
 										<span class="texto_boton-">&nbsp;Consultar Devoluciones</span>
 										<%if dinero_disponible_devoluciones<>0 then%>
-											<span class="dinero_disponible">&nbsp;<%=dinero_disponible_devoluciones%>€&nbsp;</span>
+											<span class="dinero_disponible">&nbsp;<%=dinero_disponible_devoluciones%>ï¿½&nbsp;</span>
 										<%end if%>
 									</div>
 							</button>
@@ -884,7 +886,7 @@ function a_ver_todos()
 												<i class="fas fa-money-bill-wave"></i>
 												<span class="texto_boton-">&nbsp;Consultar Saldos</span>
 												<%if dinero_disponible_saldos<>0 then%>
-													<span class="dinero_disponible">&nbsp;<%=dinero_disponible_saldos%>€&nbsp;</span>
+													<span class="dinero_disponible">&nbsp;<%=dinero_disponible_saldos%>ï¿½&nbsp;</span>
 												<%end if%>
 											</div>
 									</button>
@@ -892,7 +894,7 @@ function a_ver_todos()
 							<%end if%>
 							<div class="col-lg-3" align="center">
 								<button type="button" name="cmdimpresoras" id="cmdimpresoras" class="btn btn-primary btn-block btn-sm">
-									<i class="fas fa-print"></i> Gestión Impresoras
+									<i class="fas fa-print"></i> Gestiï¿½n Impresoras
 								</button>
 							</div>
 						<%end if%>
@@ -1173,19 +1175,26 @@ function a_ver_todos()
 															
 															with albaranes
 																.ActiveConnection=connimprenta
-																.Source="SELECT * FROM V_DATOS_ALBARANES"
+																.Source="SELECT * FROM V_DATOS_ALBARANES DA"
+																.Source= .Source & "  LEFT JOIN ALBARANES_AIRWILLBILL AIR ON AIR.ALBARAN = DA.IdAlbaran"
 																.Source= .Source & "  WHERE NPEDIDO = '" & pedidos("id") & "'"
-																.Source= .Source & "  AND ANULADO=0"
+																.Source= .Source & "  AND ANULADO=0"																
 																
 																if ver_cadena="SI" then
 																	response.write("<br>albaranes: " & .source)
-																end if
+																end if													
+
 																.Open
 															end with
 															
 															if not albaranes.eof then
 																while not albaranes.eof
 																%>
+																
+															<!-- Validaciones de los AirWayBill -->
+
+																<%if albaranes("serial") <> "" then%>
+																 <div>
 																	  <svg class="octicon octicon-package  text-success" viewBox="0 0 16 16" version="1.1" height="16" width="16" aria-hidden="true" style="cursor:pointer;vertical-align:top"
 																			data-toggle="popover" 
 																			title="" 
@@ -1195,6 +1204,67 @@ function a_ver_todos()
 																			>
 																		<path fill-rule="evenodd" d="M1 4.27v7.47c0 .45.3.84.75.97l6.5 1.73c.16.05.34.05.5 0l6.5-1.73c.45-.13.75-.52.75-.97V4.27c0-.45-.3-.84-.75-.97l-6.5-1.74a1.4 1.4 0 0 0-.5 0L1.75 3.3c-.45.13-.75.52-.75.97zm7 9.09l-6-1.59V5l6 1.61v6.75zM2 4l2.5-.67L11 5.06l-2.5.67L2 4zm13 7.77l-6 1.59V6.61l2-.55V8.5l2-.53V5.53L15 5v6.77zm-2-7.24L6.5 2.8l2-.53L15 4l-2 .53z"></path>
 																	  </svg>
+																	  <% 
+																		cadena_airwaybill=cadena_airwaybille & "pedidos/" & year(albaranes("FECHA")) & "/" & albaranes("IDCLIENTE") & "__" & pedidos("id")
+																		cadena_airwaybill=cadena_airwaybill & "/" & "Air_WayBill_" & albaranes("albaran") & "_" & albaranes("prefix") & "-" & albaranes("serial") & ".pdf" '// nombre del Airwaybill
+																	  %>
+																	
+																	
+																		<input type="hidden" name="ocultoprefix" id="ocultoprefix" value="<%=albaranes("prefix")%>" />
+																		<input type="hidden" name="ocultoserial" id="ocultoserial" value="<%=albaranes("serial")%>" />																							
+																		<input type="hidden" name="ocultoalbaran1" id="ocultoalbaran1" value="<%=albaranes("albaran")%>" />
+
+																		<a class='ml-1' id="dynamicLinkair" href="#">
+																			<svg fill="#000000" width="16px" height="16px" viewBox="0 0 0.48 0.48" xmlns="http://www.w3.org/2000/svg" 
+																			version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
+																			<path fill-rule="evenodd" d="M0.42 0.04c-0.013 0 -0.025 0.005 -0.034 0.014L0.328 0.112a0.02 0.02 0 0 1 -0.019 0.005L0.08 0.06 0.06 0.08a0.02 0.02 0 0 0 0.005 0.032L0.24 0.2l-0.08 0.08H0.072a0.02 0.02 0 0 0 -0.018 0.011L0.04 0.32l0.08 0.04 0.04 0.08 0.029 -0.014a0.02 0.02 0 0 0 0.011 -0.018V0.32l0.08 -0.08 0.088 0.175a0.02 0.02 0 0 0 0.032 0.005L0.42 0.4 0.363 0.171a0.02 0.02 0 0 1 0.005 -0.019l0.058 -0.058A0.048 0.048 0 0 0 0.44 0.06a0.02 0.02 0 0 0 -0.02 -0.02"></path>
+																			</svg>
+																		</a>
+
+																		<a class='ml-1' href="<%=cadena_airwaybill%>" target="_blank" title="AirWayBill PDF">
+																			<svg width="16px" height="16px" viewBox="-0.08 0 0.8 0.8" fill="none" xmlns="http://www.w3.org/2000/svg">
+																			<path d="M0.513 0.522c-0.01 0.003 -0.024 0.003 -0.039 0.001a0.188 0.188 0 0 1 -0.05 -0.015c0.029 -0.004 0.052 -0.003 0.072 0.004 0.005 0.002 0.012 0.006 0.017 0.01m-0.164 -0.027 -0.004 0.001c-0.008 0.002 -0.016 0.004 -0.023 0.006l-0.01 0.003c-0.02 0.005 -0.041 0.01 -0.061 0.017 0.008 -0.019 0.015 -0.037 0.022 -0.056 0.005 -0.014 0.011 -0.028 0.016 -0.041q0.004 0.007 0.009 0.014a0.27 0.27 0 0 0 0.051 0.057m-0.051 -0.21c0.001 0.023 -0.004 0.045 -0.011 0.066 -0.009 -0.026 -0.013 -0.055 -0.002 -0.079 0.003 -0.006 0.005 -0.009 0.007 -0.011 0.002 0.004 0.005 0.012 0.006 0.023m-0.105 0.291q-0.008 0.014 -0.015 0.025c-0.013 0.019 -0.034 0.04 -0.044 0.04 -0.001 0 -0.002 0 -0.004 -0.002 -0.001 -0.001 -0.001 -0.002 -0.001 -0.003 0 -0.007 0.01 -0.02 0.023 -0.031a0.228 0.228 0 0 1 0.042 -0.028m0.355 -0.053c-0.002 -0.023 -0.041 -0.039 -0.042 -0.039 -0.015 -0.005 -0.032 -0.008 -0.051 -0.008 -0.02 0 -0.042 0.003 -0.07 0.009a0.244 0.244 0 0 1 -0.062 -0.064c-0.007 -0.011 -0.013 -0.022 -0.019 -0.032 0.014 -0.032 0.026 -0.067 0.024 -0.106 -0.002 -0.031 -0.016 -0.052 -0.035 -0.052 -0.013 0 -0.025 0.01 -0.034 0.029 -0.016 0.034 -0.012 0.078 0.013 0.131a1.84 1.84 0 0 0 -0.025 0.064c-0.01 0.026 -0.02 0.054 -0.032 0.079 -0.033 0.013 -0.06 0.029 -0.082 0.048 -0.015 0.013 -0.032 0.032 -0.033 0.052 -0.001 0.009 0.003 0.018 0.009 0.025 0.007 0.007 0.016 0.011 0.026 0.011 0.032 0 0.063 -0.044 0.069 -0.053 0.012 -0.018 0.023 -0.038 0.034 -0.06 0.027 -0.01 0.056 -0.017 0.084 -0.024l0.01 -0.003a1.36 1.36 0 0 0 0.024 -0.006c0.009 -0.002 0.017 -0.005 0.026 -0.007 0.029 0.018 0.06 0.03 0.09 0.035 0.025 0.004 0.048 0.002 0.063 -0.006 0.014 -0.007 0.015 -0.018 0.014 -0.023m0.062 0.202c0 0.043 -0.038 0.046 -0.046 0.046H0.075c-0.043 0 -0.045 -0.038 -0.046 -0.046V0.075c0 -0.043 0.038 -0.046 0.046 -0.046h0.33l0 0v0.129c0 0.026 0.016 0.075 0.075 0.075h0.128l0.001 0.001zm-0.03 -0.521h-0.099c-0.043 0 -0.045 -0.038 -0.045 -0.045v-0.099zm0.06 0.521V0.222L0.435 0.017V0.016h-0.001L0.417 0H0.075C0.049 0 0 0.016 0 0.075v0.65C0 0.751 0.016 0.8 0.075 0.8H0.564c0.026 0 0.075 -0.016 0.075 -0.075" fill="#EB5757"/>
+																			</svg>
+																		</a>
+																	
+																		<script type="text/javascript"> // Se crea la url de AIREUROPACARGO
+
+																			var prefixair = $('#ocultoprefix').val();
+																			var serialair = $('#ocultoserial').val();
+
+																			// Construir la URL dinÃ¡mica		
+																			var urlair = 'http://www.aireuropacargo.com/index.asp?prefix=' + prefixair + '&serial=' + serialair;
+
+																			// Asignar la URL al enlace y mostrarlo
+																			$('#dynamicLinkair').attr('href', urlair);		
+																			$('#dynamicLinkair').show();		
+
+																			$('#dynamicLinkair').click(function(event) {
+																			event.preventDefault();		
+																				if (confirm("Â¿EstÃ¡s seguro de querer ir a esta pÃ¡gina?")) {
+																					//window.location.href = j$(this).attr('href');
+																					window.open(urlair, '_blank');
+																				} 
+																			});
+																			
+																		</script>
+
+																	</div>
+
+															<!-- fin Validaciones de los AirWayBill -->
+
+
+																<% else%>
+																		<svg class="octicon octicon-package  text-success" viewBox="0 0 16 16" version="1.1" height="16" width="16" aria-hidden="true" style="cursor:pointer;vertical-align:top"
+																			data-toggle="popover" 
+																			title="" 
+																			data-placement="top" 
+																			data-trigger="hover"
+																			data-content="Albar&aacute;n&nbsp;<%=albaranes("IDALBARAN")%>" onclick="ver_albaran(<%=albaranes("IDALBARAN")%>)"
+																			>
+																		<path fill-rule="evenodd" d="M1 4.27v7.47c0 .45.3.84.75.97l6.5 1.73c.16.05.34.05.5 0l6.5-1.73c.45-.13.75-.52.75-.97V4.27c0-.45-.3-.84-.75-.97l-6.5-1.74a1.4 1.4 0 0 0-.5 0L1.75 3.3c-.45.13-.75.52-.75.97zm7 9.09l-6-1.59V5l6 1.61v6.75zM2 4l2.5-.67L11 5.06l-2.5.67L2 4zm13 7.77l-6 1.59V6.61l2-.55V8.5l2-.53V5.53L15 5v6.77zm-2-7.24L6.5 2.8l2-.53L15 4l-2 .53z"></path>
+																	  </svg>
+																<%End if%>	  
 																	  
 																<%
 																	albaranes.movenext

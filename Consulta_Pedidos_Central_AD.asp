@@ -6,7 +6,7 @@
 		numero_registros=0
 		
 		if session("usuario")="" then
-			Response.Redirect("Login.asp")
+			Response.Redirect("Login_GAGAD.asp")
 		end if
 		
 		cliente_seleccionado=Request.Form("cmbclientes")
@@ -28,7 +28,7 @@
 		
 		
 		'porque el sql de produccion es un sql expres que debe tener el formato de
-		' de fecha con mes-dia-año, y al lanzar consultas con fechas da error o
+		' de fecha con mes-dia-aï¿½o, y al lanzar consultas con fechas da error o
 		' da resultados raros
 		connimprenta.Execute "set dateformat dmy",,adCmdText + adExecuteNoRecords
 		
@@ -156,7 +156,7 @@ margin: 250px auto;
 
 -moz-border-radius: 20px; /* Firefox */
 -webkit-border-radius: 20px; /* Google Chrome y Safari */
-border-radius: 20px; /* CSS3 (Opera 10.5, IE 9 y estándar a ser soportado por todos los futuros navegadores) */
+border-radius: 20px; /* CSS3 (Opera 10.5, IE 9 y estï¿½ndar a ser soportado por todos los futuros navegadores) */
 /*
 behavior:url(border-radius.htc);/* IE 8.*/
 
@@ -184,7 +184,7 @@ function cambiapuntoacoma(s)
 {
 	var saux = "";
 	//alert("pongo coma")
-	//alert("tamaño: " + s.legth)
+	//alert("tamaï¿½o: " + s.legth)
 	for (j=0;j<s.length; j++ )
 	{
 		if (s.charAt(j) == ".")
@@ -222,7 +222,7 @@ function redondear (v){
    
 function borrar_pedido(numero_pedido,fecha_pedido)
 {
-	if (confirm('¿Seguro Que Desea Borrar el Pedido Número ' + numero_pedido + '?'))
+	if (confirm('ï¿½Seguro Que Desea Borrar el Pedido Nï¿½mero ' + numero_pedido + '?'))
 		{
 		document.getElementById("ocultopedido_a_borrar").value=numero_pedido
 		document.getElementById("ocultofecha_pedido").value=fecha_pedido
@@ -365,7 +365,7 @@ function cerrar_capas(capa)
 			<p>
 				<img src="images/loading4.gif"/>
 					<br /><br />
-					Espere mientras se carga la página...
+					Espere mientras se carga la pï¿½gina...
 			</p>
 		</div>
 		
@@ -403,9 +403,9 @@ mostrar_capas('capa_informacion')
 			</div>
 			<div class="contentcell">
 				<div class="sidefreetext" ><div align="left">
-					· <a href="Lista_Articulos_Central_AD.asp">Consultar Artículos <%=session("usuario_empresa")%></a>
+					ï¿½ <a href="Lista_Articulos_Central_AD.asp">Consultar Artï¿½culos <%=session("usuario_empresa")%></a>
 					<br />
-					· <a href="Consulta_Pedidos_Central_AD.asp">Consultar Pedidos <%=session("usuario_empresa")%></a>
+					ï¿½ <a href="Consulta_Pedidos_Central_AD.asp">Consultar Pedidos <%=session("usuario_empresa")%></a>
 					
 					
 				  <div class="info">				  </div>
@@ -552,7 +552,7 @@ mostrar_capas('capa_informacion')
 								
 								<%if pedidos.eof then%>
 									<tr> 
-										<td bgcolor="#999966" align="center" colspan="4"><b><FONT class="fontbold">Aún No Se Han Realizado Pedidos...</font></b><br>
+										<td bgcolor="#999966" align="center" colspan="4"><b><FONT class="fontbold">Aï¿½n No Se Han Realizado Pedidos...</font></b><br>
 										</td>
 									</tr>
 								<%end if%>

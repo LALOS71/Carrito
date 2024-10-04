@@ -46,7 +46,7 @@
 				
 				if podemos_modificarlo="SI" then
 					'modifico los articulos del pedido
-					' para ello, borro los articulos y añado lo que tenga en el carrito
+					' para ello, borro los articulos y aï¿½ado lo que tenga en el carrito
 					cadena_ejecucion="DELETE FROM PEDIDOS_DETALLES WHERE ID_PEDIDO=" & pedido_modificar
 					connimprenta.BeginTrans 'Comenzamos la Transaccion
 					connimprenta.Execute cadena_ejecucion,,adCmdText + adExecuteNoRecords
@@ -147,10 +147,9 @@
 					
 					mensaje_aviso="El Pedido Ha sido Modificado con Exito..."
 				  else
-					mensaje_aviso="NO SE HA PODIDO MODIFICAR El Pedido Porque Ya Está Siendo Tramitado por Globalia Artes Gráficas..."
+					mensaje_aviso="NO SE HA PODIDO MODIFICAR El Pedido Porque Ya Estï¿½ Siendo Tramitado por Globalia Artes Grï¿½ficas..."
 				end if
 			
-
 		
 		
 			else 'aqui damos de alta pedidos
@@ -167,7 +166,7 @@
 				connimprenta.BeginTrans 'Comenzamos la Transaccion
 				
 				'porque el sql de produccion es un sql expres que debe tener el formato de
-				' de fecha con mes-dia-año
+				' de fecha con mes-dia-aï¿½o
 				connimprenta.Execute "set dateformat dmy",,adCmdText + adExecuteNoRecords
 				connimprenta.Execute cadena_ejecucion,,adCmdText + adExecuteNoRecords
 				Set valor_nuevo = connimprenta.Execute("SELECT @@IDENTITY") ' Create a recordset and SELECT the new Identity

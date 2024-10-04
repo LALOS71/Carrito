@@ -3,7 +3,7 @@
 <!--#include file="Conexion.inc"-->
 <%
 		if session("usuario_admin")="" then
-			Response.Redirect("Login_Admin.asp")
+			Response.Redirect("Login_GAGAD.asp")
 		end if
 		
 		
@@ -35,7 +35,7 @@
 				.Source=.Source & " INNER JOIN ARTICULOS"
 				.Source=.Source & " ON PEDIDOS_DETALLES.ARTICULO = ARTICULOS.ID"
 				.Source=.Source & " where pedidos.id=" & pedido_seleccionado
-				
+				'response.write("<br>" & .source)
 				.Open
 			end with
 
@@ -99,7 +99,7 @@ function cambiapuntoacoma(s)
 {
 	var saux = "";
 	//alert("pongo coma")
-	//alert("tamaño: " + s.legth)
+	//alert("tamaï¿½o: " + s.legth)
 	for (j=0;j<s.length; j++ )
 	{
 		if (s.charAt(j) == ".")
@@ -162,7 +162,7 @@ function redondear (v){
 						</tr>
 						<tr style="background-color:#FCFCFC" valign="top">
 							<th class="menuhdr">Cod. Sap</th>
-							<th class="menuhdr">Artículo</th>
+							<th class="menuhdr">Art&iacute;culo</th>
 							<th class="menuhdr">Cantidad</th>
 							<th class="menuhdr">Precio</th>
 							<th class="menuhdr">Total</th>
@@ -196,8 +196,8 @@ function redondear (v){
 							<%end if%>
 							</td>
 							<td width="60" class="item_row" style="text-align:right"><%=articulos("cantidad")%>&nbsp;</td>
-							<td class="item_row" style="text-align:right" width="72"><%=articulos("precio_unidad")%> €/u&nbsp;</td>
-							<td class="item_row" width="108" style="text-align:right"><%=articulos("total")%> €&nbsp;</td>
+							<td class="item_row" style="text-align:right" width="72"><%=articulos("precio_unidad")%> ï¿½/u&nbsp;</td>
+							<td class="item_row" width="108" style="text-align:right"><%=articulos("total")%> ï¿½&nbsp;</td>
 							<td class="ac item_row" width="130"><%=articulos("estado")%></td>
 							
 							<td class="ac item_row" width="21">

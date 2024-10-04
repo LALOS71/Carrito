@@ -17,7 +17,7 @@ sub comprobar_envio_email_stock(codigo_sap_articulo, descripcion_articulo, stock
    
 	mensaje="ROTURA DE STOCK DEL ARTICULO:<BR>"
 	mensaje=mensaje & "<BR>Codigo Sap: " & codigo_sap_articulo
-	mensaje=mensaje & "<BR>Descripción Articulo: " & descripcion_articulo
+	mensaje=mensaje & "<BR>Descripciï¿½n Articulo: " & descripcion_articulo
 	mensaje=mensaje & "<BR>Stock Actual (" & marca_articulo & "): " & stock_articulo
 	mensaje=mensaje & "<BR>Stock Minimo Establecido (" & marca_articulo & "): " & stock_minimo_articulo
 		
@@ -321,7 +321,7 @@ end sub
 
 						
 							'porque el sql de produccion es un sql expres que debe tener el formato de
-							' de fecha con mes-dia-año
+							' de fecha con mes-dia-aï¿½o
 							connimprenta.Execute "set dateformat dmy",,adCmdText + adExecuteNoRecords
 						
 							'response.write("<BR>11 - es un envio parcial DE KIT: " & CADENA_PARCIAL)
@@ -351,7 +351,7 @@ end sub
 								cadena_parcial=cadena_parcial & " END"
 							
 								'porque el sql de produccion es un sql expres que debe tener el formato de
-								' de fecha con mes-dia-año
+								' de fecha con mes-dia-aï¿½o
 								connimprenta.Execute "set dateformat dmy",,adCmdText + adExecuteNoRecords
 						
 								'response.write("<BR>12 - es un envio total de unos envios parciales DE KIT: " & CADENA_PARCIAL)
@@ -611,7 +611,7 @@ end sub
 						'response.write("<BR>23 -  es un envio parcial, ACTUALIZAMOS PEDIDOS ENVIOS PARCIALES: " & CADENA_PARCIAL)
 						
 						'porque el sql de produccion es un sql expres que debe tener el formato de
-						' de fecha con mes-dia-año
+						' de fecha con mes-dia-aï¿½o
 						connimprenta.Execute "set dateformat dmy",,adCmdText + adExecuteNoRecords
 						connimprenta.Execute cadena_parcial,,adCmdText + adExecuteNoRecords
 					  ELSE
@@ -645,7 +645,7 @@ end sub
 								'response.write("<BR>24 - es un envio total de unos envios parciales: " & CADENA_PARCIAL)
 								
 								'porque el sql de produccion es un sql expres que debe tener el formato de
-								' de fecha con mes-dia-año
+								' de fecha con mes-dia-aï¿½o
 								connimprenta.Execute "set dateformat dmy",,adCmdText + adExecuteNoRecords
 								connimprenta.Execute cadena_parcial,,adCmdText + adExecuteNoRecords
 							END IF
@@ -808,7 +808,7 @@ end sub
 			estado_a_grabar=""
 			estado_a_grabar=estado_pedido("estado")
 
-			'si algunos de los articulos está en enviado, el estado del pedido a de ser ENVIO PARCIAL
+			'si algunos de los articulos estï¿½ en enviado, el estado del pedido a de ser ENVIO PARCIAL
 			'compruebo los estados especiales que hacen que el pedido se ponga en otro estado
 			if estado_pedido("ESTADO")="ENVIADO" or estado_pedido("ESTADO")="LISTO" THEN
 				''response.write("<br>....EL ESTADO DEL DETALLE ES ENVIADO O LISTO....")
@@ -834,7 +834,7 @@ end sub
 	
 				end if
 				
-				'si algunos de los articulos está en LISTO  o LISTO PARCIAL enviado, el estado del pedido a de ser LISTO PARCIAL
+				'si algunos de los articulos estï¿½ en LISTO  o LISTO PARCIAL enviado, el estado del pedido a de ser LISTO PARCIAL
 				if estado_pedido("ESTADO")="LISTO" then
 					set si_hay_listos_parciales=Server.CreateObject("ADODB.Recordset")
 			
@@ -910,7 +910,7 @@ end sub
 			
 			
 			'porque el sql de produccion es un sql expres que debe tener el formato de
-			' de fecha con mes-dia-año
+			' de fecha con mes-dia-aï¿½o
 			connimprenta.Execute "set dateformat dmy",,adCmdText + adExecuteNoRecords
 				
 			connimprenta.Execute cadena_ejecucion,,adCmdText + adExecuteNoRecords
@@ -1043,7 +1043,7 @@ end sub
 				cadena_detalles_pedido_proveedor = cadena_detalles_pedido_proveedor & " WHERE ID_PEDIDO=" & pedido_seleccionado
 				cadena_detalles_pedido_proveedor = cadena_detalles_pedido_proveedor & " AND A.ESTADO='ENVIADO AL PROVEEDOR'"
 				cadena_detalles_pedido_proveedor = cadena_detalles_pedido_proveedor & " AND A.ALBARAN IS NULL"
-				''''''''tambien habra que añadir las condiciones de que el estado sea ENVIADO y con el albaran a NULL
+				''''''''tambien habra que aï¿½adir las condiciones de que el estado sea ENVIADO y con el albaran a NULL
 				
 				with detalles_pedido_proveedor
 					.ActiveConnection=connimprenta
@@ -1534,7 +1534,7 @@ end sub
 										''response.write("<BR>DESCRIPCION DEL ARTICULO AL ALBARAN: " & descripcion_detalle)
 										''response.write("<BR>ID DEL ARTICULO: " & ID_ARTICULO_DETALLE)
 										
-										'si es una impresora de gls, hay que añadir los numeros de serie de dichas impresoras para su gestion posterior
+										'si es una impresora de gls, hay que aï¿½adir los numeros de serie de dichas impresoras para su gestion posterior
 										
 										if id_articulo_detalle="4583" then
 											'response.write("<BR>64 - ES UN ARTICULO 4583 - IMPRESORA GLS...")
@@ -1542,7 +1542,7 @@ end sub
 											resultado = ""
 											For i = LBound(numeros_de_serie) To UBound(numeros_de_serie)
 												resultado = resultado & numeros_de_serie(i) & ","
-												' para que añada un retorno de carrocada 4 numeros de serie porque se sale del ancho
+												' para que aï¿½ada un retorno de carrocada 4 numeros de serie porque se sale del ancho
 												If (i + 1) Mod 4 = 0 Then
 													resultado = resultado & vbCrLf
 												End If
@@ -1593,11 +1593,11 @@ end sub
 												'	hay_impresora_activa = "SI"
 												'	sn_impresora_activa = numeros_de_serie(i)
 												'	'response.write("<br>impresora aun activa: " & sn_impresora_activa)
-												'	'nos salimos de la ejecucion porque la impresora está activa
+												'	'nos salimos de la ejecucion porque la impresora estï¿½ activa
 												'	connimprenta.RollBackTrans
 												'	Response.End
 												'  else
-												  	'si no está activa, o se actualiza o se da de alta
+												  	'si no estï¿½ activa, o se actualiza o se da de alta
 													''response.write("<br>impresora NO activa: " & numeros_de_serie(i))
 													cadena_insercion_imp = ""
 													cadena_insercion_imp = "UPDATE GLS_IMPRESORAS"
@@ -1663,7 +1663,7 @@ end sub
 									
 										''response.write("<BR>DESCRIPCION DEL ARTICULO AL ALBARAN: " & descripcion_detalle)
 										''response.write("<BR>ID DEL ARTICULO: " & ID_ARTICULO_DETALLE)
-										'si es una impresora de gls, hay que añadir los numeros de serie de dichas impresoras para su gestion posterior
+										'si es una impresora de gls, hay que aï¿½adir los numeros de serie de dichas impresoras para su gestion posterior
 										if id_articulo_detalle="4583" then
 											numeros_de_serie = Split(sn_impresoras, "###")
 
@@ -1731,7 +1731,7 @@ end sub
 					
 					
 					'si el pedido tiene un descuento (por ser primer pedido), genero un detalle con ese descuento
-					' pero miro a ver si ya hay albaran previo (por envio parcial), ya que se aplicará el descuento en el primero
+					' pero miro a ver si ya hay albaran previo (por envio parcial), ya que se aplicarï¿½ el descuento en el primero
 					if  descuento_pedido<>"" AND descuento_pedido<>"0" then
 						hay_albaran_previo="NO"
 						set albaran_previo=Server.CreateObject("ADODB.Recordset")
@@ -1740,7 +1740,7 @@ end sub
 							.Source="SELECT * FROM ALBARANES a"
 							.Source= .Source & " INNER JOIN Albaranes_Detalles b"
 							.Source= .Source & " on a.IdAlbaran=b.IdAlbaran"
-							'hay que cambiarlo para lo de globaliagifts que el numero de pedido será alfanumerico
+							'hay que cambiarlo para lo de globaliagifts que el numero de pedido serï¿½ alfanumerico
 							'.Source= .Source & " WHERE NPedido = '" & pedido_albaran & "'"
 							.Source= .Source & " WHERE NPedido = " & pedido_albaran
 							.Source= .Source & " and b.concepto='Descuento 15% Primer Pedido'"
@@ -1853,11 +1853,11 @@ end sub
 								.Source="SELECT * FROM ALBARANES a"
 								.Source= .Source & " INNER JOIN Albaranes_Detalles b"
 								.Source= .Source & " on a.IdAlbaran=b.IdAlbaran"
-								'hay que cambiarlo para lo de globaliagifts que el numero de pedido será alfanumerico
+								'hay que cambiarlo para lo de globaliagifts que el numero de pedido serï¿½ alfanumerico
 								'.Source= .Source & " WHERE NPedido = '" & pedido_albaran & "'"
 								.Source= .Source & " WHERE NPedido = " & pedido_albaran
-								.Source= .Source & " and b.concepto like 'Devolución %'"
-								'response.write("<br>74 - VEMOS SI HAY ALBARAN PREVIO PARA AÑADIR DETALLE DE DEVOLUCIONES: " & .source)
+								.Source= .Source & " and b.concepto like 'Devoluciï¿½n %'"
+								'response.write("<br>74 - VEMOS SI HAY ALBARAN PREVIO PARA Aï¿½ADIR DETALLE DE DEVOLUCIONES: " & .source)
 								.OPEN
 							end with
 							
@@ -1882,7 +1882,7 @@ end sub
 										
 											campos_albaranes="IdEmpresa, IdAlbaran, Cantidad, idNTrabajo, Concepto, Importe, Ip_Mod, Fecha_Mod"
 											
-											cadena_detalles_albaran="1, " & albaran_nuevo & ", 1, NULL, 'Devolución " & id_devolucion & "'"
+											cadena_detalles_albaran="1, " & albaran_nuevo & ", 1, NULL, 'Devoluciï¿½n " & id_devolucion & "'"
 											cadena_detalles_albaran=cadena_detalles_albaran & ", (-1) * " & REPLACE(importe_devolucion, "," ,".") & ", '"
 											cadena_detalles_albaran=cadena_detalles_albaran & direccion_ip & "', '" & fecha_albaran & "'"
 											
@@ -1901,7 +1901,7 @@ end sub
 					
 					
 					'si el pedido tiene gastos de envio (MALETAS GLOBALGAB), genero un detalle con esos gastos de envio
-					' pero miro a ver si ya hay albaran previo (por envio parcial), ya que se cargará en el primero los gastos de envio
+					' pero miro a ver si ya hay albaran previo (por envio parcial), ya que se cargarï¿½ en el primero los gastos de envio
 					if  gastos_envio<>"" AND gastos_envio<>"0" then
 						hay_albaran_previo="NO"
 						set albaran_previo=Server.CreateObject("ADODB.Recordset")
@@ -1910,7 +1910,7 @@ end sub
 							.Source="SELECT * FROM ALBARANES a"
 							.Source= .Source & " INNER JOIN Albaranes_Detalles b"
 							.Source= .Source & " on a.IdAlbaran=b.IdAlbaran"
-							'hay que cambiarlo para lo de globaliagifts que el numero de pedido será alfanumerico
+							'hay que cambiarlo para lo de globaliagifts que el numero de pedido serï¿½ alfanumerico
 							'.Source= .Source & " WHERE NPedido = '" & pedido_albaran & "'"
 							.Source= .Source & " WHERE NPedido = " & pedido_albaran
 							.Source= .Source & " and b.concepto='Gastos de Envio'"
@@ -1973,7 +1973,7 @@ end sub
 					while not observaciones_albaran.eof
 						if ((observaciones_albaran("estado")<>"ENVIADO") AND (observaciones_albaran("estado")<>"ENVIADO AL PROVEEDOR") AND (observaciones_albaran("estado")<>"ANULADO")) THEN
 							if cadena_articulos_pendientes="" then
-								cadena_articulos_pendientes="Quedarían Pendientes de Enviar los Siguientes Articulos:" & chr(13)
+								cadena_articulos_pendientes="Quedarï¿½an Pendientes de Enviar los Siguientes Articulos:" & chr(13)
 							end if
 							resta_1="" & observaciones_albaran("cantidad_enviada_total")
 							if resta_1="" then
@@ -2106,17 +2106,17 @@ function validar(creamos_albaran,numero_albaran, accion, enviar_email_al_proveed
 	
 	if (creamos_albaran=='SI')
 		{
-		cadena= cadena + '\n\nse ha creado el albarán número ' + numero_albaran + ' referente a los artículos enviados de este pedido.'
+		cadena= cadena + '\n\nse ha creado el albar&aacute;n n&uacute;mero ' + numero_albaran + ' referente a los art&iacute;culos enviados de este pedido.'
 		}
 	if (creamos_albaran=='NO')
 		{
-		cadena= cadena + '\n\nno se ha creado el albarán ya que no hay nuevos articulos enviados sobre los que crear albarán.'
+		cadena= cadena + '\n\nno se ha creado el albar&aacute;n ya que no hay nuevos articulos enviados sobre los que crear albar&aacute;n.'
 		}
 		
 	
 	if (enviar_email_al_proveedor=='SI')
 		{
-		cadena= cadena + '\n\nAl ser un pedido de ROTULACIÓN se enviará tambien un correo con este pedido al Proveedor para que lo Gestione Directamente.'
+		cadena= cadena + '\n\nAl ser un pedido de ROTULACIÃ“N se enviar&aacute; tambien un correo con este pedido al Proveedor para que lo Gestione Directamente.'
 		}
 			
 	if (sn_impresora_activa != '')

@@ -3,7 +3,7 @@
 <!--#include file="Conexion.inc"-->
 <%
 	if session("usuario_admin")="" then
-		Response.Redirect("Login_Admin.asp")
+		Response.Redirect("Login_GAGAD.asp")
 	end if
 		
 	empresa_seleccionada=Request.Form("cmbempresas")
@@ -144,7 +144,7 @@ function cambiapuntoacoma(s)
 {
 	var saux = "";
 	//alert("pongo coma")
-	//alert("tamaño: " + s.legth)
+	//alert("tamaï¿½o: " + s.legth)
 	for (j=0;j<s.length; j++ )
 	{
 		if (s.charAt(j) == ".")
@@ -241,11 +241,11 @@ function refrescar_pagina()
 			</div>
 			<div class="contentcell">
 				<div class="sidefreetext" ><div align="left">
-					· <a href="Consulta_Pedidos_Admin.asp">Pedidos</a><br />
-					· <a href="Consulta_Articulos_Admin.asp">Artículos</a><br />
-					· <a href="Consulta_Clientes_Admin.asp">Clientes</a><br />
-					· <a href="Consulta_Informes_Admin.asp">Informes</a><br /><br />										
-					· <a href="Carrusel_Admin.asp" target="_blank">Carrusel</a><br />					
+					ï¿½ <a href="Consulta_Pedidos_Admin.asp">Pedidos</a><br />
+					ï¿½ <a href="Consulta_Articulos_Admin.asp">Artï¿½culos</a><br />
+					ï¿½ <a href="Consulta_Clientes_Admin.asp">Clientes</a><br />
+					ï¿½ <a href="Consulta_Informes_Admin.asp">Informes</a><br /><br />										
+					ï¿½ <a href="Carrusel_Admin.asp" target="_blank">Carrusel</a><br />					
 					
 					<br />
 					
@@ -279,7 +279,7 @@ function refrescar_pagina()
 						<tr>
 							<!--6.08 - Translate titles and buttons-->
 							<td class="al">
-								<span class='fontbold'>Opciones de Búsqueda de Clientes </span>
+								<span class='fontbold'>Opciones de Bï¿½squeda de Clientes </span>
 							</td>
 						</tr>
 						
@@ -377,7 +377,7 @@ function refrescar_pagina()
                                       <th class="menuhdr">Cliente</th>
                                       <th width="65" class="menuhdr">Marca</th>
                                       <th width="82" class="menuhdr">Tipo</th>
-                                      <th width="97" class="menuhdr">Población</th>
+                                      <th width="97" class="menuhdr">Poblaciï¿½n</th>
                                       <th width="91" class="menuhdr">Provincia</th>
                                       <th class="menuhdr">T. Precios</th>
                                     </tr>
@@ -395,7 +395,7 @@ function refrescar_pagina()
                                     <%next%>
                                     <%else%>
                                     <tr>
-                                      <td bgcolor="#999966" align="center" colspan="7"><b><font class="fontbold">NO Hay Clientes Que Cumplan El Critero de Búsqueda...</font></b><br />
+                                      <td bgcolor="#999966" align="center" colspan="7"><b><font class="fontbold">NO Hay Clientes Que Cumplan El Critero de Bï¿½squeda...</font></b><br />
                                       </td>
                                     </tr>
                                     <%end if%>
@@ -420,7 +420,7 @@ function refrescar_pagina()
 								<div align="center">
 									<b>Para Crear Clientes, se ha de hacer desde el GAG</b>
 									<!--
-										<input class="submitbtn" type="submit" name="nuevo_hotel" id="nuevo_hotel" value="Añadir Cliente" onclick="mostrar_hotel(0,'ALTA');return false" /> 
+										<input class="submitbtn" type="submit" name="nuevo_hotel" id="nuevo_hotel" value="Aï¿½adir Cliente" onclick="mostrar_hotel(0,'ALTA');return false" /> 
 									-->
 								</div>
 								

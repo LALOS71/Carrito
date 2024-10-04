@@ -60,7 +60,7 @@ sub comprobar_envio_email_stock(codigo_sap_articulo, descripcion_articulo, stock
 			
 	mensaje="ROTURA DE STOCK DEL ARTICULO:<BR>"
 	mensaje=mensaje & "<BR>Codigo Sap: " & codigo_sap_articulo
-	mensaje=mensaje & "<BR>Descripción Articulo: " & descripcion_articulo
+	mensaje=mensaje & "<BR>Descripciï¿½n Articulo: " & descripcion_articulo
 	mensaje=mensaje & "<BR>Stock Actual (" & marca_articulo & "): " & stock_articulo
 	mensaje=mensaje & "<BR>Stock Minimo Establecido (" & marca_articulo & "): " & stock_minimo_articulo
 		
@@ -83,7 +83,7 @@ end sub
 
 
 	if session("usuario_admin")="" then
-			Response.Redirect("Login_Admin.asp")
+			Response.Redirect("Login_GAGAD.asp")
 	end if
 		
 	
@@ -135,7 +135,7 @@ end sub
 		'RESPONSE.WRITE("<br><BR>actualizacion del estado del pedido: " & CADENA_EJECUCION)
 		
 		'porque el sql de produccion es un sql expres que debe tener el formato de
-		' de fecha con mes-dia-año
+		' de fecha con mes-dia-aï¿½o
 		connimprenta.Execute "set dateformat dmy",,adCmdText + adExecuteNoRecords
 			
 		connimprenta.Execute cadena_ejecucion,,adCmdText + adExecuteNoRecords

@@ -3,7 +3,7 @@
 <!--#include file="Conexion.inc"-->
 <%
 	if session("usuario_admin")="" then
-		Response.Redirect("Login_Admin.asp")
+		Response.Redirect("Login_GAGAD.asp")
 	end if
 		
 	pedido_seleccionado=Request.Form("ocultopedido")
@@ -24,7 +24,8 @@
 		
 	with pedidos
 		.ActiveConnection=connimprenta
-		.Source="set dateformat dmy; SELECT USUARIO_DIRECTORIO_ACTIVO, NombreUsuario, PEDIDOS.ID, PEDIDOS.CODCLI, V_CLIENTES.CODIGO_EXTERNO, V_CLIENTES.NOMBRE, PEDIDOS.PEDIDO, "
+		.Source="set dateformat dmy; SELECT USUARIO_DIRECTORIO_ACTIVO, NombreUsuario, PEDIDOS.ID, PEDIDOS.CODCLI, V_CLIENTES.CODIGO_RUC, V_CLIENTES.OBSERVACIONES_ENTREGA,"
+		.Source= .Source & " V_CLIENTES.EMAIL, V_CLIENTES.CODIGO_EXTERNO, V_CLIENTES.NOMBRE, PEDIDOS.PEDIDO,"
 		.Source= .Source & " V_CLIENTES.DIRECCION, V_CLIENTES.POBLACION, V_CLIENTES.CP, V_CLIENTES.PROVINCIA, V_CLIENTES.TELEFONO, V_CLIENTES.FAX,"
 		.Source= .Source & " PEDIDOS.FECHA, PEDIDOS.ESTADO as ESTADO_PEDIDO, PEDIDOS_DETALLES.ARTICULO, ARTICULOS.ID AS ID_ARTICULO, ARTICULOS.CODIGO_SAP,"
 		.Source= .Source & " ARTICULOS.DESCRIPCION, PEDIDOS_DETALLES.CANTIDAD,"
@@ -40,7 +41,7 @@
 		.Source= .Source & " ARTICULOS_PERSONALIZADOS.PLANTILLA_PERSONALIZACION, PEDIDOS.PEDIDO_AUTOMATICO,"
 		.Source= .Source & " CASE WHEN PEDIDOS_DETALLES.ALBARAN IS NULL THEN NULL ELSE" 
 		.Source= .Source & " (SELECT FECHAVALIJA FROM V_DATOS_ALBARANES WHERE IDALBARAN=PEDIDOS_DETALLES.ALBARAN)"
-		.Source= .Source & " END AS ENVIO_PROGRAMADO"
+		.Source= .Source & " END AS ENVIO_PROGRAMADO, AIR.PREFIX, AIR.SERIAL"
 		.Source= .Source & ", DESTINATARIO, DESTINATARIO_DIRECCION, DESTINATARIO_POBLACION, DESTINATARIO_CP"
 		.Source= .Source & ", DESTINATARIO_PROVINCIA, DESTINATARIO_PAIS, DESTINATARIO_TELEFONO, PEDIDOS.GASTOS_ENVIO, PEDIDOS.HORARIO_ENTREGA"
 		.Source= .Source & ", DESTINATARIO_PERSONA_CONTACTO, DESTINATARIO_COMENTARIOS_ENTREGA"
@@ -51,10 +52,12 @@
 		.Source= .Source & " LEFT JOIN V_EMPRESAS ON V_CLIENTES.EMPRESA = V_EMPRESAS.Id"
     	.Source= .Source & " LEFT JOIN (SELECT  Usuario, max(NombreUsuario) NombreUsuario FROM V_Usuarios GROUP BY Usuario ) Us ON PEDIDOS.USUARIO_DIRECTORIO_ACTIVO = Us.Usuario"
 		.Source= .Source & " LEFT JOIN ARTICULOS_PERSONALIZADOS ON PEDIDOS_DETALLES.ARTICULO=ARTICULOS_PERSONALIZADOS.ID_ARTICULO"
+		.Source= .Source & " LEFT JOIN ALBARANES_AIRWILLBILL AIR ON AIR.ALBARAN = PEDIDOS_DETALLES.ALBARAN"	
 
 		.Source= .Source & " WHERE PEDIDOS.ID=" & pedido_seleccionado
 		'response.write("<br>" & .source)
 		.Open
+
 	end with
 
 	gastos_envio=0
@@ -180,7 +183,7 @@
 
 <html>
 <head>
-
+<meta charset="UTF-8">
 
 	<link rel="stylesheet" type="text/css" href="plugins/bootstrap-4.0.0/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="plugins/bootstrap-select/css/bootstrap-select.min.css">
@@ -615,17 +618,21 @@ body * { visibility: hidden; !important;  }
 							if  pedidos("DESTINATARIO")<>"" then%>
 								<div class="card col-6">
 									<div class="card-body">
-											<h4 class="card-title">Dirección de Envío</h4>
+											<h4 class="card-title">DirecciÃ³n de EnvÃ­o</h4>
 											Destinatario: <strong><%=ucase(pedidos("DESTINATARIO"))%></strong>
+
+											<input type="hidden" name="ocultoemail" id="ocultoemail" value="<%=pedidos("email")%>" />
+											<input type="hidden" name="ocultodestinatario" id="ocultodestinatario" value="<%=pedidos("DESTINATARIO_PERSONA_CONTACTO")%>" />
+	
 											<%if nombre_empleado_gls <> "" then%>
 												<br />Att: <strong><%=ucase(nombre_empleado_gls)%></strong>
 											<%end if%>
-											<br />Dirección: <strong><%=ucase(pedidos("DESTINATARIO_DIRECCION"))%></strong>
+											<br />DirecciÃ³n: <strong><%=ucase(pedidos("DESTINATARIO_DIRECCION"))%></strong>
 											<br />Localidad: <strong><%=ucase(pedidos("DESTINATARIO_POBLACION"))%></strong>
 											<br />C.P.: <strong><%=ucase(pedidos("DESTINATARIO_CP"))%></strong>
 											<br />Provincia: <strong><%=ucase(pedidos("DESTINATARIO_PROVINCIA"))%></strong>
-											<br />País: <strong><%=ucase(pedidos("DESTINATARIO_PAIS"))%></strong>
-											<br />Teléfono: <strong><%=ucase(pedidos("DESTINATARIO_TELEFONO"))%></strong>
+											<br />PaÃ­s: <strong><%=ucase(pedidos("DESTINATARIO_PAIS"))%></strong>
+											<br />TelÃ©fono: <strong><%=ucase(pedidos("DESTINATARIO_TELEFONO"))%></strong>
 											<%IF pedidos("HORARIO_ENTREGA")<>"" THEN%>
 												<br />Horario de Entrega: <strong><%=ucase(pedidos("HORARIO_ENTREGA"))%></strong>
 											<%END IF%>
@@ -654,7 +661,7 @@ body * { visibility: hidden; !important;  }
 								<table height="20" border="0" cellpadding="0" cellspacing="0">
 									<tr>
 										<td width="20"  style="border:1px solid #CCCCCC;background-color:#f8f8f8"></td>
-										<td>&nbsp;Artículo Sin Control de Stock</td>
+										<td>&nbsp;ArtÃ­culo Sin Control de Stock</td>
 									</tr>
 							  	</table>
 							</div>
@@ -662,7 +669,7 @@ body * { visibility: hidden; !important;  }
 								<table height="20" border="0" cellpadding="0" cellspacing="0">
 									<tr>
 										<td width="20"  style="border:1px solid #CCCCCC;background-color:#3399CC"></td>
-										<td>&nbsp;Artículo Con Control de Stock</td>
+										<td>&nbsp;ArtÃ­culo Con Control de Stock</td>
 									</tr>
 								</table>
 							</div>
@@ -670,7 +677,7 @@ body * { visibility: hidden; !important;  }
 								<table height="20" border="0" cellpadding="0" cellspacing="0">
 									<tr>
 										<td width="20"  style="border:1px solid #CCCCCC;background-color:#FF6633"></td>
-										<td>&nbsp;Artículo Por Debajo del Stock Mínimo</td>
+										<td>&nbsp;ArtÃ­culo Por Debajo del Stock MÃ­nimo</td>
 									</tr>
 								</table>
 							</div>
@@ -693,7 +700,7 @@ body * { visibility: hidden; !important;  }
 								<input type="hidden" name="ocultoacciones" id="ocultoacciones" value="" />
 								<input type="hidden" name="ocultocodcli" id="ocultocodcli" value="<%=pedidos("codcli")%>" />
 	
-								<!--7/15 añadida direccion + POblacion + `CP-->
+								<!--7/15 aï¿½adida direccion + POblacion + `CP-->
 								<input type="hidden" name="ocultoDireccion" id="ocultoDireccion" value="<%=datos_para_envio%>" />
 								<input type="hidden" name="ocultogastos_envio" id="ocultogastos_envio" value="<%=gastos_envio%>" />
 								
@@ -707,9 +714,9 @@ body * { visibility: hidden; !important;  }
 								
 								<div class="row mt-2">
 									<div class="col-2">Pedido Num.: <strong><%=pedido_seleccionado%></strong></div>
-									<div class="col-3">Fecha Petición: <strong><%=pedidos("fecha")%></strong></div>
+									<div class="col-3">Fecha PeticiÃ³n: <strong><%=pedidos("fecha")%></strong></div>
 									<%if ucase(estado_general_pedido)="ENVIADO" then%>
-										<div class="col-3">Fecha Envío: <strong><%=pedidos("fecha_enviado")%></strong></div>
+										<div class="col-3">Fecha EnvÃ­o: <strong><%=pedidos("fecha_enviado")%></strong></div>
 									<%end if%>
 									<%if pedidos("PEDIDO_AUTOMATICO")<>"" then%>
 										<%tipo_pedido_auto=pedidos("PEDIDO_AUTOMATICO")%>
@@ -722,7 +729,7 @@ body * { visibility: hidden; !important;  }
 									<thead>
 										<tr>
 											<th>Cod. Sap</th>
-											<th>Artículo</th>
+											<th>ArtÃ­culo</th>
 											<th>Cant.</th>
 											<th>Precio</th>
 											<th>Total</th>
@@ -856,7 +863,7 @@ body * { visibility: hidden; !important;  }
 												data-original-title=""
 											<%end if%>
 											>
-											<%if pedidos("ID_EMPRESA")=1 then 'BARCELÓ 
+											<%if pedidos("ID_EMPRESA")=1 then 'BARCELï¿½ 
 												carpeta_marca=pedidos("marca")&"/"
 												else
 												carpeta_marca=""
@@ -893,7 +900,7 @@ body * { visibility: hidden; !important;  }
 											%>
 											
 											<%'29-06-2016...  comprobamos si ha de ser un articulo personalizable
-												'y luego añadimos a los campos ocultos el valor de la plantilla y si es personalizable o no
+												'y luego aï¿½adimos a los campos ocultos el valor de la plantilla y si es personalizable o no
 												articulo_personalizado="NO"
 												plantilla_personalizacion= "" & pedidos("PLANTILLA_PERSONALIZACION")
 												if plantilla_personalizacion<>"" THEN
@@ -986,7 +993,7 @@ body * { visibility: hidden; !important;  }
 														data-toggle="popover"
 														data-placement="top"
 														data-trigger="hover"
-														data-content="Números de Serie de La Impresora"
+														data-content="Nï¿½meros de Serie de La Impresora"
 														data-original-title="">
 															<i class="fas fa-barcode" style="color:#33FF00"></i>
 													</span>
@@ -1026,7 +1033,7 @@ body * { visibility: hidden; !important;  }
 											<%end if 'DEL ARTICULO 4583%>
 										</td>
 										<td class="cantidades" id="fila_pedido_<%=fila%>_cantidad" style="text-align:right;"><font size="2" color="#000000"><%=pedidos("cantidad")%></font></td>
-										<td id="fila_pedido_<%=fila%>_precio_unidad" style="text-align:right" width="75"><font size="2" color="#000000"><%=pedidos("precio_unidad")%> €/u</font>&nbsp;</td>
+										<td id="fila_pedido_<%=fila%>_precio_unidad" style="text-align:right" width="75"><font size="2" color="#000000"><%=pedidos("precio_unidad")%> &euro;/u</font>&nbsp;</td>
 										<td id="fila_pedido_<%=fila%>_total" style="text-align:right">
 											<font size="2" color="#000000">
 														
@@ -1038,7 +1045,7 @@ body * { visibility: hidden; !important;  }
 												end if
 												%>
 															
-													€</font>&nbsp;
+													â‚¬</font>&nbsp;
 										</td>
 										<td id="fila_pedido_<%=fila%>_estado">
 											<div id="tabla_estado_<%=fila%>" style="width:100%">
@@ -1061,7 +1068,7 @@ body * { visibility: hidden; !important;  }
 																	end if
 																end if%>
 															<%next%>
-															<!--AÑADO ESTE AL FINAL MANUALMENTE PORQUE ES UN ESTADO QUE SOLO PUEDE PONER LA IMPRENTA
+															<!--Aï¿½ADO ESTE AL FINAL MANUALMENTE PORQUE ES UN ESTADO QUE SOLO PUEDE PONER LA IMPRENTA
 															Y SOLO EN LOS DETALLES-->
 															<option value="ANULADO">ANULADO</option>
 														<%end if%>
@@ -1157,7 +1164,15 @@ body * { visibility: hidden; !important;  }
 																	
 																</tr>
 																<%parciales_anteriores=0
-																while not envios_parciales.eof%>
+																Dim envioParcial
+																while not envios_parciales.eof																 
+																	envioParcial = envios_parciales("albaran")
+																	
+																	' Almacenar el valor en la sesiÃ³n para usarlo en otras partes del cÃ³digo
+																	Session("envioParcial") = envioParcial
+																	
+																	' Imprimir el valor en la salida%>
+																<%'=envioParcial%>
 																	<tr>
 																		<td><%=envios_parciales("fecha")%></td>
 																		<td align="center">
@@ -1181,7 +1196,8 @@ body * { visibility: hidden; !important;  }
 																</tbody>
 															</table>
 												<%end if
-												
+												'response.write("llegue a la 1191")
+												'response.write("Esto es un Pedido parcial " & pedidos("estado_articulo"))
 												envios_parciales.close
 												set envios_parciales=Nothing
 												%>
@@ -1203,6 +1219,55 @@ body * { visibility: hidden; !important;  }
 											</script>
 										</td>
 										<td class="no_imprimir" id="fila_pedido_<%=fila%>_fichero_personalizacion" >
+
+											<% 'response.write(" llegue 1233  <br />") 
+
+											cadena_airwaybill=cadena_airwaybille & "GAG/pedidos/" & year(pedidos("FECHA")) & "/" & pedidos("CODCLI") & "__" & pedido_seleccionado
+											cadena_airwaybill=cadena_airwaybill & "/" & "Air_WayBill_" & pedidos("albaran") & "_" & pedidos("prefix") & "-" & pedidos("serial") & ".pdf" // nombre del Airwaybill
+											'response.write(cadena_airwaybill)
+											
+											%>													
+
+											<%if pedidos("serial") <> "" then%>
+												<!--<a href="#">Serial no estÃ¡ vacÃ­o: <%=pedidos("serial") %></a><br />	
+												 <a href="#">Serial no estÃ¡ vacÃ­o: <%= pedidos("prefix") %></a><br />	
+												 <a href="#">Serial no estÃ¡ vacÃ­o: <%= pedidos("albaran") %></a><br /> -->												 
+
+												<!--<input type="hidden" name="ocultoprefix" id="ocultoprefix" value="<%=pedidos("prefix")%>" />
+												<input type="hidden" name="ocultoserial" id="ocultoserial" value="<%=pedidos("serial")%>" />																							
+												<input type="hidden" name="ocultoalbaran1" id="ocultoalbaran1" value="<%=pedidos("albaran")%>" />	-->
+
+												<!-- <a id="fileLinkContainerair" target="_blank" href="C:\CARRITO_IMPRENTA\Carrito\GAG\Pedidos\2024\5258__160733\Air_WayBill_241190_996-20117241.pdf" title="AirWayBill PDF"><i class="far fa-file-pdf"></i></a> Prueba DArdo --> 
+												<a href="<%=cadena_airwaybill%>" target="_blank" title="AirWayBill PDF"><i class="far fa-file-pdf"></i></a> 
+																								
+												<a class='ml-2' id="dynamicLinkair_<%=pedidos("articulo")%>" onclick="mostrar_seguimiento('<%=pedidos("prefix")%>','<%=pedidos("serial")%>')">
+												<img src="../images/Avion.png" title="AirWayBill" class="img-responsive"/></a> 
+
+												<script >
+												function mostrar_seguimiento(prefixair, serialair) {
+												alert('esta llegando ' + serialair +'  ' + prefixair);
+													//alert(prefixair + ' - ' + serialair )
+												// 	// Construir la URL dinÃ¡mica
+													var urlair = 'http://www.aireuropacargo.com/index.asp?prefix=' + prefixair + '&serial=' + serialair;
+
+												// 	// Asignar la URL al enlace y mostrarlo
+												 	//$('#dynamicLinkair').attr('href', urlair); // CambiÃ© j$ por $
+													//$('#dynamicLinkair').show();
+
+												
+												// 			// Abrir la URL en una nueva ventana/pestaÃ±a
+												 			window.open(urlair, '_blank');
+												// 		}
+												// 	});
+												 }
+												</script>
+
+											<%else%>												
+												<a id="fileLinkContainer" target="_blank" href="#" title="AirWayBill PDF"></a> 
+												<a class='ml-2' id="dynamicLink" href="#" style="display: none;">
+												<img src="../images/Avion.png" title="AirWayBill" class="img-responsive"/></a> 
+											<%end if%>
+
 										
 											<%
 											if pedidos("fichero_personalizacion")<>"" then
@@ -1247,10 +1312,38 @@ body * { visibility: hidden; !important;  }
 											<%end if%>
 										</td>
 										<td class="albaranes no_imprimir" id="fila_pedido_<%=fila%>_albaran" style="text-align:right;font-size:1;color:#000000">
+
+										<input type="hidden" name="ocultoalbaran" id="ocultoalbaran" value="<%=pedidos("albaran")%>" />									
+										
 										<%if pedidos("albaran")<>"" then%>
 											<div id="celda_albaran_<%=pedidos("articulo")%>" onclick="ver_albaran('<%=pedidos("albaran")%>', '<%=entorno%>')" style="text-decoration:none;color:#000000;cursor:pointer;cursor:hand">
 												<%=pedidos("albaran")%>
 											</div>
+											<%	
+																				
+											If pedidos("codigo_ruc") <> "" Then											
+												'response.write("RUC: " & pedidos("codigo_ruc") & "<br />")
+												
+												' If pedidos("estado_articulo")="ENVIO PARCIAL" Then
+												' 	response.write("ingrese aca 1301")
+												' end if
+												
+												Dim serialValue
+												serialValue = pedidos("serial")											
+												' Validar si serialValue es nulo o vacÃ­o
+												If IsNull(serialValue) Or serialValue = "" Or serialValue = 0 Then
+													if fila = 1 then												
+														response.write("<a href='#' class='link link-info' id='openModal' title='Cargar InformaciÃ³n Air WayBill'>")
+														response.write("<img src='../images/upload.png' alt='Cargar InformaciÃ³n Air WayBill' class='img-responsive' />")
+														response.write("</a>")
+													end if											
+												End If
+												'Else
+												' Si codigo_ruc estÃ¡ vacÃ­o, no mostrar el enlace
+												'response.write("RUC vacÃ­o. No se muestra el link. <br />")
+											End If%>
+
+										
 										<%end if%>
 										</td>
 										<td class="no_imprimir" id="fila_pedido_<%=fila%>_envio_programado" style="text-align:right"><font size="1" color="#000000">
@@ -1300,7 +1393,7 @@ body * { visibility: hidden; !important;  }
 									<!--lineas de totales-->
 									<tr>
 										<th style="text-align:right" colspan="4">Total... </th>
-										<th style="text-align:right"><%=formatear_importe(round(total_pedido,2))%> €</th>
+										<th style="text-align:right"><%=formatear_importe(round(total_pedido,2))%> &euro;</th>
 										<td colspan="5"></td>
 									</tr>
 									
@@ -1318,7 +1411,7 @@ body * { visibility: hidden; !important;  }
 										while not devoluciones.eof%>
 											<tr>
 												<th style="text-align:right" colspan="4"><font color="#880000">Devoluci&oacute;n <%=devoluciones("ID_DEVOLUCION")%> </font></th>
-												<th style="text-align:right"><font color="#880000">-<%=FORMATNUMBER(devoluciones("IMPORTE"),2,-1,0,-1)%> €</font></th>
+												<th style="text-align:right"><font color="#880000">-<%=FORMATNUMBER(devoluciones("IMPORTE"),2,-1,0,-1)%> ï¿½</font></th>
 												<td colspan="5"></td>
 											</tr>
 											<%
@@ -1328,7 +1421,7 @@ body * { visibility: hidden; !important;  }
 										wend%>
 										<tr>
 											<th style="text-align:right" colspan="4">Total Descontando Devoluciones </th>
-											<th style="text-align:right"><%=FORMATNUMBER((total_pedido - descuento_total_devoluciones),2,-1,0,-1)%> €</th>
+											<th style="text-align:right"><%=FORMATNUMBER((total_pedido - descuento_total_devoluciones),2,-1,0,-1)%> ï¿½</th>
 											<td colspan="5"><input type="hidden" name="ocultodatos_devoluciones" id="ocultodatos_devoluciones" value="<%=datos_devoluciones%>" /></td>
 										</tr>
 									<%end if%>
@@ -1339,7 +1432,7 @@ body * { visibility: hidden; !important;  }
 										<%resultado_descuento=0%>
 										<%if tipo_pedido_auto="PRIMER_PEDIDO_REDYSER" then%>
 											<tr>
-												<th style="text-align:right" colspan="4"><font color="#880000">Descuento Primer Pedido 50% (Max. 800€) </font></th>
+												<th style="text-align:right" colspan="4"><font color="#880000">Descuento Primer Pedido 50% (Max. 800ï¿½) </font></th>
 												<th style="text-align:right"><font color="#880000">
 													<%
 													
@@ -1350,7 +1443,7 @@ body * { visibility: hidden; !important;  }
 													resultado_descuento = round(resultado_descuento, 2)
 													response.write(formatear_importe(resultado_descuento))
 													%>
-													€
+													ï¿½
 													
 													</font></th>
 												<td colspan="5"></td>
@@ -1362,7 +1455,7 @@ body * { visibility: hidden; !important;  }
 													resultado_total_descuento = round((total_pedido - descuento_total_devoluciones - resultado_descuento), 2)
 													response.write(formatear_importe(resultado_total_descuento))
 													%>
-													€
+													ï¿½
 													</th>
 												<td colspan="5"></td>
 											</tr>
@@ -1377,7 +1470,7 @@ body * { visibility: hidden; !important;  }
 													resultado_descuento = round(resultado_descuento, 2)
 													response.write(formatear_importe(resultado_descuento))
 													%>
-													€
+													ï¿½
 													
 													</font></th>
 												<td colspan="5"><input type="hidden" name="ocultodescuento_pedido" id="ocultodescuento_pedido" value="<%=formatear_importe(resultado_descuento)%>" /></td>
@@ -1389,7 +1482,7 @@ body * { visibility: hidden; !important;  }
 													resultado_total_descuento = round((total_pedido - descuento_total_devoluciones - resultado_descuento), 2)
 													response.write(formatear_importe(resultado_total_descuento))
 													%>
-													€
+													ï¿½
 													</th>
 												<td colspan="5"></td>
 											</tr>
@@ -1399,7 +1492,7 @@ body * { visibility: hidden; !important;  }
 										<%if  gastos_envio<>"" AND gastos_envio<>"0" then%>
 											<tr>
 												<th style="text-align:right" colspan="4"><font color="#880000">Gastos de Env&iacute;o</font></th>
-												<th style="text-align:right"><font color="#880000"><%=FORMATNUMBER(gastos_envio,2,-1,0,-1)%> €</font></th>
+												<th style="text-align:right"><font color="#880000"><%=FORMATNUMBER(gastos_envio,2,-1,0,-1)%> ï¿½</font></th>
 												<td colspan="5"></td>
 											</tr>
 										  <%else
@@ -1416,7 +1509,7 @@ body * { visibility: hidden; !important;  }
 											iva_21= round(resultado_iva,2)
 											response.write(formatear_importe(iva_21))
 											%> 
-											€
+											&euro;
 										</th>
 										<td colspan="5"></td>
 													
@@ -1429,7 +1522,7 @@ body * { visibility: hidden; !important;  }
 															
 												response.write(formatear_importe(round(total_pago_iva,2)))
 											%> 
-											€
+											&euro;
 										</th>
 										<td colspan="5"></td>
 													
@@ -1449,9 +1542,9 @@ body * { visibility: hidden; !important;  }
 												<th style="text-align:right" colspan="4"><font color="<%=color_saldo%>">Saldo <%=saldos("ID_SALDO")%>&nbsp;-&nbsp;<%=UCASE(saldos("CARGO_ABONO"))%> </font></th>
 												<th style="text-align:right"><font color="<%=color_saldo%>">
 													<%if saldos("CARGO_ABONO")="CARGO" then
-														response.write("+" & FORMATNUMBER(saldos("IMPORTE"),2,-1,0,-1) & " €")
+														response.write("+" & FORMATNUMBER(saldos("IMPORTE"),2,-1,0,-1) & " ï¿½")
 													  else
-													  	response.write("-" & FORMATNUMBER(saldos("IMPORTE"),2,-1,0,-1) & " €")
+													  	response.write("-" & FORMATNUMBER(saldos("IMPORTE"),2,-1,0,-1) & " ï¿½")
 													  end if
 													  %>
 													
@@ -1472,7 +1565,7 @@ body * { visibility: hidden; !important;  }
 										wend%>
 										<tr>
 											<th style="text-align:right" colspan="4">Total Aplicado Saldos </th>
-											<th style="text-align:right"><%=FORMATNUMBER((total_pago_iva - descuento_total_saldos),2,-1,0,-1)%> €</th>
+											<th style="text-align:right"><%=FORMATNUMBER((total_pago_iva - descuento_total_saldos),2,-1,0,-1)%> ï¿½</th>
 											<td colspan="5"><input type="hidden" name="ocultodatos_saldos" id="ocultodatos_saldos" value="<%=datos_saldos%>" /></td>
 										</tr>
 									<%end if%>
@@ -1576,6 +1669,40 @@ body * { visibility: hidden; !important;  }
 	
 </form>
 
+ <!-- Modal Air WAYBILL-->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="myModalLabel">Cargar InformaciÃ³n AIR WAYBILL</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form id="uploadForm" enctype="multipart/form-data">
+					 	<div class="form-group">
+                            <label for="prefix">NÂº Prefix</label>
+                            <input type="text" class="form-control" id="prefix" name="prefix" required
+                                   pattern="\d*" maxlength="5" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+                        </div>
+                        <div class="form-group">
+                            <label for="serial">NÂº Serial</label>
+                            <input type="text" class="form-control" id="serial" name="serial" required
+                                   pattern="\d*" maxlength="9" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+                        </div>						
+							<label for="archivo">Adjuntar Air WayBill</label>
+						<!-- <input type="file" class="form-control" id="archivo" name="archivo" required accept=".pdf, .txt, .docx"> -->
+							<input type="file" class="form-control" id="archivo" name="archivo" required accept=".pdf">
+						</div>
+						<button type="submit" class="btn btn-primary">Cargar</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>	
+	
+
 <script type="text/javascript" src="js/comun.js"></script>
 
 	
@@ -1613,6 +1740,7 @@ body * { visibility: hidden; !important;  }
 <script type="text/javascript" src="plugins/bootstrap-multiselect/bootstrap-multiselect.js"></script>
 <script type="text/javascript" src="plugins/bootstrap-touchspin-master/src/jquery.bootstrap-touchspin.js"></script>
 
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <script type="text/javascript">
 
@@ -1646,12 +1774,130 @@ j$(document).ready(function () {
 		max: 5000000,
 		verticalbuttons: true
 	});
+
+
+    /* -- Modal Air WAYBILL -- */
+    j$('#openModal').click(function(e) {
+        e.preventDefault();
+        j$('#myModal').modal('show');
+    });
 	
 	
+	// Obtener los valores del modal al cargar la pÃ¡gina
+	var prefixair = j$('#ocultoprefix').val();
+	var serialair = j$('#ocultoserial').val();			
+		
+	var codcli = j$('#ocultocodcli').val();
+	var pedido = j$('#ocultopedido').val();
+	var albaran = j$('#ocultoalbaran').val();
+	
+
+	// Construir la URL dinÃ¡mica		
+	var urlair = 'http://www.aireuropacargo.com/index.asp?prefix=' + prefixair + '&serial=' + serialair;
+
+	// Asignar la URL al enlace y mostrarlo
+	j$('#dynamicLinkair').attr('href', urlair);		
+	j$('#dynamicLinkair').show();		
+
+	j$('#dynamicLinkair').click(function(event) {
+	event.preventDefault();		
+		if (confirm("Â¿EstÃ¡s seguro de querer ir a esta pÃ¡gina?")) {
+			//window.location.href = j$(this).attr('href');
+			window.open(urlair, '_blank');
+		} 
+	});
+
+
+
+    j$('#uploadForm').submit(function(e) {
+        e.preventDefault();
+		// Obtener los valores del modal al cargar la pÃ¡gina
+		var prefix = j$('#prefix').val();
+		var serial = j$('#serial').val();		
+		  
+        var codcli = j$('#ocultocodcli').val();
+        var pedido = j$('#ocultopedido').val();
+        var albaran = j$('#ocultoalbaran').val();
+
+		let email = j$('#ocultoemail').val();
+		let nombre_apellido = j$('#ocultodestinatario').val();
+		
+		console.log(email);
+		//console.log(ocultodestinatario);
+
+        var formData = new FormData(this);
+		formData.append('cod_cli', codcli);
+        formData.append('num_pedido', pedido);
+        formData.append('num_albaran', albaran);	
+        formData.append('email', email);	
+        formData.append('nombre_apellido', nombre_apellido);	
+
+        j$.ajax({
+            url: '/PHP/Air_waybill/upload_airwaybill.php', // HA DESARROLLAR
+            type: 'POST',
+            data: formData, 
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                var result = JSON.parse(response);
+                console.log(result);
+                j$('#myModal').modal('hide');
+                if (result.status === 'exists') {
+                    if (confirm(result.message)) {
+                        formData.append('overwrite', true);
+                        j$.ajax({
+                            url: '/PHP/Air_waybill/upload_airwaybill.php', // HA DESARROLLAR
+                            type: 'POST',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            success: function(response) {
+								console.log(' response 2Âº ',response);
+                                handleUploadResponse(response);
+                            }
+                        });
+                    }
+                } else {
+                    handleUploadResponse(response);
+                }
+            },
+            error: function() {
+                alert('Error al enviar los datos');
+            }
+        });
+
+		// Construir la URL dinÃ¡mica		
+		var url = 'http://www.aireuropacargo.com/index.asp?prefix=' + prefix + '&serial=' + serial;
+
+		// Asignar la URL al enlace y mostrarlo
+		j$('#dynamicLink').attr('href', url);		
+		j$('#dynamicLink').show();		
+
+		j$('#dynamicLink').click(function(event) {
+		event.preventDefault();		
+			if (confirm("Â¿EstÃ¡s seguro de querer ir a esta pÃ¡gina?")) {
+				//window.location.href = j$(this).attr('href');
+				window.open(url, '_blank');
+			} 
+		});
+    });
 });
 
-
-
+// Crear link fÃ­sico del archivo Air Waybill
+function handleUploadResponse(response) {
+	
+    var result = JSON.parse(response);
+    if (result.status === 'success') {
+       // alert('Datos enviados correctamente');		
+        j$('#myModal').modal('hide');
+       // var fileLink = '<a href="' + result.fileUrl + '" target="_blank"><img src="../images/Paper_Verde_16x16.png" alt="AirWayBill" class="img-responsive"/></a>'; <i class="far fa-file-pdf"></i>
+        var fileLink = '<a href="' + result.fileUrl + '" target="_blank"><i class="far fa-file-pdf"></i></a>'; 
+        j$('#fileLinkContainer').html(fileLink);
+		j$('#openModal').hide(); // Ocultar el botÃ³n de subir archivo	
+    } else {
+        alert('Error: ' + result.message);
+    }
+}
 
 		
 function ver_si_imprimir(origen)
@@ -1769,7 +2015,7 @@ function guardar_pedido(cadena_articulos_cantidades, accion){
 		j$('#cmdcrear_albaran').prop('disabled', true);
 		}
     tabla_articulos_cantidades=cadena_articulos_cantidades.split('--')
-    //alert('tamaño de elementos: ' + tabla_articulos_cantidades.length)
+    //alert('tamaï¿½o de elementos: ' + tabla_articulos_cantidades.length)
 	texto_error=''
     permitir_guardar_pedido='SI'
 	pendientes_articulos_listos='NO'
@@ -1918,7 +2164,7 @@ function guardar_pedido(cadena_articulos_cantidades, accion){
 						if (parseFloat(stock_buscado)<parseFloat(cantidad_control))
 							{
 								permitir_guardar_pedido='NO'
-								texto_error=texto_error + '\n     - Para el Artículo (' + codigo_referencia + ') Solo se Puede Enviar Como Máximo ' + stock_buscado + ' Unidades, que es Su Stock Actual...'
+								texto_error=texto_error + '\n     - Para el ArtÃ­culo (' + codigo_referencia + ') Solo se Puede Enviar Como Mï¿½ximo ' + stock_buscado + ' Unidades, que es Su Stock Actual...'
 								//console.log('::::::::::::::::::::::CADENA ERROR DEL ARTICULO a comparar ' + articulo_cantidad[0] + ': ' + texto_error)  
 							}
 				}
@@ -1961,12 +2207,12 @@ function guardar_pedido(cadena_articulos_cantidades, accion){
 	if (pendientes_articulos_listos=='SI')
 		{
 			permitir_guardar_pedido='NO'
-			texto_error=texto_error + '\n     - No se Puede Generar el Albarán, todavia siguen en Listo o Listo Parcial algunos artículos.'
+			texto_error=texto_error + '\n     - No se Puede Generar el Albar&aacute;n, todavia siguen en Listo o Listo Parcial algunos art&iacute;culos.'
 		}
 	if (articulos_para_enviar=='SI')
 		{
 			permitir_guardar_pedido='NO'
-			texto_error=texto_error + '\n     - Para Pasar los Articulos a Enviado o Envio Parcial, se ha de hacer desde el botón que Genera el Albarán.'
+			texto_error=texto_error + '\n     - Para Pasar los Articulos a Enviado o Envio Parcial, se ha de hacer desde el bot&oacute;n que Genera el Albar&aacute;n.'
 		}
 	
 	//si se envia alguna impresora, que compruebe si se han introducido los numeros de serie primero
@@ -1974,7 +2220,7 @@ function guardar_pedido(cadena_articulos_cantidades, accion){
   		if (j$("#ocultosn_impresoras").val()=='')
 			{
 			permitir_guardar_pedido='NO'
-			texto_error=texto_error + '\n     - Si se Envian Impresoras de GLS ha de introducir sus Número de Serie.'
+			texto_error=texto_error + '\n     - Si se Envian Impresoras de GLS ha de introducir sus N&uacute;mero de Serie.'
 			}
 	
 	}
@@ -2123,6 +2369,20 @@ function mostrar_tabla_envios_parciales(articulo)
 		}
 }
 
+
+function mostrar_seguimiento(prefixair, serialair) {
+//alert('esta llegando ' + serialair +'  ' + prefixair);
+	// Construir la URL dinÃ¡mica
+	var urlair = 'http://www.aireuropacargo.com/index.asp?prefix=' + prefixair + '&serial=' + serialair;
+
+// 	// Asignar la URL al enlace y mostrarlo
+//$('#dynamicLinkair').attr('href', urlair); // CambiÃ© j$ por $
+//$('#dynamicLinkair').show();
+	window.open(urlair, '_blank');
+// 		}
+// 	});
+}
+
 function ver_albaran(numero, entorno)
 {
 
@@ -2269,7 +2529,7 @@ function controlar_bultos_palets(num_pedido)
 		} //fin del if del peso a 0 o '' que ahora esta quitado
 
 	//de momneto que no salga
-	//ya se añadirán
+	//ya se aï¿½adirï¿½n
 	//j$("#pantalla_bultos_palets").modal("show");
 	j$("#ocultobultos").val('');
 	j$("#ocultopalets").val('');
@@ -2422,7 +2682,7 @@ mostrar_sn_impresoras = function (cantidad, estado)
 
 				  if (valor_repetido !='')
 				  	{
-					bootbox.alert({message: "<h5>El Número de Serie " + valor_repetido + " está repetido.</h5>", centerVertical: true, size: "large"});
+					bootbox.alert({message: "<h5>El Nï¿½mero de Serie " + valor_repetido + " estï¿½ repetido.</h5>", centerVertical: true, size: "large"});
 					return false;
 					}
 				  if (!size14) {
@@ -2443,7 +2703,7 @@ mostrar_sn_impresoras = function (cantidad, estado)
 					cadena_sn_impresoras = serials.join("###")
 					}
 					
-				  //veo si las impresoras ya están previamente dadas de alta y asociadas a alguna otra oficina
+				  //veo si las impresoras ya estï¿½n previamente dadas de alta y asociadas a alguna otra oficina
 				  j$.ajax({
 						type: "POST",         
 						async:false,    
@@ -2460,7 +2720,7 @@ mostrar_sn_impresoras = function (cantidad, estado)
 								  var estado = registro.estado;
 								  if (estado!= 'BAJA')
 								  	{
-									cadena_mensaje_impresoras += 'La Impresora ' + numero_serie + ' no se puede enviar porque todavia está Activa.<br>'
+									cadena_mensaje_impresoras += 'La Impresora ' + numero_serie + ' no se puede enviar porque todavia estï¿½ Activa.<br>'
 									}
 								});
 								
@@ -2509,7 +2769,7 @@ mostrar_sn_impresoras = function (cantidad, estado)
 	}
 
       if (isNaN(cantidad) || cantidad <= 0) {
-		bootbox.alert({message: "<h5>Introduzca una cantidad válida.</h5>", centerVertical: true, size: "large"});
+		bootbox.alert({message: "<h5>Introduzca una cantidad vï¿½lida.</h5>", centerVertical: true, size: "large"});
         return;
       }
       var html = '<div id="divSerials">';
@@ -2530,7 +2790,7 @@ mostrar_sn_impresoras = function (cantidad, estado)
       }
       html += '</div>';
       bootbox.dialog({
-        title: "Números de Serie de las Impresoras",
+        title: "N&uacute;meros de Serie de las Impresoras",
         message: html,
         closeButton: false,
         buttons: botones //en funcion de si los carga o hay que insertarlos muestra unos botones u otros

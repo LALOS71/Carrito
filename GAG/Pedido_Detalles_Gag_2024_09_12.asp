@@ -1,11 +1,9 @@
-ï»¿<%@ language=vbscript %>
+<%@ language=vbscript %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--#include file="../Conexion.inc"-->
 <!--#include virtual="/includes/Idiomas.asp"-->
 
 <%
-	Response.Charset="UTF-8"
-	
 		'Recogemos la variable borrar 
 		borrar=Request.Querystring("borrar")
 
@@ -43,10 +41,8 @@
 
 			with articulos
 				.ActiveConnection=connimprenta
-				.Source="SELECT PEDIDOS_DETALLES.ARTICULO, ARTICULOS.CODIGO_SAP, ARTICULOS.DESCRIPCION, PEDIDOS_DETALLES.CANTIDAD, ARTICULOS.UNIDADES_DE_PEDIDO,"
+				.Source="SELECT PEDIDOS_DETALLES.ARTICULO, ARTICULOS.CODIGO_SAP, ARTICULOS.DESCRIPCION, PEDIDOS_DETALLES.CANTIDAD,"
 				.Source=.Source & " PEDIDOS_DETALLES.PRECIO_UNIDAD, PEDIDOS_DETALLES.TOTAL, PEDIDOS_DETALLES.ESTADO,"
-				.Source=.Source & " AIR.PREFIX, AIR.SERIAL, PEDIDOS_DETALLES.ALBARAN,"
-				.Source=.Source & " CASE WHEN PEDIDOS_DETALLES.ESTADO = 'ENVIADO AL PROVEEDOR' THEN 'ENVIADO' ELSE PEDIDOS_DETALLES.ESTADO END AS ESTADO_FORMATEADO,"
 				.Source=.Source & " PEDIDOS_DETALLES.FICHERO_PERSONALIZACION, PEDIDOS.CODCLI, PEDIDOS.FECHA,"
 				.Source=.Source & " V_EMPRESAS.CARPETA, V_CLIENTES.MARCA, V_CLIENTES.NOMBRE AS NOMBRE_CLIENTE,"
 				.Source=.Source & " V_CLIENTES.CODIGO_EXTERNO AS COD_CLIENTE, ARTICULOS_PERSONALIZADOS.PLANTILLA_PERSONALIZACION,"
@@ -54,7 +50,8 @@
 				.Source=.Source & " CASE WHEN PEDIDOS_DETALLES.ALBARAN IS NULL THEN NULL ELSE" 
 				.Source=.Source & " (SELECT FECHAVALIJA FROM V_DATOS_ALBARANES WHERE IDALBARAN=PEDIDOS_DETALLES.ALBARAN)"
 				.Source=.Source & " END AS ENVIO_PROGRAMADO, PEDIDOS.PEDIDO_AUTOMATICO, PEDIDOS.DESCUENTO_TOTAL,"
-				.Source=.Source & " V_CLIENTES.PAIS, PEDIDOS.GASTOS_ENVIO"				
+				.Source=.Source & " V_CLIENTES.PAIS, PEDIDOS.GASTOS_ENVIO"
+				
 				.Source=.Source & " FROM V_EMPRESAS INNER JOIN (V_CLIENTES "
 				.Source=.Source & " INNER JOIN ((PEDIDOS INNER JOIN PEDIDOS_DETALLES"
 				.Source=.Source & " ON PEDIDOS.ID = PEDIDOS_DETALLES.ID_PEDIDO)"
@@ -62,8 +59,7 @@
 				.Source=.Source & " ON V_CLIENTES.Id = PEDIDOS.CODCLI) ON V_EMPRESAS.Id = V_CLIENTES.EMPRESA"
 				.Source=.Source & " LEFT JOIN ARTICULOS_PERSONALIZADOS"
 				.Source=.Source & " ON ARTICULOS.ID=ARTICULOS_PERSONALIZADOS.ID_ARTICULO"
-				.Source=.Source & " LEFT JOIN ALBARANES_AIRWILLBILL AIR ON AIR.ALBARAN = PEDIDOS_DETALLES.ALBARAN"
-
+										
 				.Source=.Source & " where pedidos.id=" & pedido_seleccionado
 				'RESPONSE.WRITE(.SOURCE)
 				.Open
@@ -111,9 +107,7 @@ iva_21=0
 		<link rel="stylesheet" type="text/css" href="../estilo_gls.css" />
 	<%end if%>
 	
-<!-- <link rel="stylesheet" type="text/css" href="../plugins/bootstrap-3.3.6/css/bootstrap.min.css" /> -->
-	<link rel="stylesheet" type="text/css" href="../plugins/bootstrap-4.0.0/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../plugins/bootstrap-select/css/bootstrap-select.min.css">
+<link rel="stylesheet" type="text/css" href="../plugins/bootstrap-3.3.6/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="../estilos.css" />
 <link rel="stylesheet" type="text/css" href="../carrusel/css/carrusel.css" />
 
@@ -158,7 +152,7 @@ function cambiapuntoacoma(s)
 {
 	var saux = "";
 	//alert("pongo coma")
-	//alert("tamaÃ±o: " + s.legth)
+	//alert("tamaño: " + s.legth)
 	for (j=0;j<s.length; j++ )
 	{
 		if (s.charAt(j) == ".")
@@ -207,9 +201,6 @@ function bajar()
 
 </script>
 
-<!-- Font Awesome JS -->
-<!-- <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>	-->
-<script type="text/javascript" src="../plugins/fontawesome-5.0.13/js/fontawesome-all.js" defer></script>
 
 <script type="text/javascript" src="../js/jquery.min_1_11_0.js"></script>
 <script type="text/javascript" src="../js/jquery-ui.min_1_10_4.js"></script>
@@ -230,13 +221,12 @@ function bajar()
 </div>
 <br />&nbsp;
 <div>	
-	<table class="table table-bordered">
+	<table class="table">
 		<thead>
 			<tr>
 				<th class="col-xs-1" title="<%=pedido_detalles_gag_cabecera_columna_sap_alter%>"><%=pedido_detalles_gag_cabecera_columna_sap%></th>
 				<th class="col-xs-3"><%=pedido_detalles_gag_cabecera_columna_articulo%></th>
 				<th class="col-xs-1"><%=pedido_detalles_gag_cabecera_columna_cantidad%></th>
-				<th class="col-xs-1"><%=pedido_detalles_gag_cabecera_columna_unidades_pedido%></th>
 				<th class="col-xs-2"><%=pedido_detalles_gag_cabecera_columna_precio%></th>
 				<th class="col-xs-2"><%=pedido_detalles_gag_cabecera_columna_total%></th>
 				<th class="col-xs-2"><%=pedido_detalles_gag_cabecera_columna_estado%></th>
@@ -256,7 +246,6 @@ function bajar()
 				descuento_total=0
 				descuento_total_saldos=0
 				descuento_total_devoluciones=0
-				FILA = 0
 				pedido_automatico=""
 			%>
 			
@@ -308,71 +297,18 @@ function bajar()
 					<%end if%>
 				</td>
 				<td style="text-align:right"><%=articulos("cantidad")%>&nbsp;</td>
-				<td><%=articulos("unidades_de_pedido")%>&nbsp;</td>
-				<td style="text-align:right"><%=articulos("precio_unidad")%> â‚¬/u&nbsp;</td>
+				<td style="text-align:right"><%=articulos("precio_unidad")%> €/u&nbsp;</td>
 				<td style="text-align:right">
 					<%
-					IF articulos("estado_formateado")<>"ANULADO" THEN
+					IF articulos("estado")<>"ANULADO" THEN
 						total_pedido=total_pedido + articulos("total")
 					END IF
 					%>
 					<%=FORMATNUMBER(articulos("total"),2,-1,0,-1)%>
-					 â‚¬&nbsp;
+					 €&nbsp;
 				</td>
 				
-				<td ><%=articulos("estado_formateado")%>
-				
-				<% 
-					' cadena_airwaybill=cadena_airwaybill & "pedidos/" & year(articulos("fecha")) & "/" & articulos("id_cliente") & "__" & pedido_seleccionado
-					' cadena_airwaybill=cadena_airwaybill & "/" & "Air_WayBill_" & articulos("albaran") & "_" & articulos("prefix") & "-" & articulos("serial") & ".pdf" '// nombre del Airwaybill
-					'response.write(cadena_airwaybill)%>
-
-					<% 'if articulos("serial") <> "" AND FILA = 0 then%>
-					<!-- <input type="hidden" name="ocultoalbaran1" id="ocultoalbaran1" value="<%=articulos("albaran")%>" /> 
-						<input type="hidden" name="ocultoprefix" id="ocultoprefix" value="<%=articulos("prefix")%>" />
-						<input type="hidden" name="ocultoserial" id="ocultoserial" value="<%=articulos("serial")%>" />
-						
-						<a class='ml-1' id="dynamicLinkair" href="#" >
-						<img src="../images/Avion.png" title="AirWayBill" class="img-responsive"/></a> 
-
-						<a class='ml-1' href="<%=cadena_airwaybill%>" target="_blank" title="AirWayBill PDF">
-						<img src="../images/pdf.png" title="AirWayBill" class="img-responsive"/></a> -->
-						
-					<!--	<a class='ml-2' href="<%=cadena_airwaybill%>" target="_blank" title="AirWayBill PDF">
-						<i class="far fa-file-pdf"></i></a> -->
-
-					<!--	<a class='ml-2' id="dynamicLinkair" href="#"><i class="fa fa-plane"></i></a> 
-
-					<script type="text/javascript"> // Se crea la url de AIREUROPACARGO
-
-					// 	var prefixair = $('#ocultoprefix').val();
-					// 	var serialair = $('#ocultoserial').val();
-
-					// 	// Construir la URL dinÃ¡mica		
-					// 	var urlair = 'http://www.aireuropacargo.com/index.asp?prefix=' + prefixair + '&serial=' + serialair;
-
-					// 	// Asignar la URL al enlace y mostrarlo
-					// 	$('#dynamicLinkair').attr('href', urlair);		
-					// 	$('#dynamicLinkair').show();		
-
-					// 	$('#dynamicLinkair').click(function(event) {
-					// 	event.preventDefault();		
-					// 		if (confirm("Â¿EstÃ¡s seguro de querer ir a esta pÃ¡gina?")) {
-					// 			//window.location.href = j$(this).attr('href');
-					// 			window.open(urlair, '_blank');
-					// 		} 
-					// 	});
-						
-					// </script>
-
-					<% 'else%>												
-						<a id="fileLinkContainer" target="_blank" href="#" title="AirWayBill PDF"></a> 
-						<a class='ml-2' id="dynamicLink" href="#" style="display: none;">
-						<img src="../images/Avion.png" title="AirWayBill" class="img-responsive"/></a> 
-					<%'end if%> -->
-					
-				</td>
-
+				<td ><%=articulos("estado")%></td>
 				<td ><%=articulos("envio_programado")%></td>
 			</tr>
 			<%		
@@ -382,8 +318,6 @@ function bajar()
 					descuento_total=0
 				end if
 				gastos_envio=articulos("GASTOS_ENVIO")
-
-				FILA = 1
 				
 				articulos.movenext
 			Wend
@@ -392,8 +326,8 @@ function bajar()
 			
 			<%if mostrar_totales="si" then%>
 				<tr valign="top">
-					<th style="text-align:right" colspan="5"><font color="#000000"><%=pedido_detalles_gag_literal_total%></font></th>
-					<th style="text-align:right"><font color="#000000"><%=FORMATNUMBER(total_pedido,2,-1,0,-1)%> â‚¬</font></th>
+					<th style="text-align:right" colspan="4"><font color="#000000"><%=pedido_detalles_gag_literal_total%></font></th>
+					<th style="text-align:right"><font color="#000000"><%=FORMATNUMBER(total_pedido,2,-1,0,-1)%> €</font></th>
 					<td ></td>
 					<td ></td>
 				</tr>
@@ -403,8 +337,8 @@ function bajar()
 				<%if not devoluciones.eof then
 					while not devoluciones.eof%>
 						<tr valign="top">
-							<th style="text-align:right" colspan="5"><font color="#880000">Devoluci&oacute;n <%=devoluciones("ID_DEVOLUCION")%></font></th>
-							<th style="text-align:right"><font color="#880000">-<%=FORMATNUMBER(devoluciones("IMPORTE"),2,-1,0,-1)%> â‚¬</font></th>
+							<th style="text-align:right" colspan="4"><font color="#880000">Devoluci&oacute;n <%=devoluciones("ID_DEVOLUCION")%></font></th>
+							<th style="text-align:right"><font color="#880000">-<%=FORMATNUMBER(devoluciones("IMPORTE"),2,-1,0,-1)%> €</font></th>
 							<td ></td>
 							<td ></td>
 						</tr>
@@ -413,8 +347,8 @@ function bajar()
 						devoluciones.movenext
 					wend%>
 					<tr valign="top">
-						<th style="text-align:right" colspan="5">Total Descontando Devoluciones</th>
-						<th style="text-align:right"><%=FORMATNUMBER((total_pedido - descuento_total_devoluciones),2,-1,0,-1)%> â‚¬</th>
+						<th style="text-align:right" colspan="4">Total Descontando Devoluciones</th>
+						<th style="text-align:right"><%=FORMATNUMBER((total_pedido - descuento_total_devoluciones),2,-1,0,-1)%> €</th>
 						<td ></td>
 						<td ></td>
 					</tr>
@@ -422,36 +356,36 @@ function bajar()
 				
 				<%if pedido_automatico="PRIMER_PEDIDO_REDYSER" then%>
 					<tr valign="top">
-						<th style="text-align:right" colspan="5"><font color="#880000">Descuento Primer Pedido 50% (Max. 800â‚¬)</font></th>
-						<th style="text-align:right"><font color="#880000"><%=FORMATNUMBER(descuento_total,2,-1,0,-1)%> â‚¬</font></th>
+						<th style="text-align:right" colspan="4"><font color="#880000">Descuento Primer Pedido 50% (Max. 800€)</font></th>
+						<th style="text-align:right"><font color="#880000"><%=FORMATNUMBER(descuento_total,2,-1,0,-1)%> €</font></th>
 						<td ></td>
 						<td ></td>
 					</tr>
 					<tr valign="top">
-						<th style="text-align:right" colspan="5">Total Precio Final</th>
-						<th style="text-align:right"><%=FORMATNUMBER((total_pedido - descuento_total_devoluciones - descuento_total),2,-1,0,-1)%> â‚¬</th>
+						<th style="text-align:right" colspan="4">Total Precio Final</th>
+						<th style="text-align:right"><%=FORMATNUMBER((total_pedido - descuento_total_devoluciones - descuento_total),2,-1,0,-1)%> €</th>
 						<td ></td>
 						<td ></td>
 					</tr>
 				<%end if%>	
 				<%if pedido_automatico="PRIMER_PEDIDO_GENERAL" then%>
 					<tr valign="top">
-						<th style="text-align:right" colspan="5"><font color="#880000">Descuento Primer Pedido 15%</font></th>
-						<th style="text-align:right"><font color="#880000"><%=FORMATNUMBER(descuento_total,2,-1,0,-1)%> â‚¬</font></th>
+						<th style="text-align:right" colspan="4"><font color="#880000">Descuento Primer Pedido 15%</font></th>
+						<th style="text-align:right"><font color="#880000"><%=FORMATNUMBER(descuento_total,2,-1,0,-1)%> €</font></th>
 						<td ></td>
 						<td ></td>
 					</tr>
 					<tr valign="top">
-						<th style="text-align:right" colspan="5">Total Precio Final</th>
-						<th style="text-align:right"><%=FORMATNUMBER((total_pedido - descuento_total_devoluciones - descuento_total),2,-1,0,-1)%> â‚¬</th>
+						<th style="text-align:right" colspan="4">Total Precio Final</th>
+						<th style="text-align:right"><%=FORMATNUMBER((total_pedido - descuento_total_devoluciones - descuento_total),2,-1,0,-1)%> €</th>
 						<td ></td>
 						<td ></td>
 					</tr>
 				<%end if%>	
 				<%if gastos_envio<>"" AND gastos_envio<>"0" then%>
 					<tr valign="top">
-						<th style="text-align:right" colspan="5"><font color="#880000">Gastos de Env&iacute;o</font></th>
-						<th style="text-align:right"><font color="#880000"><%=FORMATNUMBER(gastos_envio,2,-1,0,-1)%> â‚¬</font></th>
+						<th style="text-align:right" colspan="4"><font color="#880000">Gastos de Env&iacute;o</font></th>
+						<th style="text-align:right"><font color="#880000"><%=FORMATNUMBER(gastos_envio,2,-1,0,-1)%> €</font></th>
 						<td ></td>
 						<td ></td>
 					</tr>
@@ -460,11 +394,11 @@ function bajar()
 					%>
 				<%end if%>										
 				
-				<%'no uso session("usuario_pais"), porque por ejemplo, si entra la oficina administradora de espaÃ±a, carga 
+				<%'no uso session("usuario_pais"), porque por ejemplo, si entra la oficina administradora de españa, carga 
 					'el iva para un pedido de portugal
 				if pais_pedido<>"PORTUGAL" then%>
 					<tr valign="top">
-						<th style="text-align:right" colspan="5"><font  color="#000000"><%=pedido_detalles_gag_literal_iva_21%> (<%=((total_pedido - descuento_total_devoluciones - descuento_total + gastos_envio) * 0.21)%>)</font></th>
+						<th style="text-align:right" colspan="4"><font  color="#000000"><%=pedido_detalles_gag_literal_iva_21%> (<%=((total_pedido - descuento_total_devoluciones - descuento_total + gastos_envio) * 0.21)%>)</font></th>
 						<th style="text-align:right"><font  color="#000000">
 						
 							<%
@@ -474,7 +408,7 @@ function bajar()
 							iva_21= round(resultado_iva,2)
 							response.write(FORMATNUMBER(iva_21,2,-1,0,-1))
 							%> 
-							â‚¬
+							€
 							</font>
 						</th>
 						<td></td>
@@ -484,14 +418,14 @@ function bajar()
 				<%end if%>
 				
 				<tr valign="top">
-					<th style="text-align:right" colspan="5"><font  color="#000000"><%=pedido_detalles_gag_literal_total_importe%></font></th>
+					<th style="text-align:right" colspan="4"><font  color="#000000"><%=pedido_detalles_gag_literal_total_importe%></font></th>
 					<th style="text-align:right"><font  color="#000000">
 						<%
 							total_pago_iva=(total_pedido - descuento_total_devoluciones - descuento_total + gastos_envio) + iva_21
 							
 							response.write(FORMATNUMBER(total_pago_iva,2,-1,0,-1))
 						%> 
-						â‚¬
+						€
 					</font></th>
 					<td></td>
 					<td ></td>
@@ -505,13 +439,13 @@ function bajar()
 						  	color_saldo="red"
 						end if%>
 						<tr valign="top">
-							<th style="text-align:right" colspan="5"><font color="<%=color_saldo%>">Saldo <%=saldos("ID_SALDO")%>&nbsp;-&nbsp;<%=UCASE(saldos("CARGO_ABONO"))%></font></th>
+							<th style="text-align:right" colspan="4"><font color="<%=color_saldo%>">Saldo <%=saldos("ID_SALDO")%>&nbsp;-&nbsp;<%=UCASE(saldos("CARGO_ABONO"))%></font></th>
 							<%if UCASE(saldos("CARGO_ABONO"))="ABONO" then
 									mostrar_signo="-"
 								else
 									mostrar_signo="+"
 							end if%>
-							<th style="text-align:right"><font color="<%=color_saldo%>"><%=(mostrar_signo & FORMATNUMBER(saldos("IMPORTE"),2,-1,0,-1))%> â‚¬</font></th>
+							<th style="text-align:right"><font color="<%=color_saldo%>"><%=(mostrar_signo & FORMATNUMBER(saldos("IMPORTE"),2,-1,0,-1))%> €</font></th>
 							<td ></td>
 							<td ></td>
 						</tr>
@@ -524,8 +458,8 @@ function bajar()
 						saldos.movenext
 					wend%>
 					<tr valign="top">
-						<th style="text-align:right" colspan="5">Total Aplicado Saldos</th>
-						<th style="text-align:right"><%=FORMATNUMBER((total_pago_iva - descuento_total_saldos),2,-1,0,-1)%> â‚¬</th>
+						<th style="text-align:right" colspan="4">Total Aplicado Saldos</th>
+						<th style="text-align:right"><%=FORMATNUMBER((total_pago_iva - descuento_total_saldos),2,-1,0,-1)%> €</th>
 						<td ></td>
 						<td ></td>
 					</tr>

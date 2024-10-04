@@ -3,7 +3,7 @@
 <!--#include file="Conexion.inc"-->
 <%
 	if session("usuario_admin")="" then
-		Response.Redirect("Login_GAGAD.asp")
+		Response.Redirect("Login_Admin.asp")
 	end if
 		
 	pedido_seleccionado=Request.Form("ocultopedido")
@@ -23,44 +23,8 @@
 	set pedidos=Server.CreateObject("ADODB.Recordset")
 		
 	with pedidos
-		' .ActiveConnection=connimprenta
-		' .Source="SELECT USUARIO_DIRECTORIO_ACTIVO, NombreUsuario, PEDIDOS.ID, PEDIDOS.CODCLI, V_CLIENTES.CODIGO_EXTERNO, V_CLIENTES.NOMBRE, PEDIDOS.PEDIDO, "
-		' .Source= .Source & " V_CLIENTES.DIRECCION, V_CLIENTES.POBLACION, V_CLIENTES.CP, V_CLIENTES.PROVINCIA, V_CLIENTES.TELEFONO, V_CLIENTES.FAX,"
-		' .Source= .Source & " PEDIDOS.FECHA, PEDIDOS.ESTADO as ESTADO_PEDIDO, PEDIDOS_DETALLES.ARTICULO, ARTICULOS.ID AS ID_ARTICULO, ARTICULOS.CODIGO_SAP,"
-		' .Source= .Source & " ARTICULOS.DESCRIPCION, PEDIDOS_DETALLES.CANTIDAD,"
-		' .Source= .Source & " (SELECT SUM(CANTIDAD_ENVIADA) FROM PEDIDOS_ENVIOS_PARCIALES"
-		' .Source= .Source & " WHERE ID_PEDIDO=PEDIDOS.ID AND ID_ARTICULO=ARTICULOS.ID AND ALBARAN IS NOT NULL) AS CANTIDAD_ENVIADA,"
-		' .Source= .Source & " (SELECT SUM(CANTIDAD_ENVIADA) FROM PEDIDOS_ENVIOS_PARCIALES"
-		' .Source= .Source & " WHERE ID_PEDIDO=PEDIDOS.ID AND ID_ARTICULO=ARTICULOS.ID AND ALBARAN IS NULL) AS CANTIDAD_LISTA,"
-		' .Source= .Source & " PEDIDOS_DETALLES.PRECIO_UNIDAD,"
-		' .Source= .Source & " (isnull(PEDIDOS_DETALLES.CANTIDAD,0)*isnull(PEDIDOS_DETALLES.PRECIO_COSTE,0)) as TotalCoste,"
-		' .Source= .Source & " PEDIDOS_DETALLES.TOTAL,PEDIDOS_DETALLES.PRECIO_COSTE,PEDIDOS_DETALLES.CANTIDAD, PEDIDOS_DETALLES.ESTADO as ESTADO_ARTICULO, PEDIDOS_DETALLES.FICHERO_PERSONALIZACION,"
-		' .Source= .Source & " PEDIDOS_DETALLES.HOJA_RUTA, PEDIDOS_DETALLES.RESTADO_STOCK,"
-		' .Source= .Source & " V_EMPRESAS.EMPRESA, V_EMPRESAS.CARPETA, V_EMPRESAS.ID as ID_EMPRESA, V_CLIENTES.MARCA,"
-		' .Source= .Source & " ARTICULOS.UNIDADES_DE_PEDIDO, ARTICULOS.PESO, PEDIDOS.FECHA_ENVIADO, PEDIDOS_DETALLES.ALBARAN,"
-		' .Source= .Source & " ARTICULOS_PERSONALIZADOS.PLANTILLA_PERSONALIZACION, PEDIDOS.PEDIDO_AUTOMATICO,"
-		' .Source= .Source & " CASE WHEN PEDIDOS_DETALLES.ALBARAN IS NULL THEN NULL ELSE" 
-		' .Source= .Source & " (SELECT FECHAVALIJA FROM V_DATOS_ALBARANES WHERE IDALBARAN=PEDIDOS_DETALLES.ALBARAN)"
-		' .Source= .Source & " END AS ENVIO_PROGRAMADO, AIR.PREFIX, AIR.SERIAL"
-		' .Source= .Source & ", DESTINATARIO, DESTINATARIO_DIRECCION, DESTINATARIO_POBLACION, DESTINATARIO_CP"
-		' .Source= .Source & ", DESTINATARIO_PROVINCIA, DESTINATARIO_PAIS, DESTINATARIO_TELEFONO, PEDIDOS.GASTOS_ENVIO, PEDIDOS.HORARIO_ENTREGA"
-		' .Source= .Source & ", DESTINATARIO_PERSONA_CONTACTO, DESTINATARIO_COMENTARIOS_ENTREGA"
-		
-		' .Source= .Source & " FROM PEDIDOS INNER JOIN PEDIDOS_DETALLES ON PEDIDOS.ID = PEDIDOS_DETALLES.ID_PEDIDO "
-		' .Source= .Source & " LEFT JOIN ARTICULOS ON PEDIDOS_DETALLES.ARTICULO = ARTICULOS.ID"
-		' .Source= .Source & " LEFT JOIN V_CLIENTES ON PEDIDOS.CODCLI = V_CLIENTES.Id"
-		' .Source= .Source & " LEFT JOIN V_EMPRESAS ON V_CLIENTES.EMPRESA = V_EMPRESAS.Id"
-    	' .Source= .Source & " LEFT JOIN (SELECT  Usuario, max(NombreUsuario) NombreUsuario FROM V_Usuarios GROUP BY Usuario ) Us ON PEDIDOS.USUARIO_DIRECTORIO_ACTIVO = Us.Usuario"
-		' .Source= .Source & " LEFT JOIN ARTICULOS_PERSONALIZADOS ON PEDIDOS_DETALLES.ARTICULO=ARTICULOS_PERSONALIZADOS.ID_ARTICULO"
-		' .Source= .Source & " LEFT JOIN ALBARANES_AIRWILLBILL AIR ON AIR.ALBARAN = PEDIDOS_DETALLES.ALBARAN"	
-
-		' .Source= .Source & " WHERE PEDIDOS.ID=" & pedido_seleccionado
-		' 'response.write("<br>" & .source)
-		' .Open
-
 		.ActiveConnection=connimprenta
-		.Source="set dateformat dmy; SELECT USUARIO_DIRECTORIO_ACTIVO, NombreUsuario, PEDIDOS.ID, PEDIDOS.CODCLI, V_CLIENTES.CODIGO_RUC, V_CLIENTES.OBSERVACIONES_ENTREGA,"
-		.Source= .Source & " V_CLIENTES.CODIGO_EXTERNO, V_CLIENTES.NOMBRE, PEDIDOS.PEDIDO,"
+		.Source="SELECT USUARIO_DIRECTORIO_ACTIVO, NombreUsuario, PEDIDOS.ID, PEDIDOS.CODCLI, V_CLIENTES.CODIGO_EXTERNO, V_CLIENTES.NOMBRE, PEDIDOS.PEDIDO, "
 		.Source= .Source & " V_CLIENTES.DIRECCION, V_CLIENTES.POBLACION, V_CLIENTES.CP, V_CLIENTES.PROVINCIA, V_CLIENTES.TELEFONO, V_CLIENTES.FAX,"
 		.Source= .Source & " PEDIDOS.FECHA, PEDIDOS.ESTADO as ESTADO_PEDIDO, PEDIDOS_DETALLES.ARTICULO, ARTICULOS.ID AS ID_ARTICULO, ARTICULOS.CODIGO_SAP,"
 		.Source= .Source & " ARTICULOS.DESCRIPCION, PEDIDOS_DETALLES.CANTIDAD,"
@@ -69,7 +33,8 @@
 		.Source= .Source & " (SELECT SUM(CANTIDAD_ENVIADA) FROM PEDIDOS_ENVIOS_PARCIALES"
 		.Source= .Source & " WHERE ID_PEDIDO=PEDIDOS.ID AND ID_ARTICULO=ARTICULOS.ID AND ALBARAN IS NULL) AS CANTIDAD_LISTA,"
 		.Source= .Source & " PEDIDOS_DETALLES.PRECIO_UNIDAD,"
-		.Source= .Source & " PEDIDOS_DETALLES.TOTAL, PEDIDOS_DETALLES.ESTADO as ESTADO_ARTICULO, PEDIDOS_DETALLES.FICHERO_PERSONALIZACION,"
+		.Source= .Source & " (isnull(PEDIDOS_DETALLES.CANTIDAD,0)*isnull(PEDIDOS_DETALLES.PRECIO_COSTE,0)) as TotalCoste,"
+		.Source= .Source & " PEDIDOS_DETALLES.TOTAL,PEDIDOS_DETALLES.PRECIO_COSTE,PEDIDOS_DETALLES.CANTIDAD, PEDIDOS_DETALLES.ESTADO as ESTADO_ARTICULO, PEDIDOS_DETALLES.FICHERO_PERSONALIZACION,"
 		.Source= .Source & " PEDIDOS_DETALLES.HOJA_RUTA, PEDIDOS_DETALLES.RESTADO_STOCK,"
 		.Source= .Source & " V_EMPRESAS.EMPRESA, V_EMPRESAS.CARPETA, V_EMPRESAS.ID as ID_EMPRESA, V_CLIENTES.MARCA,"
 		.Source= .Source & " ARTICULOS.UNIDADES_DE_PEDIDO, ARTICULOS.PESO, PEDIDOS.FECHA_ENVIADO, PEDIDOS_DETALLES.ALBARAN,"
@@ -92,7 +57,6 @@
 		.Source= .Source & " WHERE PEDIDOS.ID=" & pedido_seleccionado
 		'response.write("<br>" & .source)
 		.Open
-
 	end with
 
 	gastos_envio=0
@@ -1266,35 +1230,28 @@ body * { visibility: hidden; !important;  }
 										</td>
 										<td class="no_imprimir" id="fila_pedido_<%=fila%>_fichero_personalizacion" >
 
-											<% 'response.write(" llegue 1233  <br />") 
-
-											cadena_airwaybill=cadena_airwaybille & "GAG/pedidos/" & year(pedidos("FECHA")) & "/" & pedidos("CODCLI") & "__" & pedido_seleccionado
-											cadena_airwaybill=cadena_airwaybill & "/" & "Air_WayBill_" & pedidos("albaran") & "_" & pedidos("prefix") & "-" & pedidos("serial") & ".pdf" // nombre del Airwaybill
-											'response.write(cadena_airwaybill)
-											
-											%>													
+											<a href="#"> llegue 1233 </a><br />	
 
 											<%if pedidos("serial") <> "" then%>
-												<!--<a href="#">Serial no está vacío: <%=pedidos("serial") %></a><br />	
-												 <a href="#">Serial no está vacío: <%= pedidos("prefix") %></a><br />	
-												 <a href="#">Serial no está vacío: <%= pedidos("albaran") %></a><br /> -->												 
+												<a href="#">Serial no está vacío: <%= pedidos("prefix") %></a><br />	
+												<a href="#">Serial no está vacío: <%= pedidos("serial") %></a><br />	
+												<a href="#">Serial no está vacío: <%= pedidos("albaran") %></a><br />
 
-												<input type="hidden" name="ocultoprefix" id="ocultoprefix" value="<%=pedidos("prefix")%>" />
-												<input type="hidden" name="ocultoserial" id="ocultoserial" value="<%=pedidos("serial")%>" />																							
-												<input type="hidden" name="ocultoalbaran1" id="ocultoalbaran1" value="<%=pedidos("albaran")%>" />																							
+											<input type="hidden" name="ocultoprefix" id="ocultoprefix" value="<%=pedidos("prefix")%>" />
+											<input type="hidden" name="ocultoserial" id="ocultoserial" value="<%=pedidos("serial")%>" />																							
 
-												<!-- <a id="fileLinkContainerair" target="_blank" href="C:\CARRITO_IMPRENTA\Carrito\GAG\Pedidos\2024\5258__160733\Air_WayBill_241190_996-20117241.pdf" title="AirWayBill PDF"><i class="far fa-file-pdf"></i></a> Prueba DArdo --> 
-												<a href="<%=cadena_airwaybill%>" target="_blank" title="AirWayBill PDF"><i class="far fa-file-pdf"></i></a> 
-											
-												<a class='ml-2' id="dynamicLinkair" href="#" >
-												<img src="../images/Avion.png" title="AirWayBill" class="img-responsive"/></a> <!--Prueba DArdo --> 
+											<a id="fileLinkContainer" target="_blank" href="#" title="AirWayBill PDF"></a> <!--Prueba DArdo --> 
+											<a class='ml-2' id="dynamicLinkair" href="#" >
+											<img src="../images/Avion.png" title="AirWayBill" class="img-responsive"/></a> <!--Prueba DArdo --> 
 
-											<%else%>												
-												<a id="fileLinkContainer" target="_blank" href="#" title="AirWayBill PDF"></a> <!--Prueba DArdo --> 
-												<a class='ml-2' id="dynamicLink" href="#" style="display: none;">
-												<img src="../images/Avion.png" title="AirWayBill" class="img-responsive"/></a> <!--Prueba DArdo --> 
+
+											<%else%>
+												<a href="#">Serial está vacío o no existe</a>
+											<a id="fileLinkContainer" target="_blank" href="#" title="AirWayBill PDF"></a> <!--Prueba DArdo --> 
+											<a class='ml-2' id="dynamicLink" href="#" style="display: none;">
+											<img src="../images/Avion.png" title="AirWayBill" class="img-responsive"/></a> <!--Prueba DArdo --> 
 											<%end if%>
-	
+
 
 											<%
 											if pedidos("fichero_personalizacion")<>"" then
@@ -1337,7 +1294,16 @@ body * { visibility: hidden; !important;  }
 												<a href="<%=cadena_enlace%>" target="_blank"><img src="images/clip-16.png" border=0/></a>										
 
 												<!-- Prueba desarrollo Dardo -->
-												<%if pedidos("albaran")<>"" then%>
+												<%if pedidos("serial")<>"" then%>
+													' <a href="#">Serial no está vacío: <%= pedidos("serial") %></a>
+
+													' <a href="#"> llegue 1282 </a>	
+													' <a id="fileLinkContainer" target="_blank" href="#" title="AirWayBill PDF"></a> <!--Prueba DArdo --> 
+													' <a class='ml-2' id="dynamicLink" href="#" style="display: none;">
+													' <img src="../images/Avion.png" title="AirWayBill" class="img-responsive"/></a> <!--Prueba DArdo --> 
+												
+													
+
 													
 													' 	<% ' Construimos la URL dinámica
 													' 		' Creamos el enlace con el atributo href y el evento onclick
@@ -1355,33 +1321,20 @@ body * { visibility: hidden; !important;  }
 										<td class="albaranes no_imprimir" id="fila_pedido_<%=fila%>_albaran" style="text-align:right;font-size:1;color:#000000">
 										
 										<input type="hidden" name="ocultoalbaran" id="ocultoalbaran" value="<%=pedidos("albaran")%>" />
-										<input type="hidden" name="ocultoalbaran" id="ocultoalbaran" value="<%=pedidos("albaran")%>" />
 																		
-										<%if pedidos("albaran") <>"" then%>
+										<%if pedidos("albaran")<>"" then%>
 											<div id="celda_albaran_<%=pedidos("articulo")%>" onclick="ver_albaran('<%=pedidos("albaran")%>', '<%=entorno%>')" style="text-decoration:none;color:#000000;cursor:pointer;cursor:hand">
 												<%=pedidos("albaran")%>
 												<!--<span><a href="#" class="btn btn-primary" id="openModal">Subir archivo</a></span> -->
 											</div>
-										<input type="hidden" name="ocultoalbaran" id="ocultoalbaran" value="<%=pedidos("codigo_ruc")%>" />
-											
 											<%	
-											response.write(pedidos("codigo_ruc"))
-											If pedidos("serial") <> "" Then
-												'response.write(" llegue 1325 serial <br />")	
-
-												response.write("<a href='#' class='link link-info' id='openModal' title='Subir archivos' style='display: none;'>")
-												response.write("<img src='../images/upload.png' alt='Subir archivo' class='img-responsive' />")
-												response.write("</a>")
-											else
-												'response.write(" llegue 1332 serial else <br />")	
-
 												response.write("<input type=""hidden"" name=""ocultofila"" id=""ocultofila"" value=""" & fila & """ />")											
 												if fila = 1 then
 													response.write("<a href=""#"" class=""link link-info"" id=""openModal"" title=""Subir archivos"">")
 													response.write("<img src=""../images/upload.png"" alt=""Subir archivo"" class=""img-responsive"" />")
 													response.write("</a>")
 												end if									
-											end if	%>		
+											%>		
 
 											<!-- <div>
 												<a href="#" class="link link-info" id="openModal">Subir archivo</a>
@@ -1845,30 +1798,49 @@ j$(document).ready(function () {
         e.preventDefault();
         j$('#myModal').modal('show');
     });
-	
-	
-	// Obtener los valores del modal al cargar la página
-	var prefixair = j$('#ocultoprefix').val();
-	var serialair = j$('#ocultoserial').val();			
-		
-	var codcli = j$('#ocultocodcli').val();
-	var pedido = j$('#ocultopedido').val();
-	var albaran = j$('#ocultoalbaran').val();
 
-	// Construir la URL dinámica		
-	var urlair = 'http://www.aireuropacargo.com/index.asp?prefix=' + prefixair + '&serial=' + serialair;
 
-	// Asignar la URL al enlace y mostrarlo
-	j$('#dynamicLinkair').attr('href', urlair);		
-	j$('#dynamicLinkair').show();		
+		var prefix = j$('#prefix').val();
+		var serial = j$('#serial').val();		          
 
-	j$('#dynamicLinkair').click(function(event) {
-	event.preventDefault();		
-		if (confirm("¿Estás seguro de querer ir a esta página?")) {
-			//window.location.href = j$(this).attr('href');
-			window.open(urlair, '_blank');
-		} 
-	});
+		// Construir la URL dinámica		
+		var url = 'http://www.aireuropacargo.com/index.asp?prefix=' + prefix + '&serial=' + serial;
+
+		// Asignar la URL al enlace y mostrarlo
+		j$('#dynamicLink').attr('href', url);		
+		j$('#dynamicLink').show();		
+
+		j$('#dynamicLink').click(function(event) {
+		event.preventDefault();		
+			if (confirm("¿Estás seguro de querer ir a esta página?")) {
+				//window.location.href = j$(this).attr('href');
+				window.open(url, '_blank');
+			} 
+		});
+
+
+		// Obtener los valores del modal al cargar la página
+		var prefix = j$('#ocultoprefix').val();
+		var serial = j$('#ocultoserial').val();		
+		  
+        var codcli = j$('#ocultocodcli').val();
+        var pedido = j$('#ocultopedido').val();
+        var albaran = j$('#ocultoalbaran').val();
+
+		// Construir la URL dinámica		
+		var url = 'http://www.aireuropacargo.com/index.asp?prefix=' + prefix + '&serial=' + serial;
+
+		// Asignar la URL al enlace y mostrarlo
+		j$('#dynamicLinkair').attr('href', url);		
+		j$('#dynamicLinkair').show();		
+
+		j$('#dynamicLinkair').click(function(event) {
+		event.preventDefault();		
+			if (confirm("¿Estás seguro de querer ir a esta página?")) {
+				//window.location.href = j$(this).attr('href');
+				window.open(url, '_blank');
+			} 
+		});
 
 
 
@@ -1888,7 +1860,7 @@ j$(document).ready(function () {
         formData.append('num_albaran', albaran);	
 
         j$.ajax({
-            url: '/PHP/Air_waybill/upload_airwaybill.php', // HA DESARROLLAR
+            url: '/PHP/Air_waybill/upload_airwaybill.php', 
             type: 'POST',
             data: formData, 
             processData: false,
@@ -1901,13 +1873,12 @@ j$(document).ready(function () {
                     if (confirm(result.message)) {
                         formData.append('overwrite', true);
                         j$.ajax({
-                            url: '/PHP/Air_waybill/upload_airwaybill.php', // HA DESARROLLAR
+                            url: '/PHP/Air_waybill/upload_airwaybill.php',
                             type: 'POST',
                             data: formData,
                             processData: false,
                             contentType: false,
                             success: function(response) {
-								console.log(' response 2º ',response);
                                 handleUploadResponse(response);
                             }
                         });

@@ -3,7 +3,7 @@
 <!--#include file="Conexion.inc"-->
 <%
 		if session("usuario")="" then
-			Response.Redirect("Login.asp")
+			Response.Redirect("Login_GAGAD.asp")
 		end if
 		
 		
@@ -78,7 +78,7 @@ function cambiapuntoacoma(s)
 {
 	var saux = "";
 	//alert("pongo coma")
-	//alert("tamaño: " + s.legth)
+	//alert("tamaï¿½o: " + s.legth)
 	for (j=0;j<s.length; j++ )
 	{
 		if (s.charAt(j) == ".")
@@ -116,7 +116,7 @@ function redondear (v){
    
 function borrar_pedido(numero_pedido,fecha_pedido)
 {
-	if (confirm('¿Seguro Que Desea Borrar el Pedido Número ' + numero_pedido + '?'))
+	if (confirm('ï¿½Seguro Que Desea Borrar el Pedido Nï¿½mero ' + numero_pedido + '?'))
 		{
 		document.getElementById("ocultopedido_a_borrar").value=numero_pedido
 		document.getElementById("ocultofecha_pedido").value=fecha_pedido
@@ -446,7 +446,7 @@ eliminar_factura = function(factura, ejercicio) {
 					<table width="95%" border="0" cellpadding="0" cellspacing="0" align="center">
 						<tr>
 							<td width="31%" align="right"><img src="images/Carrito_48x48.png" border="0" /></td>
-							<td width="69%">&nbsp;<b><%=session("numero_articulos")%></b> Artículos</td>
+							<td width="69%">&nbsp;<b><%=session("numero_articulos")%></b> Artï¿½culos</td>
 						</tr>
 					</table>
 					
@@ -478,7 +478,7 @@ eliminar_factura = function(factura, ejercicio) {
 			</div>
 			<div class="contentcell">
 				<div class="sidefreetext" ><div align="left">
-					· <a href="Consulta_Pedidos.asp">Consultar</a>
+					ï¿½ <a href="Consulta_Pedidos.asp">Consultar</a>
 					
 				  <div class="info">				  </div>
 					
@@ -516,14 +516,14 @@ eliminar_factura = function(factura, ejercicio) {
 									<th class="menuhdr" width="107">Num. Pedido</th>
 									<th class="menuhdr" width="113">Fecha</th>
 									<th class="menuhdr" width="183">Estado</th>
-									<th class="menuhdr" width="211">Acción</th>
+									<th class="menuhdr" width="211">Acciï¿½n</th>
 								</tr>
 								
 								
 								
 								<%if pedidos.eof then%>
 									<tr> 
-										<td bgcolor="#999966" align="center" colspan="4"><b><FONT class="fontbold">Aún No Se Han Realizado Pedidos...</font></b><br>
+										<td bgcolor="#999966" align="center" colspan="4"><b><FONT class="fontbold">Aï¿½n No Se Han Realizado Pedidos...</font></b><br>
 										</td>
 									</tr>
 								<%end if%>

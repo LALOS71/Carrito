@@ -7,7 +7,7 @@
 	numero_registros=0
 		
 	if session("usuario_admin")="" then
-		Response.Redirect("Login_Admin.asp")
+		Response.Redirect("Login_GAGAD.asp")
 	end if
 	'response.write("procedencia: " & request.servervariables("http_referer"))
 	descripcion_seleccionada=Request.Form("txtdescripcion")
@@ -363,10 +363,10 @@
 									data-toggle="popover"
 									data-placement="top"
 									data-trigger="hover"
-									data-content="Resetear Contraseña del Empleado"
+									data-content="Resetear Contraseï¿½a del Empleado"
 									data-original-title=""
 									disabled>
-									<i class="fas fa-sync-alt"></i>&nbsp;&nbsp;&nbsp;Resetear Contraseña
+									<i class="fas fa-sync-alt"></i>&nbsp;&nbsp;&nbsp;Resetear Contraseï¿½a
 								</button>
 							</div>
 							
@@ -756,12 +756,12 @@ j$("#cmdguardar").click(function () {
 			if (j$("#ocultoid_empleado").val()=='')
 				{
 				accion='ALTA'
-				cadena_mensaje='¿Confirma que desea <B>dar de alta un nuevo empleado GLS</B> con los siguientes datos?<br>'
+				cadena_mensaje='ï¿½Confirma que desea <B>dar de alta un nuevo empleado GLS</B> con los siguientes datos?<br>'
 				}
 			  else
 			  	{
 				accion='MODIFICACION'
-				cadena_mensaje='¿Confirma que desea <B>modificar los datos de un empleado GLS ya existente</B> utilizando los siguientes datos?<br><br>'
+				cadena_mensaje='ï¿½Confirma que desea <B>modificar los datos de un empleado GLS ya existente</B> utilizando los siguientes datos?<br><br>'
 				}
 
 			cadena_mensaje+= '<BR>FECHA DE ALTA: <B>' + j$("#txtfecha_alta").val() + '</B><br>'
@@ -796,7 +796,7 @@ j$("#cmdguardar").click(function () {
 							{
 							cadena_error= '<br>- DNI / CIF / NIF / NIE no v&aacute;lido.'
 							cadena_mensaje='Parece que el DNI / CIF / NIF / NIE <b>' + j$("#txtnif").val() + '</b> NO es correcto.<br>'
-							cadena_mensaje+='<br>Pulse <b>"GUARDAR"</b> si está seguro que el documento (DNI/CIF/NIF/NIE) está correctamente escrito, y se guardarán los datos.<br>'
+							cadena_mensaje+='<br>Pulse <b>"GUARDAR"</b> si estï¿½ seguro que el documento (DNI/CIF/NIF/NIE) estï¿½ correctamente escrito, y se guardarï¿½n los datos.<br>'
 							cadena_mensaje+='<br>Pulse <b>"CANCELAR"</b> para corregir el documento (DNI/CIF/NIF/NIE)'
 							
 							bootbox.confirm({
@@ -855,7 +855,7 @@ j$("#cmdresetear").click(function () {
 					case 'OK':  
 						bootbox.alert({
 								size: 'large'
-								, message: '<h3>Contraseña del Empleado Reseteada...</h3><br><br><h5>Su usuario será su DNI, y su contraseña, para el primer acceso será su DNI y al acceder el sistema le obligará a cambiar la contraseña por otra de su eleccion a la que no tendremos acceso.</h5>'
+								, message: '<h3>Contraseï¿½a del Empleado Reseteada...</h3><br><br><h5>Su usuario serï¿½ su DNI, y su contraseï¿½a, para el primer acceso serï¿½ su DNI y al acceder el sistema le obligarï¿½ a cambiar la contraseï¿½a por otra de su eleccion a la que no tendremos acceso.</h5>'
 								, callback: function () {
 											location.href='Gestion_Empleados_GLS_GAGAD.asp'
 											}
@@ -863,7 +863,7 @@ j$("#cmdresetear").click(function () {
 						break;
 						
 					case 'VOLVER_LOGIN':  
-						location.href='Login_Admin.asp'
+						location.href='Login_GAGAD.asp'
 						break;
 						
 					default: 
@@ -915,7 +915,7 @@ guardar_empleado = function(codigo) {
 					case 'ALTA_OK':  
 						bootbox.alert({
 								size: 'large'
-								, message: '<h3>Empleado Creado con Exito...</h3><br><br><h5>Su usuario será su DNI, y su contraseña, para el primer acceso será su DNI y al acceder el sistema le obligará a cambiar la contraseña por otra de su eleccion a la que no tendremos acceso.</h5>'
+								, message: '<h3>Empleado Creado con Exito...</h3><br><br><h5>Su usuario serï¿½ su DNI, y su contraseï¿½a, para el primer acceso serï¿½ su DNI y al acceder el sistema le obligarï¿½ a cambiar la contraseï¿½a por otra de su eleccion a la que no tendremos acceso.</h5>'
 								, callback: function () {
 											/*
 											j$("#ocultoid_empleado").val('')
@@ -936,7 +936,7 @@ guardar_empleado = function(codigo) {
 					case 'ALTA_DNI_REPETIDO':  
 						bootbox.alert({
 								size: 'large',
-								message: '<h3 style="color:red">DNI Repetido...</h3><br><br><h5 style="color:red">El DNI introducido ya está dado de alta en el sistema, asegúrese que es correcto, y si es asi, busque al empleado desde La Busqueda de Empleado y modifique sus datos existentes en vez de crear un empleado nuevo.</h5>'
+								message: '<h3 style="color:red">DNI Repetido...</h3><br><br><h5 style="color:red">El DNI introducido ya estï¿½ dado de alta en el sistema, asegï¿½rese que es correcto, y si es asi, busque al empleado desde La Busqueda de Empleado y modifique sus datos existentes en vez de crear un empleado nuevo.</h5>'
 							});  
 						break;
 					
@@ -964,12 +964,12 @@ guardar_empleado = function(codigo) {
 					case 'MODIFICACION_DNI_REPETIDO':  
 						bootbox.alert({
 								size: 'large',
-								message: '<h3 style="color:red">DNI Repetido...</h3><br><br><h5 style="color:red">El DNI introducido ya está dado de alta en el sistema para otro Empleado, asegúrese que es correcto, y si es asi, busque al empleado desde La Busqueda de Empleado y modifique sus datos existentes.</h5>'
+								message: '<h3 style="color:red">DNI Repetido...</h3><br><br><h5 style="color:red">El DNI introducido ya estï¿½ dado de alta en el sistema para otro Empleado, asegï¿½rese que es correcto, y si es asi, busque al empleado desde La Busqueda de Empleado y modifique sus datos existentes.</h5>'
 							});  
 						break;
 					
 					case 'VOLVER_LOGIN':  
-						location.href='Login_Admin.asp'
+						location.href='Login_GAGAD.asp'
 						break;
 
 					default: 
@@ -1002,9 +1002,9 @@ function validarNIF(nif) {
             NIE: Correcto, se trata de un NIE (extranjero)
             CIF: Correcto, se trata de un NIF (Empresa)
  
-        Los DNI españoles pueden ser:
-        NIF (Numero de Identificación Fiscal) - 8 numeros y una letra1
-        NIE (Numero de Identificación de Extranjeros) - 1 letra2, 7 numeros y 1 letra1
+        Los DNI espaï¿½oles pueden ser:
+        NIF (Numero de Identificaciï¿½n Fiscal) - 8 numeros y una letra1
+        NIE (Numero de Identificaciï¿½n de Extranjeros) - 1 letra2, 7 numeros y 1 letra1
         
 		letra1 - Una de las siguientes: TRWAGMYFPDXBNJZSQVHLCKE
         letra2 - Una de las siguientes: XYZ           

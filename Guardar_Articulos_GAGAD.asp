@@ -7,7 +7,7 @@
 		Response.CharSet = "utf-8"
 
 		if session("usuario_admin")="" then
-			Response.Redirect("Login_Admin.asp")
+			Response.Redirect("Login_GAGAD.asp")
 		end if
 		
 		

@@ -7,7 +7,7 @@
 		
 		'RESPONSE.WRITE("<BR><BR>" & now &  " - DENTRO DE FICHA ARTICULO")
 		if session("usuario_admin")="" then
-			Response.Redirect("Login_Admin.asp")
+			Response.Redirect("Login_GAGAD.asp")
 		end if
 		
 		articulo_seleccionado= "" & Request.Form("ocultoid_articulo")

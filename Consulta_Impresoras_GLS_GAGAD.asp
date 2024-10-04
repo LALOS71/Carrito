@@ -7,7 +7,7 @@
 	numero_registros=0
 
 	if session("usuario_admin")="" then
-		Response.Redirect("Login_Admin.asp")
+		Response.Redirect("Login_GAGAD.asp")
 	end if
 		
 	'cliente_seleccionado=Request.Form("cmbclientes")
@@ -266,7 +266,7 @@
 											<div class="col-sm-12 col-md-3 col-lg-3">
 												<div class="col-12">
 													<select id="cmbtipo" name="cmbtipo" class="form-control">
-														<option value="">¿Tipo?</option>
+														<option value="">ï¿½Tipo?</option>
 														<option value="GLS PROPIA">GLS PROPIA</option>
 														<option value="AGENCIA">AGENCIA</option>
 														<option value="ARRASTRES">ARRASTRES</option>
@@ -282,11 +282,11 @@
 									
 									<div class="form-group row">    
 										  <div class="col-md-3">
-											<input type="text" class="form-control" size="30" name="txtsn_impresora" id="txtsn_impresora" value="" placeholder="Número de Serie"
+											<input type="text" class="form-control" size="30" name="txtsn_impresora" id="txtsn_impresora" value="" placeholder="Nï¿½mero de Serie"
 													data-toggle="popover" 
 													data-placement="bottom" 
 													data-trigger="hover" 
-													data-content="Filtrar por el Número de Serie de La Impresora" 
+													data-content="Filtrar por el Nï¿½mero de Serie de La Impresora" 
 													data-original-title=""
 													/>
 										  </div>
@@ -322,13 +322,13 @@
 													data-toggle="popover" 
 													data-placement="bottom" 
 													data-trigger="hover" 
-													data-content="Filtrar por el Número de Pedido" 
+													data-content="Filtrar por el Nï¿½mero de Pedido" 
 													data-original-title=""
 													/>
 										  </div>
 										  <div class="col-md-2">
 											<select id="cmbfacturable" name="cmbfacturable" class="form-control">
-												<option value="">¿Facturable?</option>
+												<option value="">ï¿½Facturable?</option>
 												<option value="SI">SI</option>
 												<option value="NO">NO</option>
 											</select>			
@@ -600,18 +600,18 @@ mostrar_impresoras = function (){
 			//console.log('antes de ocultar')
 			
 			
-			// Verificar si el datatable está completamente cargado antes de cerrar el bootbox
+			// Verificar si el datatable estï¿½ completamente cargado antes de cerrar el bootbox
 			  if (datatableReady) {
 				dialog.modal('hide');
 			  } else {
-				// Esperar un momento y verificar nuevamente si el datatable está listo
+				// Esperar un momento y verificar nuevamente si el datatable estï¿½ listo
 				setTimeout(function() {
 				  if (datatableReady) {
 					dialog.modal('hide');
 				  } else {
-					// Opcional: Mostrar un mensaje de error o realizar otra acción en caso de que el datatable no esté listo después de esperar un tiempo adicional.
+					// Opcional: Mostrar un mensaje de error o realizar otra acciï¿½n en caso de que el datatable no estï¿½ listo despuï¿½s de esperar un tiempo adicional.
 				  }
-				}, 1000); // Tiempo de espera adicional en milisegundos (ajusta según sea necesario)
+				}, 1000); // Tiempo de espera adicional en milisegundos (ajusta segï¿½n sea necesario)
 			  }
 			//console.log('despues de olcultar')
         },
@@ -648,7 +648,7 @@ realizar_accion = function(sn_o_pedido, accion) {
 	cadena_mensaje=''	
 	if (estado=='')
 		{
-		cadena_mensaje = cadena_mensaje + '<H5>Debe seleccionar una acción</H5>'
+		cadena_mensaje = cadena_mensaje + '<H5>Debe seleccionar una acciï¿½n</H5>'
 		}
 
 		
@@ -676,31 +676,31 @@ realizar_accion = function(sn_o_pedido, accion) {
 		
 		if (accion=='EN REVISION')
 			{
-			mensaje_box = '<br><br><h5>¿Seguro que desea ENVIAR A REVISION la Impresora ' + sn_o_pedido + '?</h5>'
+			mensaje_box = '<br><br><h5>ï¿½Seguro que desea ENVIAR A REVISION la Impresora ' + sn_o_pedido + '?</h5>'
 			}
 			
 		if (accion=='BAJA')
 			{
-			mensaje_box = '<br><br><h5>¿Seguro que desea DAR DE BAJA la Impresora ' + sn_o_pedido + '?</h5>'
+			mensaje_box = '<br><br><h5>ï¿½Seguro que desea DAR DE BAJA la Impresora ' + sn_o_pedido + '?</h5>'
 			}
 
 		if (accion=='RETIRADA')
 			{
-			mensaje_box = '<br><br><h5>¿Seguro que desea ENVIAR A RETIRADA la Impresora ' + sn_o_pedido + '?</h5>'
+			mensaje_box = '<br><br><h5>ï¿½Seguro que desea ENVIAR A RETIRADA la Impresora ' + sn_o_pedido + '?</h5>'
 			}
 					
 		if (accion=='EN REPARACION')
 			{
-			mensaje_box = '<br><br><h5>¿Seguro que desea ENVIAR A REPARACION la Impresora ' + sn_o_pedido + '?</h5>'
+			mensaje_box = '<br><br><h5>ï¿½Seguro que desea ENVIAR A REPARACION la Impresora ' + sn_o_pedido + '?</h5>'
 			}
 		if (accion=='EN CESION')
 			{
-			mensaje_box = '<br><br><h5>¿Seguro que desea ENVIAR EN CESION la Impresora ' + sn_o_pedido + '?</h5>'
+			mensaje_box = '<br><br><h5>ï¿½Seguro que desea ENVIAR EN CESION la Impresora ' + sn_o_pedido + '?</h5>'
 			}
 		
 		if (accion=='DEFECTUOSA-REEMPLAZO')
 			{
-			mensaje_box = '<br><br><h5>Se Creará automaticamente un Pedido con una Impresora Nueva para Reemplazar a la Impresora Defectuosa ' + sn_o_pedido + '</h5>'
+			mensaje_box = '<br><br><h5>Se Crearï¿½ automaticamente un Pedido con una Impresora Nueva para Reemplazar a la Impresora Defectuosa ' + sn_o_pedido + '</h5>'
 			}
 			
 		bootbox.confirm({

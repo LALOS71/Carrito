@@ -1692,7 +1692,7 @@ function ver_si_imprimir(origen)
 		{
 		window.print()
 		window.onafterprint = function(event) {
-	    	window.location.href = 'Consulta_Pedidos_Admin.asp'
+	    	window.location.href = 'Consulta_Pedidos_GAGAD.asp'
 			}
 		}
 	

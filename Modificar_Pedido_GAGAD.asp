@@ -37,7 +37,7 @@ end sub
 
 	
     if session("usuario_admin")="" then
-			Response.Redirect("Login_Admin.asp")
+			Response.Redirect("Login_GAGAD.asp")
 	end if
 		
 	
@@ -2121,7 +2121,7 @@ function validar(creamos_albaran,numero_albaran, accion, enviar_email_al_proveed
 		}
 	if (creamos_albaran=='NO')
 		{
-		cadena= cadena + '\n\nno se ha creado el albarán ya que no hay nuevos articulos enviados sobre los que crear albarán.'
+		cadena= cadena + '\n\nno se ha creado el albarán ya que no hay nuevos artículos enviados sobre los que crear albarán.'
 		}
 		
 	

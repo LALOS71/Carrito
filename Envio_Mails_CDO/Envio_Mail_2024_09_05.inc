@@ -1,12 +1,7 @@
 ﻿<%
-Response.CharSet = "UTF-8"
-
-
 Function envio_email(de, para, asunto, mensaje, adjunto, servidor)
-
-	
 	'response.write("<br>dentro de la funcion envio_email")
-	'response.write("<br>de: ---" & de & "---")
+	'response.write("<br>de: " & de)
 	'response.write("<br>para: " & para)
 	'response.write("<br>asunto: " & asunto)
 	'response.write("<br>mensaje: " & mensaje)
@@ -16,7 +11,6 @@ Function envio_email(de, para, asunto, mensaje, adjunto, servidor)
 	' Primero, cree una instancia del objeto de servidor CDO
 	Dim objCDO
 	Set objCDO = Server.CreateObject("CDO.Message")
-	
 	
 	
 	
@@ -30,9 +24,10 @@ Function envio_email(de, para, asunto, mensaje, adjunto, servidor)
 	' y no tener que andar comentando y descomentando lineas		
 	cadena_asunto = ""
 	correo_recibe = ""
-	if C_ENTORNO_EJECUCION <> "PROD" then
+	if Request.ServerVariables("SERVER_NAME")<>"carrito.globalia-artesgraficas.com" and Request.ServerVariables("SERVER_NAME")<>"10.150.3.20" then
 		'ENTRONO PRUEBAS
 		correos_recibe = "malba@globalia-artesgraficas.com"
+		'correos_recibe="malba@halconviajes.com"
 		cadena_asunto = "PRUEBAS... " & asunto
 	  else
 		'ENTORNO REAL
@@ -52,8 +47,6 @@ Function envio_email(de, para, asunto, mensaje, adjunto, servidor)
    'objCDO.TextBody = "cuerpo del mensaje."
    'objCDO.CreateMHTMLBody "http://www.w3schools.com/asp/" 
    
-   'si no pongo esto primero da error al asignar texto al htmlbody
-   objCDO.TextBody = strip_tags(mensaje)   
    objCDO.HtmlBody = ConvertirAcentos(mensaje)
    
 
@@ -88,13 +81,13 @@ Function envio_email(de, para, asunto, mensaje, adjunto, servidor)
    ' Enviar el correo electrónico
 	On Error Resume Next
 	objCDO.Send
-	'response.write("<br><br>enviamos mail")
+	
 	If Err.Number = 0 Then
 		respuesta = "{""type"" : ""ok"", ""msg"" : ""Correo electrónico enviado con exito""}"
 	Else
 		respuesta = "{""type"" : ""error"", ""msg"" : """ & Err.number & " - " & Err.Description & """}"
 	End If
-	'response.write("<br><br><br><br><br><br>respuesta devuelve: " & respuesta)
+
 	
 	set objCDO = Nothing
     envio_email = respuesta
@@ -130,17 +123,6 @@ Function ConvertirAcentos(mensaje)
     Next
     ConvertirAcentos = mensaje
 End Function
-
-function strip_tags(strHTML)
-	dim regEx
-	Set regEx = New RegExp
-	With regEx
-		.Pattern = "<(.|\n)+?>"
-		.IgnoreCase = true
-		.Global = true
-	End With
-	strip_tags = regEx.replace(strHTML, "")
-end function
 
 %>
 

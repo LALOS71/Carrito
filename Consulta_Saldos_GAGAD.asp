@@ -7,7 +7,7 @@
 	numero_registros=0
 
 	if session("usuario_admin")="" then
-		Response.Redirect("Login_Admin.asp")
+		Response.Redirect("Login_GAGAD.asp")
 	end if
 		
 	
@@ -299,7 +299,7 @@ set tipos_saldo=Server.CreateObject("ADODB.Recordset")
 								<div class="typeahead__container">
 									<div class="typeahead__field">
 										<div class="typeahead__query">
-											<input class="js-typeahead-cliente form-control" name="txtbuscar_cliente" id="txtbuscar_cliente" type="search" placeholder="Buscar Cliente (Por Código o Descripción)" autocomplete="off">
+											<input class="js-typeahead-cliente form-control" name="txtbuscar_cliente" id="txtbuscar_cliente" type="search" placeholder="Buscar Cliente (Por Cï¿½digo o Descripciï¿½n)" autocomplete="off">
 										</div>
 									</div>
 								</div>
@@ -325,10 +325,10 @@ set tipos_saldo=Server.CreateObject("ADODB.Recordset")
 									data-bs-toggle="popover"
 									data-bs-placement="top"
 									data-bs-trigger="hover"
-									data-bs-content="Añadir un Nuevo Saldo"
+									data-bs-content="Aï¿½adir un Nuevo Saldo"
 									title=""
 									>
-									<i class="fas fa-plus"></i>&nbsp;&nbsp;&nbsp;Añadir
+									<i class="fas fa-plus"></i>&nbsp;&nbsp;&nbsp;Aï¿½adir
 								</button>
 							</div>
 						</div>
@@ -647,7 +647,7 @@ j$("#cmdannadir_saldo").click(function () {
 	cadena_mensaje+='<div class="typeahead__container">'
 	cadena_mensaje+='<div class="typeahead__field">'
 	cadena_mensaje+='<div class="typeahead__query">'
-	cadena_mensaje+='<input class="js-typeahead-cliente form-control" name="txtnuevo_saldo_buscar_cliente" id="txtnuevo_saldo_buscar_cliente" type="search" placeholder="Buscar Cliente (Por Código o Descripción)" autocomplete="off">'
+	cadena_mensaje+='<input class="js-typeahead-cliente form-control" name="txtnuevo_saldo_buscar_cliente" id="txtnuevo_saldo_buscar_cliente" type="search" placeholder="Buscar Cliente (Por Cï¿½digo o Descripciï¿½n)" autocomplete="off">'
 	cadena_mensaje+='</div>'
 	cadena_mensaje+='</div>'
 	cadena_mensaje+='</div>'
@@ -766,10 +766,10 @@ j$("#cmdannadir_saldo").click(function () {
 					cadena_texto += '<br><b>Observaciones:</b> ' + j$("#txtnuevo_saldo_observaciones").val()
 					bootbox.confirm({
 						size: 'large',
-						title: "Confirmación",
+						title: "Confirmaciï¿½n",
 						closeButton: false,
 						centerVertical: true,
-						message: "<h5>¿Está seguro que desea guardar el saldo con la siguiente información?</h5>" + cadena_texto + "<br><br>",
+						message: "<h5>ï¿½Estï¿½ seguro que desea guardar el saldo con la siguiente informaciï¿½n?</h5>" + cadena_texto + "<br><br>",
 						buttons: {
 							cancel: {
 								label: '<i class="fa fa-times"></i> Cancelar'
@@ -824,13 +824,13 @@ comprobar_datos_saldo = function(){
 	  	{
 		if (!j$.isNumeric(j$("#txtnuevo_saldo_importe").val().replace(',', '.'))) 
 			{
-    		cadena_error=cadena_error + '- El Importe del Saldo Ha De Ser Numérico.<br>'
+    		cadena_error=cadena_error + '- El Importe del Saldo Ha De Ser Numï¿½rico.<br>'
 			}	
 		  else
 		  	{
 			if (parseFloat(j$("#txtnuevo_saldo_importe").val().replace(',', '.')) <= 0) 
 				{
-				cadena_error=cadena_error + '- El Importe del Saldo Ha De Ser Numérico Positivo.<br>'
+				cadena_error=cadena_error + '- El Importe del Saldo Ha De Ser Numï¿½rico Positivo.<br>'
 				}
 			}	
 		}
@@ -1028,7 +1028,7 @@ consultar_saldos = function() {
 																			if ( type === "display" ) //si se visualiza se formatea
 																				{
 																				valor=j$.fn.dataTable.render.number( '.', ',', 2).display(data.replace(',', '.'))
-																				return valor + ' €'
+																				return valor + ' ï¿½'
 																				}
 																			  else
 																			  	{
@@ -1195,10 +1195,10 @@ consultar_saldos = function() {
 						cadena_saldo+='<br>'
 						bootbox.confirm({
 								size: 'large',
-								title: 'Confirmación',
+								title: 'Confirmaciï¿½n',
 								closeButton: false,
 								centerVertical: true,
-								message: '<h5>¿Seguro que Desea Eliminar Este Saldo?</h5>' + cadena_saldo,
+								message: '<h5>ï¿½Seguro que Desea Eliminar Este Saldo?</h5>' + cadena_saldo,
 								buttons: {
 									confirm: {
 										label: '<i class="fas fa-check"></i> SI',

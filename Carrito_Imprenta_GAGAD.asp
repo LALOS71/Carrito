@@ -3,7 +3,7 @@
 <!--#include file="Conexion.inc"-->
 <%
 		'if session("usuario")="" then
-		'	Response.Redirect("Login_Admin.asp")
+		'	Response.Redirect("Login_GAGAD.asp")
 		'end if
 		
 		
@@ -145,9 +145,9 @@ If borrar<>"" Then 'Si se ha pedido el borrado de un articulo
 	Loop
 	'response.write("<br>y ahora tenemos que mover unos articulos sobre otros... Hay " & Session("numero_articulos") & " articulos en el pedido")
 	For j=i to Session("numero_articulos")
-		'RESPONSE.WRITE("<BR>SESSION(" & j & "): " & session(j) & " contendrá a SESSSION(" & j+1 & "): " & session(j+1))
+		'RESPONSE.WRITE("<BR>SESSION(" & j & "): " & session(j) & " contendrï¿½ a SESSSION(" & j+1 & "): " & session(j+1))
 		Session(j)=Session(j+1)
-		'RESPONSE.WRITE("<BR>SESSION(" & j & "_cantidades_precios): " & session(j & "_cantidades_precios") & " contendrá a SESSSION(" & j+1 & "_cantidades_precios): " & session(j+1 & "_cantidades_precios"))
+		'RESPONSE.WRITE("<BR>SESSION(" & j & "_cantidades_precios): " & session(j & "_cantidades_precios") & " contendrï¿½ a SESSSION(" & j+1 & "_cantidades_precios): " & session(j+1 & "_cantidades_precios"))
 		Session(j & "_cantidades_precios")=Session((j+1) & "_cantidades_precios")
 		Session(j & "_fichero_asociado")=Session((j+1) & "_fichero_asociado")
 		Session(j & "_restado_stock")=Session((j+1) & "_restado_stock")
@@ -237,7 +237,7 @@ margin: 250px auto;
 
 -moz-border-radius: 20px; /* Firefox */
 -webkit-border-radius: 20px; /* Google Chrome y Safari */
-border-radius: 20px; /* CSS3 (Opera 10.5, IE 9 y estándar a ser soportado por todos los futuros navegadores) */
+border-radius: 20px; /* CSS3 (Opera 10.5, IE 9 y estï¿½ndar a ser soportado por todos los futuros navegadores) */
 /*
 behavior:url(border-radius.htc);/* IE 8.*/
 
@@ -265,7 +265,7 @@ function cambiapuntoacoma(s)
 {
 	var saux = "";
 	//alert("pongo coma")
-	//alert("tamaño: " + s.legth)
+	//alert("tamaï¿½o: " + s.legth)
 	for (j=0;j<s.length; j++ )
 	{
 		if (s.charAt(j) == ".")
@@ -307,7 +307,7 @@ function validar(pedido_minimo, total_pedido)
 	
 	if (pedido_minimo>total_pedido)
 		{
-			alert('El Importe del Pedido no Alcanza El Pedido Mínimo Permitido')
+			alert('El Importe del Pedido no Alcanza El Pedido Mï¿½nimo Permitido')
 		}
 	  else
 	  	{
@@ -352,7 +352,7 @@ function cerrar_capas(capa)
 			<p>
 				<img src="images/loading4.gif"/>
 					<br /><br />
-					Espere mientras se guarda la Infomación...
+					Espere mientras se guarda la Infomaciï¿½n...
 			</p>
 		</div>
 		
@@ -385,9 +385,9 @@ function cerrar_capas(capa)
 			</div>
 			<div class="contentcell">
 				<div class="sidefreetext" ><div align="left">
-					· <a href="Consulta_Pedidos_GAGAD.asp">Pedidos</a><br />
-					· <a href="Consulta_Articulos_GAGAD.asp">Artículos</a><br />
-					· <a href="Consulta_Clientes_GAGAD.asp">Clientes</a><br />
+					ï¿½ <a href="Consulta_Pedidos_GAGAD.asp">Pedidos</a><br />
+					ï¿½ <a href="Consulta_Articulos_GAGAD.asp">Artï¿½culos</a><br />
+					ï¿½ <a href="Consulta_Clientes_GAGAD.asp">Clientes</a><br />
 					
 					<br />
 					
@@ -429,7 +429,7 @@ function cerrar_capas(capa)
 					  <table border="0" cellpadding="1" cellspacing="1" width="99%" class="info_table">
                         <tr style="background-color:#FCFCFC" valign="top">
                           <th class="menuhdr">Cod. Sap</th>
-                          <th class="menuhdr">Artículo</th>
+                          <th class="menuhdr">Artï¿½culo</th>
                           <th class="menuhdr">Cantidad</th>
                           <th class="menuhdr">Precio/u</th>
                           <th class="menuhdr">Total</th>
@@ -490,7 +490,7 @@ function cerrar_capas(capa)
 						%>
                         <tr valign="top">
                           <td class="ac item_row" width="64" align="right" style="background-color:<%=colorcin%>">
-						  <%'Esta consulta es para saber si el artículo seleccionado es de Barceló o de otros, por el tema de la Imagen
+						  <%'Esta consulta es para saber si el artï¿½culo seleccionado es de Barcelï¿½ o de otros, por el tema de la Imagen
 							set articulos_empresas=Server.CreateObject("ADODB.Recordset")
 							with articulos_empresas
 								.ActiveConnection=connimprenta
@@ -533,7 +533,7 @@ function cerrar_capas(capa)
                           <td class="ac item_row" width="66" style="background-color:<%=colorcin%>">
 						  	<input type="hidden" name="ocultoprecio_<%=id%>" id="ocultoprecio_<%=id%>" value="<%=calculos_cantidades_precios(1)%>">
 							<%if compromiso_compra_pedido="SI" then%>
-								<%=calculos_cantidades_precios(1)%> €/u
+								<%=calculos_cantidades_precios(1)%> ï¿½/u
 							  <%else%>
 							  				
 							  	<%response.write("")%>			  		
@@ -546,7 +546,7 @@ function cerrar_capas(capa)
 									  else
 									  	resultado=cdbl(replace(calculos_cantidades_precios(2),".",","))
 									end if
-									Response.write(resultado & " €") 
+									Response.write(resultado & " ï¿½") 
 									'response.write("<br>cantidad: " & calculos_cantidades_precios(0) & " precio unidad: " & calculos_cantidades_precios(1) & " total Pack: " & calculos_cantidades_precios(2))
 									'response.write("<br>cantidad*precio unidad: " & cdbl(replace(calculos_cantidades_precios(0),".",","))*cdbl(replace(calculos_cantidades_precios(1),".",",")))
 									
@@ -586,7 +586,7 @@ function cerrar_capas(capa)
 											<td width="249" style="background-color:<%=colorcin%>">
 												<table width="219px"  border="0" cellpadding="0" cellspacing="0" style="border:1px solid;display:none" id="fila_fichero_<%=id%>">
 													<tr>
-														<td align="center" >Fichero para Personalizar el Artículo:</td>
+														<td align="center" >Fichero para Personalizar el Artï¿½culo:</td>
 															
 													</tr>
 													<tr>
@@ -597,7 +597,7 @@ function cerrar_capas(capa)
 											  	</table>
 												<table width="219"  border="0" cellpadding="0" cellspacing="0" style="border:1px solid" id="fila_fichero_existente_<%=id%>">
 													<tr>
-														<td width="88%">Fichero para Personalizar el Artículo:</td>
+														<td width="88%">Fichero para Personalizar el Artï¿½culo:</td>
 														<td width="12%">
 															<%
 																directorio="pedidos"
@@ -631,7 +631,7 @@ function cerrar_capas(capa)
 							<%else%>	
 								<tr>
 								<td class="item_row" colspan=5 style="background-color:<%=colorcin%>;text-align:right">
-									Fichero para Personalizar el Artículo:
+									Fichero para Personalizar el Artï¿½culo:
 								
 									<input type="file" name="txtfichero_<%=id%>" id="txtfichero_<%=id%>" value="">
 								</td>
@@ -647,7 +647,7 @@ function cerrar_capas(capa)
 								if compromiso_compra_pedido="NO" or id=564 or id=565 then%>
 							<tr>
 								<td class="item_row" colspan=5 style="background-color:<%=colorcin%>;text-align:right">
-									Fichero para Personalizar el Artículo:
+									Fichero para Personalizar el Artï¿½culo:
 								
 									<input type="file" name="txtfichero_<%=id%>" id="txtfichero_<%=id%>" value="">
 								</td>
@@ -676,13 +676,13 @@ function cerrar_capas(capa)
                           <td>&nbsp;</td>
                           <td>&nbsp;</td>
 						  <th class="menuhdr" colspan=2>Total</th>
-                          <th style="text-align:right"><%=total_pedido%> €</th>
+                          <th style="text-align:right"><%=total_pedido%> ï¿½</th>
                         </tr>
                         <tr>
                           <td>&nbsp;</td>
                           <td>&nbsp;</td>
 						  
-                          <th class="menuhdr" colspan=2>Pedido Mínimo</th>
+                          <th class="menuhdr" colspan=2>Pedido Mï¿½nimo</th>
                           <th style="text-align:right">
 						   	<%
 							if control_compromiso_compra_pedido="NO" then
@@ -690,7 +690,7 @@ function cerrar_capas(capa)
       						else
 								pedido_minimo_permitido=pedido_minimo_con_compromiso
 							end if
-							response.write(pedido_minimo_permitido & " €")
+							response.write(pedido_minimo_permitido & " ï¿½")
 							%>
                           </th>
                         </tr>

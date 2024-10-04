@@ -7,7 +7,7 @@
 	numero_registros=0
 		
 	if session("usuario_admin")="" then
-		Response.Redirect("Login_Admin.asp")
+		Response.Redirect("Login_GAGAD.asp")
 	end if
 	'response.write("procedencia: " & request.servervariables("http_referer"))
 	empresa_seleccionada=Request.Form("cmbempresas")
@@ -196,7 +196,7 @@ function cambiapuntoacoma(s)
 {
 	var saux = "";
 	//alert("pongo coma")
-	//alert("tamaño: " + s.legth)
+	//alert("tamaï¿½o: " + s.legth)
 	for (j=0;j<s.length; j++ )
 	{
 		if (s.charAt(j) == ".")
@@ -353,8 +353,8 @@ function cerrar_capas(capa)
 									data-original-title=""
 									>COD. ART.</th>
 								  <th>REFERENCIA</th>
-								  <th>DESCRIPCIÓN</th>
-								  <th>ALBARÁN</th>
+								  <th>DESCRIPCIï¿½N</th>
+								  <th>ALBARï¿½N</th>
 								  <th
 								  	data-toggle="popover"
 									data-placement="bottom"
@@ -369,7 +369,7 @@ function cerrar_capas(capa)
 									data-content="Cantidad"
 									data-original-title=""
 									>CANT.</th>
-								  <th>€/unidad</th>
+								  <th>ï¿½/unidad</th>
 								  <th>TOTAL</th>
 								  <th
 								  	data-toggle="popover"
@@ -486,7 +486,7 @@ mostrar_imagen_articulo = function(codigo) {
 	cadena=cadena + '<a href="Imagenes_Articulos/' + codigo + '.jpg" target="_blank" id="imagen_enlace">'
 	cadena=cadena + '<img class="img-responsive" src="Imagenes_Articulos/Miniaturas/i_' + codigo + '.jpg" border="0" id="imagen_articulo"></a>'
 	cadena=cadena + '</span>'
-	cadena=cadena + '<br><label class="control-label">pulsar sobre la imagen para verla a tamaño real</label>'
+	cadena=cadena + '<br><label class="control-label">pulsar sobre la imagen para verla a tamaï¿½o real</label>'
 	cadena=cadena + '</div>'	
 	cadena=cadena + '</div>'
 	cadena=cadena + '</div>'

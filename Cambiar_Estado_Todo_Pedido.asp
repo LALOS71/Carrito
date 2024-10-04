@@ -10,7 +10,7 @@
 
 
 	if session("usuario_admin")="" then
-			Response.Redirect("Login_Admin.asp")
+			Response.Redirect("Login_GAGAD.asp")
 	end if
 		
 	
@@ -62,7 +62,7 @@
 		'RESPONSE.WRITE("<br><BR>actualizacion del estado del pedido: " & CADENA_EJECUCION)
 		
 		'porque el sql de produccion es un sql expres que debe tener el formato de
-		' de fecha con mes-dia-año
+		' de fecha con mes-dia-aï¿½o
 		connimprenta.Execute "set dateformat dmy",,adCmdText + adExecuteNoRecords
 			
 		connimprenta.Execute cadena_ejecucion,,adCmdText + adExecuteNoRecords

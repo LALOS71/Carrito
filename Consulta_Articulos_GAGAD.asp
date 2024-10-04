@@ -10,7 +10,7 @@
 	numero_registros=0
 		
 	if session("usuario_admin")="" then
-		Response.Redirect("Login_Admin.asp")
+		Response.Redirect("Login_GAGAD.asp")
 	end if
 	'response.write("procedencia: " & request.servervariables("http_referer"))
 	empresa_seleccionada=Request.Form("cmbempresas")

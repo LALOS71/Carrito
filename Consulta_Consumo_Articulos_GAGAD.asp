@@ -3,7 +3,7 @@
 <!--#include file="Conexion.inc"-->
 <%
 		if session("usuario_admin")="" then
-			Response.Redirect("Login_Admin.asp")
+			Response.Redirect("Login_GAGAD.asp")
 		end if
 		
 		empresa_seleccionada=Request.Form("cmbempresas")
@@ -149,7 +149,7 @@ function cambiapuntoacoma(s)
 {
 	var saux = "";
 	//alert("pongo coma")
-	//alert("tamaño: " + s.legth)
+	//alert("tamaï¿½o: " + s.legth)
 	for (j=0;j<s.length; j++ )
 	{
 		if (s.charAt(j) == ".")
@@ -246,10 +246,10 @@ function refrescar_pagina()
 			</div>
 			<div class="contentcell">
 				<div class="sidefreetext" ><div align="left">
-					· <a href="Consulta_Pedidos_GAGAD.asp">Pedidos</a><br />
-					· <a href="Consulta_Articulos_GAGAD.asp">Artículos</a><br />
-					· <a href="Consulta_Clientes_GAGAD.asp">Clientes</a><br />
-					· <a href="Consulta_Consumo_Articulos_GAGAD.asp">Consulta Consumo Articulos</a><br />
+					ï¿½ <a href="Consulta_Pedidos_GAGAD.asp">Pedidos</a><br />
+					ï¿½ <a href="Consulta_Articulos_GAGAD.asp">Artï¿½culos</a><br />
+					ï¿½ <a href="Consulta_Clientes_GAGAD.asp">Clientes</a><br />
+					ï¿½ <a href="Consulta_Consumo_Articulos_GAGAD.asp">Consulta Consumo Articulos</a><br />
 					
 					<br />
 					
@@ -393,7 +393,7 @@ function refrescar_pagina()
 						<tr>
 							<!--6.08 - Translate titles and buttons-->
 							<td class="al">
-								<span class='fontbold'>Opciones de Búsqueda </span>
+								<span class='fontbold'>Opciones de Bï¿½squeda </span>
 							</td>
 						</tr>
 						
@@ -434,7 +434,7 @@ function refrescar_pagina()
 							  	</table>
 								<table cellpadding="2" cellspacing="1" border="0" width="100%">
 								<tr>
-									<td width="10%">Categoría: </td>
+									<td width="10%">Categorï¿½a: </td>
 									<td width="20%">
 										<div id="capa_categorias">
 											<select  name="cmbcategorias" id="cmbcategorias">
@@ -492,7 +492,7 @@ function refrescar_pagina()
                                       <th class="menuhdr">Cat.</th>
                                       <th width="70" class="menuhdr">Marca</th>
                                       <th width="92" class="menuhdr">Tipo</th>
-                                      <th width="97" class="menuhdr">Población</th>
+                                      <th width="97" class="menuhdr">Poblaciï¿½n</th>
                                       <th width="91" class="menuhdr">Provincia</th>
                                     </tr>
                                     <%if vacio_hoteles=false then %>
@@ -509,7 +509,7 @@ function refrescar_pagina()
                                     <%next%>
                                     <%else%>
                                     <tr>
-                                      <td bgcolor="#999966" align="center" colspan="7"><b><font class="fontbold">NO Hay Hoteles Que Cumplan El Critero de Búsqueda...</font></b><br />
+                                      <td bgcolor="#999966" align="center" colspan="7"><b><font class="fontbold">NO Hay Hoteles Que Cumplan El Critero de Bï¿½squeda...</font></b><br />
                                       </td>
                                     </tr>
                                     <%end if%>
@@ -532,7 +532,7 @@ function refrescar_pagina()
 						<tr>
 							<td>
 								<div align="right">
-								  <input class="submitbtn" type="submit" name="nuevo_hotel" id="nuevo_hotel" value="Añadir Hotel" onclick="mostrar_hotel(0,'ALTA');return false" />
+								  <input class="submitbtn" type="submit" name="nuevo_hotel" id="nuevo_hotel" value="Aï¿½adir Hotel" onclick="mostrar_hotel(0,'ALTA');return false" />
 								</div>
 								
 							</td>

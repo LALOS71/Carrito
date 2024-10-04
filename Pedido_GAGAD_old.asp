@@ -23,44 +23,8 @@
 	set pedidos=Server.CreateObject("ADODB.Recordset")
 		
 	with pedidos
-		' .ActiveConnection=connimprenta
-		' .Source="SELECT USUARIO_DIRECTORIO_ACTIVO, NombreUsuario, PEDIDOS.ID, PEDIDOS.CODCLI, V_CLIENTES.CODIGO_EXTERNO, V_CLIENTES.NOMBRE, PEDIDOS.PEDIDO, "
-		' .Source= .Source & " V_CLIENTES.DIRECCION, V_CLIENTES.POBLACION, V_CLIENTES.CP, V_CLIENTES.PROVINCIA, V_CLIENTES.TELEFONO, V_CLIENTES.FAX,"
-		' .Source= .Source & " PEDIDOS.FECHA, PEDIDOS.ESTADO as ESTADO_PEDIDO, PEDIDOS_DETALLES.ARTICULO, ARTICULOS.ID AS ID_ARTICULO, ARTICULOS.CODIGO_SAP,"
-		' .Source= .Source & " ARTICULOS.DESCRIPCION, PEDIDOS_DETALLES.CANTIDAD,"
-		' .Source= .Source & " (SELECT SUM(CANTIDAD_ENVIADA) FROM PEDIDOS_ENVIOS_PARCIALES"
-		' .Source= .Source & " WHERE ID_PEDIDO=PEDIDOS.ID AND ID_ARTICULO=ARTICULOS.ID AND ALBARAN IS NOT NULL) AS CANTIDAD_ENVIADA,"
-		' .Source= .Source & " (SELECT SUM(CANTIDAD_ENVIADA) FROM PEDIDOS_ENVIOS_PARCIALES"
-		' .Source= .Source & " WHERE ID_PEDIDO=PEDIDOS.ID AND ID_ARTICULO=ARTICULOS.ID AND ALBARAN IS NULL) AS CANTIDAD_LISTA,"
-		' .Source= .Source & " PEDIDOS_DETALLES.PRECIO_UNIDAD,"
-		' .Source= .Source & " (isnull(PEDIDOS_DETALLES.CANTIDAD,0)*isnull(PEDIDOS_DETALLES.PRECIO_COSTE,0)) as TotalCoste,"
-		' .Source= .Source & " PEDIDOS_DETALLES.TOTAL,PEDIDOS_DETALLES.PRECIO_COSTE,PEDIDOS_DETALLES.CANTIDAD, PEDIDOS_DETALLES.ESTADO as ESTADO_ARTICULO, PEDIDOS_DETALLES.FICHERO_PERSONALIZACION,"
-		' .Source= .Source & " PEDIDOS_DETALLES.HOJA_RUTA, PEDIDOS_DETALLES.RESTADO_STOCK,"
-		' .Source= .Source & " V_EMPRESAS.EMPRESA, V_EMPRESAS.CARPETA, V_EMPRESAS.ID as ID_EMPRESA, V_CLIENTES.MARCA,"
-		' .Source= .Source & " ARTICULOS.UNIDADES_DE_PEDIDO, ARTICULOS.PESO, PEDIDOS.FECHA_ENVIADO, PEDIDOS_DETALLES.ALBARAN,"
-		' .Source= .Source & " ARTICULOS_PERSONALIZADOS.PLANTILLA_PERSONALIZACION, PEDIDOS.PEDIDO_AUTOMATICO,"
-		' .Source= .Source & " CASE WHEN PEDIDOS_DETALLES.ALBARAN IS NULL THEN NULL ELSE" 
-		' .Source= .Source & " (SELECT FECHAVALIJA FROM V_DATOS_ALBARANES WHERE IDALBARAN=PEDIDOS_DETALLES.ALBARAN)"
-		' .Source= .Source & " END AS ENVIO_PROGRAMADO, AIR.PREFIX, AIR.SERIAL"
-		' .Source= .Source & ", DESTINATARIO, DESTINATARIO_DIRECCION, DESTINATARIO_POBLACION, DESTINATARIO_CP"
-		' .Source= .Source & ", DESTINATARIO_PROVINCIA, DESTINATARIO_PAIS, DESTINATARIO_TELEFONO, PEDIDOS.GASTOS_ENVIO, PEDIDOS.HORARIO_ENTREGA"
-		' .Source= .Source & ", DESTINATARIO_PERSONA_CONTACTO, DESTINATARIO_COMENTARIOS_ENTREGA"
-		
-		' .Source= .Source & " FROM PEDIDOS INNER JOIN PEDIDOS_DETALLES ON PEDIDOS.ID = PEDIDOS_DETALLES.ID_PEDIDO "
-		' .Source= .Source & " LEFT JOIN ARTICULOS ON PEDIDOS_DETALLES.ARTICULO = ARTICULOS.ID"
-		' .Source= .Source & " LEFT JOIN V_CLIENTES ON PEDIDOS.CODCLI = V_CLIENTES.Id"
-		' .Source= .Source & " LEFT JOIN V_EMPRESAS ON V_CLIENTES.EMPRESA = V_EMPRESAS.Id"
-    	' .Source= .Source & " LEFT JOIN (SELECT  Usuario, max(NombreUsuario) NombreUsuario FROM V_Usuarios GROUP BY Usuario ) Us ON PEDIDOS.USUARIO_DIRECTORIO_ACTIVO = Us.Usuario"
-		' .Source= .Source & " LEFT JOIN ARTICULOS_PERSONALIZADOS ON PEDIDOS_DETALLES.ARTICULO=ARTICULOS_PERSONALIZADOS.ID_ARTICULO"
-		' .Source= .Source & " LEFT JOIN ALBARANES_AIRWILLBILL AIR ON AIR.ALBARAN = PEDIDOS_DETALLES.ALBARAN"	
-
-		' .Source= .Source & " WHERE PEDIDOS.ID=" & pedido_seleccionado
-		' 'response.write("<br>" & .source)
-		' .Open
-
 		.ActiveConnection=connimprenta
-		.Source="set dateformat dmy; SELECT USUARIO_DIRECTORIO_ACTIVO, NombreUsuario, PEDIDOS.ID, PEDIDOS.CODCLI, V_CLIENTES.CODIGO_RUC, V_CLIENTES.OBSERVACIONES_ENTREGA,"
-		.Source= .Source & " V_CLIENTES.CODIGO_EXTERNO, V_CLIENTES.NOMBRE, PEDIDOS.PEDIDO,"
+		.Source="set dateformat dmy; SELECT USUARIO_DIRECTORIO_ACTIVO, NombreUsuario, PEDIDOS.ID, PEDIDOS.CODCLI, V_CLIENTES.CODIGO_EXTERNO, V_CLIENTES.NOMBRE, PEDIDOS.PEDIDO, "
 		.Source= .Source & " V_CLIENTES.DIRECCION, V_CLIENTES.POBLACION, V_CLIENTES.CP, V_CLIENTES.PROVINCIA, V_CLIENTES.TELEFONO, V_CLIENTES.FAX,"
 		.Source= .Source & " PEDIDOS.FECHA, PEDIDOS.ESTADO as ESTADO_PEDIDO, PEDIDOS_DETALLES.ARTICULO, ARTICULOS.ID AS ID_ARTICULO, ARTICULOS.CODIGO_SAP,"
 		.Source= .Source & " ARTICULOS.DESCRIPCION, PEDIDOS_DETALLES.CANTIDAD,"
@@ -76,7 +40,7 @@
 		.Source= .Source & " ARTICULOS_PERSONALIZADOS.PLANTILLA_PERSONALIZACION, PEDIDOS.PEDIDO_AUTOMATICO,"
 		.Source= .Source & " CASE WHEN PEDIDOS_DETALLES.ALBARAN IS NULL THEN NULL ELSE" 
 		.Source= .Source & " (SELECT FECHAVALIJA FROM V_DATOS_ALBARANES WHERE IDALBARAN=PEDIDOS_DETALLES.ALBARAN)"
-		.Source= .Source & " END AS ENVIO_PROGRAMADO, AIR.PREFIX, AIR.SERIAL"
+		.Source= .Source & " END AS ENVIO_PROGRAMADO"
 		.Source= .Source & ", DESTINATARIO, DESTINATARIO_DIRECCION, DESTINATARIO_POBLACION, DESTINATARIO_CP"
 		.Source= .Source & ", DESTINATARIO_PROVINCIA, DESTINATARIO_PAIS, DESTINATARIO_TELEFONO, PEDIDOS.GASTOS_ENVIO, PEDIDOS.HORARIO_ENTREGA"
 		.Source= .Source & ", DESTINATARIO_PERSONA_CONTACTO, DESTINATARIO_COMENTARIOS_ENTREGA"
@@ -87,12 +51,10 @@
 		.Source= .Source & " LEFT JOIN V_EMPRESAS ON V_CLIENTES.EMPRESA = V_EMPRESAS.Id"
     	.Source= .Source & " LEFT JOIN (SELECT  Usuario, max(NombreUsuario) NombreUsuario FROM V_Usuarios GROUP BY Usuario ) Us ON PEDIDOS.USUARIO_DIRECTORIO_ACTIVO = Us.Usuario"
 		.Source= .Source & " LEFT JOIN ARTICULOS_PERSONALIZADOS ON PEDIDOS_DETALLES.ARTICULO=ARTICULOS_PERSONALIZADOS.ID_ARTICULO"
-		.Source= .Source & " LEFT JOIN ALBARANES_AIRWILLBILL AIR ON AIR.ALBARAN = PEDIDOS_DETALLES.ALBARAN"	
 
 		.Source= .Source & " WHERE PEDIDOS.ID=" & pedido_seleccionado
 		'response.write("<br>" & .source)
 		.Open
-
 	end with
 
 	gastos_envio=0
@@ -181,14 +143,15 @@
 
 	
 
-
-	if Request.ServerVariables("SERVER_NAME")<>"carrito.globalia-artesgraficas.com" then
-			'ENTORNO PRUEBAS
-		  	entorno="PRUEBAS"
-		  else
-			'ENTORNO REAL
-			entorno="REAL"
-		end if
+	
+	'if Request.ServerVariables("SERVER_NAME")<>"carrito.globalia-artesgraficas.com" then
+	if ENTORNO="PROD" then
+		'ENTORNO REAL
+		entorno="REAL"
+	  else
+  		'ENTORNO PRUEBAS
+	  	entorno="PRUEBAS"
+	end if
 		
 
 
@@ -217,7 +180,7 @@
 
 <html>
 <head>
-	<meta charset="UTF-8">
+
 
 	<link rel="stylesheet" type="text/css" href="plugins/bootstrap-4.0.0/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="plugins/bootstrap-select/css/bootstrap-select.min.css">
@@ -618,7 +581,7 @@ body * { visibility: hidden; !important;  }
 									<%if pedidos("codigo_externo")<>"" then%>
 										&nbsp;(<%=pedidos("codigo_externo")%>)
 									<%end if%>
-									<br />Dirección:<strong>&nbsp;<%=pedidos("direccion")%></strong>
+									<br />Direcci&oacute;n:<strong>&nbsp;<%=pedidos("direccion")%></strong>
 									<br />Poblaci&oacute;n:<strong>&nbsp;<%=pedidos("poblacion")%></strong>
 									<br />C. P.:<strong>&nbsp;<%=pedidos("cp")%></strong>
 									<br />Provincia:<strong>&nbsp;<%=pedidos("provincia")%></strong>
@@ -652,17 +615,17 @@ body * { visibility: hidden; !important;  }
 							if  pedidos("DESTINATARIO")<>"" then%>
 								<div class="card col-6">
 									<div class="card-body">
-											<h4 class="card-title">Dirección de Envío</h4>
+											<h4 class="card-title">Direcci�n de Env�o</h4>
 											Destinatario: <strong><%=ucase(pedidos("DESTINATARIO"))%></strong>
 											<%if nombre_empleado_gls <> "" then%>
 												<br />Att: <strong><%=ucase(nombre_empleado_gls)%></strong>
 											<%end if%>
-											<br />Dirección: <strong><%=ucase(pedidos("DESTINATARIO_DIRECCION"))%></strong>
+											<br />Direcci�n: <strong><%=ucase(pedidos("DESTINATARIO_DIRECCION"))%></strong>
 											<br />Localidad: <strong><%=ucase(pedidos("DESTINATARIO_POBLACION"))%></strong>
 											<br />C.P.: <strong><%=ucase(pedidos("DESTINATARIO_CP"))%></strong>
 											<br />Provincia: <strong><%=ucase(pedidos("DESTINATARIO_PROVINCIA"))%></strong>
-											<br />País: <strong><%=ucase(pedidos("DESTINATARIO_PAIS"))%></strong>
-											<br />Teléfono: <strong><%=ucase(pedidos("DESTINATARIO_TELEFONO"))%></strong>
+											<br />Pa�s: <strong><%=ucase(pedidos("DESTINATARIO_PAIS"))%></strong>
+											<br />Tel�fono: <strong><%=ucase(pedidos("DESTINATARIO_TELEFONO"))%></strong>
 											<%IF pedidos("HORARIO_ENTREGA")<>"" THEN%>
 												<br />Horario de Entrega: <strong><%=ucase(pedidos("HORARIO_ENTREGA"))%></strong>
 											<%END IF%>
@@ -691,7 +654,7 @@ body * { visibility: hidden; !important;  }
 								<table height="20" border="0" cellpadding="0" cellspacing="0">
 									<tr>
 										<td width="20"  style="border:1px solid #CCCCCC;background-color:#f8f8f8"></td>
-										<td>&nbsp;Artículo Sin Control de Stock</td>
+										<td>&nbsp;Art�culo Sin Control de Stock</td>
 									</tr>
 							  	</table>
 							</div>
@@ -699,7 +662,7 @@ body * { visibility: hidden; !important;  }
 								<table height="20" border="0" cellpadding="0" cellspacing="0">
 									<tr>
 										<td width="20"  style="border:1px solid #CCCCCC;background-color:#3399CC"></td>
-										<td>&nbsp;Artículo Con Control de Stock</td>
+										<td>&nbsp;Art�culo Con Control de Stock</td>
 									</tr>
 								</table>
 							</div>
@@ -707,7 +670,7 @@ body * { visibility: hidden; !important;  }
 								<table height="20" border="0" cellpadding="0" cellspacing="0">
 									<tr>
 										<td width="20"  style="border:1px solid #CCCCCC;background-color:#FF6633"></td>
-										<td>&nbsp;Artículo Por Debajo del Stock Mínimo</td>
+										<td>&nbsp;Art�culo Por Debajo del Stock M�nimo</td>
 									</tr>
 								</table>
 							</div>
@@ -721,14 +684,14 @@ body * { visibility: hidden; !important;  }
 							</div>
 						</div><!--del row de leyendas-->
 						
-						<form name="frmmodificar_pedido" id="frmmodificar_pedido" method="post" action="Modificar_Pedido_Admin.asp">
+						<form name="frmmodificar_pedido" id="frmmodificar_pedido" method="post" action="Modificar_Pedido_GAGAD.asp">
 						<div>
 							
 								<input type="hidden" name="ocultopedido" id="ocultopedido" value="<%=pedido_seleccionado%>" />
 								<input type="hidden" name="ocultoarticulos_cantidades_pedido" id="ocultoarticulos_cantidades_pedido"  value="" />
 								<input type="hidden" name="ocultomarca" id="ocultomarca" value="<%=pedidos("marca")%>" />
 								<input type="hidden" name="ocultoacciones" id="ocultoacciones" value="" />
-								<input type="hidden" name="ocultocodcli" id="ocultocodcli" value="<%=pedidos("codcli")%>" />								
+								<input type="hidden" name="ocultocodcli" id="ocultocodcli" value="<%=pedidos("codcli")%>" />
 	
 								<!--7/15 a�adida direccion + POblacion + `CP-->
 								<input type="hidden" name="ocultoDireccion" id="ocultoDireccion" value="<%=datos_para_envio%>" />
@@ -744,9 +707,9 @@ body * { visibility: hidden; !important;  }
 								
 								<div class="row mt-2">
 									<div class="col-2">Pedido Num.: <strong><%=pedido_seleccionado%></strong></div>
-									<div class="col-3">Fecha Petición: <strong><%=pedidos("fecha")%></strong></div>
+									<div class="col-3">Fecha Petici�n: <strong><%=pedidos("fecha")%></strong></div>
 									<%if ucase(estado_general_pedido)="ENVIADO" then%>
-										<div class="col-3">Fecha Envío: <strong><%=pedidos("fecha_enviado")%></strong></div>
+										<div class="col-3">Fecha Env�o: <strong><%=pedidos("fecha_enviado")%></strong></div>
 									<%end if%>
 									<%if pedidos("PEDIDO_AUTOMATICO")<>"" then%>
 										<%tipo_pedido_auto=pedidos("PEDIDO_AUTOMATICO")%>
@@ -759,13 +722,10 @@ body * { visibility: hidden; !important;  }
 									<thead>
 										<tr>
 											<th>Cod. Sap</th>
-											<th>Artículo</th>
+											<th>Art�culo</th>
 											<th>Cant.</th>
 											<th>Precio</th>
 											<th>Total</th>
-											<%if session("usuario_admin")="CARLOS" then%>
-												<th>Coste Total</th>
-											<%end if%>
 											<th>Estado</th>
 											<th class="no_imprimir" >Hoja Ruta</th>
 											<th class="no_imprimir" style="text-align:center"><i class="fas fa-paperclip"></i></th>
@@ -1066,7 +1026,7 @@ body * { visibility: hidden; !important;  }
 											<%end if 'DEL ARTICULO 4583%>
 										</td>
 										<td class="cantidades" id="fila_pedido_<%=fila%>_cantidad" style="text-align:right;"><font size="2" color="#000000"><%=pedidos("cantidad")%></font></td>
-										<td id="fila_pedido_<%=fila%>_precio_unidad" style="text-align:right" width="75"><font size="2" color="#000000"><%=pedidos("precio_unidad")%> &euro;/u</font>&nbsp;</td>
+										<td id="fila_pedido_<%=fila%>_precio_unidad" style="text-align:right" width="75"><font size="2" color="#000000"><%=pedidos("precio_unidad")%> �/u</font>&nbsp;</td>
 										<td id="fila_pedido_<%=fila%>_total" style="text-align:right">
 											<font size="2" color="#000000">
 														
@@ -1078,30 +1038,8 @@ body * { visibility: hidden; !important;  }
 												end if
 												%>
 															
-													&euro;</font>&nbsp;
+													�</font>&nbsp;
 										</td>
-										<%if session("usuario_admin")="CARLOS" then
-											coste=pedidos("TotalCoste")											
-											total_coste=total_coste + coste
-										%>
-										<td id="fila_pedido_<%=fila%>_costeTotal"  style="text-align:right">
-											<%=formatear_importe(coste)%>
-											&euro;
-
-										</td>
-
-										<%end if%>
-												
-											<!-- set cantidad=round(pedidos("CANTIDAD"),2) -->
-											<!-- set precio_coste=round(pedidos("PRECIO_COSTE"),2) -->
-											<!-- set cantidad=formatear_importe(pedidos("CANTIDAD")) -->
-												<!-- set precio_coste=formatear_importe(pedidos("PRECIO_COSTE")) -->
-												<!-- set multipli=cantidad*precio_coste -->
-												<!-- response.write(pedidos("TotalCoste")) -->
-												<!-- response.write(multipli) -->
-												<!-- response.write(formatear_importe(pedidos("PRECIO_COSTE"))) -->
-												<!-- response.write(formatear_importe(multipli)) -->
-											
 										<td id="fila_pedido_<%=fila%>_estado">
 											<div id="tabla_estado_<%=fila%>" style="width:100%">
 														<select class="form-control form-control-sm cmbestado_detalle" name="cmbestados_<%=pedidos("articulo")%>" id="cmbestados_<%=pedidos("articulo")%>"  onchange="ver_estado('<%=pedidos("articulo")%>','<%=fila%>', 'COMBO')" oldvalue="<%=pedidos("estado_articulo")%>" >
@@ -1265,37 +1203,7 @@ body * { visibility: hidden; !important;  }
 											</script>
 										</td>
 										<td class="no_imprimir" id="fila_pedido_<%=fila%>_fichero_personalizacion" >
-
-											<% 'response.write(" llegue 1233  <br />") 
-
-											cadena_airwaybill=cadena_airwaybille & "GAG/pedidos/" & year(pedidos("FECHA")) & "/" & pedidos("CODCLI") & "__" & pedido_seleccionado
-											cadena_airwaybill=cadena_airwaybill & "/" & "Air_WayBill_" & pedidos("albaran") & "_" & pedidos("prefix") & "-" & pedidos("serial") & ".pdf" // nombre del Airwaybill
-											'response.write(cadena_airwaybill)
-											
-											%>													
-
-											<%if pedidos("serial") <> "" then%>
-												<!--<a href="#">Serial no está vacío: <%=pedidos("serial") %></a><br />	
-												 <a href="#">Serial no está vacío: <%= pedidos("prefix") %></a><br />	
-												 <a href="#">Serial no está vacío: <%= pedidos("albaran") %></a><br /> -->												 
-
-												<input type="hidden" name="ocultoprefix" id="ocultoprefix" value="<%=pedidos("prefix")%>" />
-												<input type="hidden" name="ocultoserial" id="ocultoserial" value="<%=pedidos("serial")%>" />																							
-												<input type="hidden" name="ocultoalbaran1" id="ocultoalbaran1" value="<%=pedidos("albaran")%>" />																							
-
-												<!-- <a id="fileLinkContainerair" target="_blank" href="C:\CARRITO_IMPRENTA\Carrito\GAG\Pedidos\2024\5258__160733\Air_WayBill_241190_996-20117241.pdf" title="AirWayBill PDF"><i class="far fa-file-pdf"></i></a> Prueba DArdo --> 
-												<a href="<%=cadena_airwaybill%>" target="_blank" title="AirWayBill PDF"><i class="far fa-file-pdf"></i></a> 
-											
-												<a class='ml-2' id="dynamicLinkair" href="#" >
-												<img src="../images/Avion.png" title="AirWayBill" class="img-responsive"/></a> <!--Prueba DArdo --> 
-
-											<%else%>												
-												<a id="fileLinkContainer" target="_blank" href="#" title="AirWayBill PDF"></a> <!--Prueba DArdo --> 
-												<a class='ml-2' id="dynamicLink" href="#" style="display: none;">
-												<img src="../images/Avion.png" title="AirWayBill" class="img-responsive"/></a> <!--Prueba DArdo --> 
-											<%end if%>
-	
-
+										
 											<%
 											if pedidos("fichero_personalizacion")<>"" then
 												
@@ -1334,65 +1242,15 @@ body * { visibility: hidden; !important;  }
 												cadena_enlace=cadena_enlace & "pedidos/" & year(pedidos("FECHA")) & "/" & pedidos("CODCLI") & "__" & pedido_seleccionado
 												cadena_enlace=cadena_enlace & "/" & pedidos("fichero_personalizacion")
 												%>
-												<a href="<%=cadena_enlace%>" target="_blank"><img src="images/clip-16.png" border=0/></a>										
-
-												<!-- Prueba desarrollo Dardo -->
-												<%if pedidos("albaran")<>"" then%>
-													
-													' 	<% ' Construimos la URL dinámica
-													' 		' Creamos el enlace con el atributo href y el evento onclick
-													' 		' response.write("<div id=""linkContainer"" class=""mt-3"" style=""display: none;"">")
-													' 		' response.write("<a id=""fileLink"" href=""#"" onclick=""window.open('" & url & "', '_blank'); return false;"">")
-													' 		' response.write("<img src=""avion_icon.png"" alt=""Abrir archivo"" style=""width: 50px; height: 50px;"">")
-													' 		' response.write("</a>")
-													' 		' response.write("</div>")
-													' 	%>
-													 
-												<%end if%>
+												<a href="<%=cadena_enlace%>" target="_blank"><img src="images/clip-16.png" border=0/></a>
 															
 											<%end if%>
 										</td>
 										<td class="albaranes no_imprimir" id="fila_pedido_<%=fila%>_albaran" style="text-align:right;font-size:1;color:#000000">
-										
-										<input type="hidden" name="ocultoalbaran" id="ocultoalbaran" value="<%=pedidos("albaran")%>" />
-										<input type="hidden" name="ocultoalbaran" id="ocultoalbaran" value="<%=pedidos("albaran")%>" />
-																		
-										<%if pedidos("albaran") <>"" then%>
+										<%if pedidos("albaran")<>"" then%>
 											<div id="celda_albaran_<%=pedidos("articulo")%>" onclick="ver_albaran('<%=pedidos("albaran")%>', '<%=entorno%>')" style="text-decoration:none;color:#000000;cursor:pointer;cursor:hand">
 												<%=pedidos("albaran")%>
-												<!--<span><a href="#" class="btn btn-primary" id="openModal">Subir archivo</a></span> -->
 											</div>
-										<input type="hidden" name="ocultoalbaran" id="ocultoalbaran" value="<%=pedidos("codigo_ruc")%>" />
-											
-											<%	
-											response.write(pedidos("codigo_ruc"))
-											If pedidos("serial") <> "" Then
-												'response.write(" llegue 1325 serial <br />")	
-
-												response.write("<a href='#' class='link link-info' id='openModal' title='Subir archivos' style='display: none;'>")
-												response.write("<img src='../images/upload.png' alt='Subir archivo' class='img-responsive' />")
-												response.write("</a>")
-											else
-												'response.write(" llegue 1332 serial else <br />")	
-
-												response.write("<input type=""hidden"" name=""ocultofila"" id=""ocultofila"" value=""" & fila & """ />")											
-												if fila = 1 then
-													response.write("<a href=""#"" class=""link link-info"" id=""openModal"" title=""Subir archivos"">")
-													response.write("<img src=""../images/upload.png"" alt=""Subir archivo"" class=""img-responsive"" />")
-													response.write("</a>")
-												end if									
-											end if	%>		
-
-											<!-- <div>
-												<a href="#" class="link link-info" id="openModal">Subir archivo</a>
-											<div class="container mt-5">
-																					
-																								
-											</div>
-												<a href="#" class="btn btn-primary" id="uploadButton">Subir Archivo</a>
-												<input type="file" id="fileInput" style="display: none;">
-												<p class="mt-3" id="fileName">No se ha elegido archivo</p>
-											</div> -->
 										<%end if%>
 										</td>
 										<td class="no_imprimir" id="fila_pedido_<%=fila%>_envio_programado" style="text-align:right"><font size="1" color="#000000">
@@ -1421,9 +1279,6 @@ body * { visibility: hidden; !important;  }
 											document.getElementById('fila_pedido_<%=fila%>_cantidad').style.backgroundColor='<%=color_fila%>'
 											document.getElementById('fila_pedido_<%=fila%>_precio_unidad').style.backgroundColor='<%=color_fila%>'
 											document.getElementById('fila_pedido_<%=fila%>_total').style.backgroundColor='<%=color_fila%>'
-											if ('<%=session("usuario_admin")%>'=="CARLOS") {		
-												document.getElementById('fila_pedido_<%=fila%>_costeTotal').style.backgroundColor='<%=color_fila%>'
-											}
 											document.getElementById('fila_pedido_<%=fila%>_estado').style.backgroundColor='<%=color_fila%>'
 											document.getElementById('tabla_estado_<%=fila%>').style.backgroundColor='<%=color_fila%>'
 											document.getElementById('fila_pedido_<%=fila%>_hoja_ruta').style.backgroundColor='<%=color_fila%>'
@@ -1445,11 +1300,7 @@ body * { visibility: hidden; !important;  }
 									<!--lineas de totales-->
 									<tr>
 										<th style="text-align:right" colspan="4">Total... </th>
-										<th style="text-align:right"><%=formatear_importe(round(total_pedido,2))%> &euro;</th>
-										<!-- <th style="text-align:right">Coste Total</th> -->
-										<%if session("usuario_admin")="CARLOS" then%>
-											<th style="text-align:right"><%=total_coste%> &euro;</th>
-										<%end if%>
+										<th style="text-align:right"><%=formatear_importe(round(total_pedido,2))%> �</th>
 										<td colspan="5"></td>
 									</tr>
 									
@@ -1565,9 +1416,9 @@ body * { visibility: hidden; !important;  }
 											iva_21= round(resultado_iva,2)
 											response.write(formatear_importe(iva_21))
 											%> 
-											&euro;
+											�
 										</th>
-										<td colspan="6"></td>
+										<td colspan="5"></td>
 													
 									</tr>
 									<tr>
@@ -1578,9 +1429,9 @@ body * { visibility: hidden; !important;  }
 															
 												response.write(formatear_importe(round(total_pago_iva,2)))
 											%> 
-											&euro;
+											�
 										</th>
-										<td colspan="6"></td>
+										<td colspan="5"></td>
 													
 									</tr>
 									
@@ -1715,7 +1566,7 @@ body * { visibility: hidden; !important;  }
 <form name="frmalbaran" id="frmalbaran" method="post" action="" target="_blank">
 </form>
 
-<form name="frmmostrar_articulo" id="frmmostrar_articulo" action="Ficha_Articulo_Admin.asp" method="post" target="_blank">
+<form name="frmmostrar_articulo" id="frmmostrar_articulo" action="Ficha_Articulo_GAGAD.asp" method="post" target="_blank">
 	<input type="hidden" value="" name="ocultoid_articulo" id="ocultoid_articulo" />
 	<input type="hidden" value="" name="ocultoaccion" id="ocultoaccion" />
 	<input type="hidden" value="<%=cadena_consulta_excel%>" name="ocultocadena_consulta" id="ocultocadena_consulta" />
@@ -1724,48 +1575,6 @@ body * { visibility: hidden; !important;  }
 	<input type="hidden" value="" name="ocultoautorizacion" id="ocultoautorizacion" />
 	
 </form>
-
- <!-- Modal Air WAYBILL-->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="myModalLabel">Cargar Información AIR WAYBILL</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<form id="uploadForm" enctype="multipart/form-data">
-					 	<div class="form-group">
-                            <label for="prefix">Número Prefix</label>
-                            <input type="text" class="form-control" id="prefix" name="prefix" required
-                                   pattern="\d*" maxlength="5" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
-                        </div>
-                        <div class="form-group">
-                            <label for="serial">Número Serial</label>
-                            <input type="text" class="form-control" id="serial" name="serial" required
-                                   pattern="\d*" maxlength="9" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
-                        </div>
-						<!-- <div class="form-group">
-							<label for="prefix">Número Principal</label>
-							<input type="num" class="form-control" id="prefix" name="prefix" required>
-						</div>
-						<div class="form-group">
-							<label for="serial">Número Cuerpo</label>
-							<input type="text" class="form-control" id="serial" name="serial" required>
-						</div>
-						<div class="form-group">  -->
-							<label for="archivo">Subir Archivo</label>
-							<input type="file" class="form-control" id="archivo" name="archivo" required accept=".pdf, .txt, .docx">
-						</div>
-						<button type="submit" class="btn btn-primary">Cargar</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-
 
 <script type="text/javascript" src="js/comun.js"></script>
 
@@ -1804,7 +1613,6 @@ body * { visibility: hidden; !important;  }
 <script type="text/javascript" src="plugins/bootstrap-multiselect/bootstrap-multiselect.js"></script>
 <script type="text/javascript" src="plugins/bootstrap-touchspin-master/src/jquery.bootstrap-touchspin.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <script type="text/javascript">
 
@@ -1838,201 +1646,12 @@ j$(document).ready(function () {
 		max: 5000000,
 		verticalbuttons: true
 	});
-		
-	
-    /* -- Modal Air WAYBILL -- */
-    j$('#openModal').click(function(e) {
-        e.preventDefault();
-        j$('#myModal').modal('show');
-    });
 	
 	
-	// Obtener los valores del modal al cargar la página
-	var prefixair = j$('#ocultoprefix').val();
-	var serialair = j$('#ocultoserial').val();			
-		
-	var codcli = j$('#ocultocodcli').val();
-	var pedido = j$('#ocultopedido').val();
-	var albaran = j$('#ocultoalbaran').val();
-
-	// Construir la URL dinámica		
-	var urlair = 'http://www.aireuropacargo.com/index.asp?prefix=' + prefixair + '&serial=' + serialair;
-
-	// Asignar la URL al enlace y mostrarlo
-	j$('#dynamicLinkair').attr('href', urlair);		
-	j$('#dynamicLinkair').show();		
-
-	j$('#dynamicLinkair').click(function(event) {
-	event.preventDefault();		
-		if (confirm("¿Estás seguro de querer ir a esta página?")) {
-			//window.location.href = j$(this).attr('href');
-			window.open(urlair, '_blank');
-		} 
-	});
-
-
-
-    j$('#uploadForm').submit(function(e) {
-        e.preventDefault();
-		// Obtener los valores del modal al cargar la página
-		var prefix = j$('#prefix').val();
-		var serial = j$('#serial').val();		
-		  
-        var codcli = j$('#ocultocodcli').val();
-        var pedido = j$('#ocultopedido').val();
-        var albaran = j$('#ocultoalbaran').val();
-
-        var formData = new FormData(this);
-		formData.append('cod_cli', codcli);
-        formData.append('num_pedido', pedido);
-        formData.append('num_albaran', albaran);	
-
-        j$.ajax({
-            url: '/PHP/Air_waybill/upload_airwaybill.php', // HA DESARROLLAR
-            type: 'POST',
-            data: formData, 
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                var result = JSON.parse(response);
-                console.log(result);
-                j$('#myModal').modal('hide');
-                if (result.status === 'exists') {
-                    if (confirm(result.message)) {
-                        formData.append('overwrite', true);
-                        j$.ajax({
-                            url: '/PHP/Air_waybill/upload_airwaybill.php', // HA DESARROLLAR
-                            type: 'POST',
-                            data: formData,
-                            processData: false,
-                            contentType: false,
-                            success: function(response) {
-								console.log(' response 2º ',response);
-                                handleUploadResponse(response);
-                            }
-                        });
-                    }
-                } else {
-                    handleUploadResponse(response);
-                }
-            },
-            error: function() {
-                alert('Error al enviar los datos');
-            }
-        });
-
-		// Construir la URL dinámica		
-		var url = 'http://www.aireuropacargo.com/index.asp?prefix=' + prefix + '&serial=' + serial;
-
-		// Asignar la URL al enlace y mostrarlo
-		j$('#dynamicLink').attr('href', url);		
-		j$('#dynamicLink').show();		
-
-		j$('#dynamicLink').click(function(event) {
-		event.preventDefault();		
-			if (confirm("¿Estás seguro de querer ir a esta página?")) {
-				//window.location.href = j$(this).attr('href');
-				window.open(url, '_blank');
-			} 
-		});
-    });
 });
 
-// Crear link físico del archivo Air Waybill
-function handleUploadResponse(response) {
-	
-    var result = JSON.parse(response);
-    if (result.status === 'success') {
-       // alert('Datos enviados correctamente');		
-        j$('#myModal').modal('hide');
-       // var fileLink = '<a href="' + result.fileUrl + '" target="_blank"><img src="../images/Paper_Verde_16x16.png" alt="AirWayBill" class="img-responsive"/></a>'; <i class="far fa-file-pdf"></i>
-        var fileLink = '<a href="' + result.fileUrl + '" target="_blank"><i class="far fa-file-pdf"></i></a>'; 
-        j$('#fileLinkContainer').html(fileLink);
-		j$('#openModal').hide(); // Ocultar el botón de subir archivo	
-    } else {
-        alert('Error: ' + result.message);
-    }
-}
-
-	
-	
-	
-	/* 
-	/* -- Modal Air WAYBILL -- 
-	j$('#openModal').click(function(e) {
-		e.preventDefault();
-		j$('#myModal').modal('show');
-	});
 
 
-	 j$('#uploadForm').submit(function(e) {
-		e.preventDefault();	
-		var codcli = j$('#ocultocodcli').val();
-		var pedido = j$('#ocultopedido').val();
-		var albaran = j$('#ocultoalbaran').val();
-
-		var formData = new FormData(this);
-		formData.append('cod_cli', codcli);
-		formData.append('num_pedido', pedido);
-		formData.append('num_albaran', albaran);
-
-		j$.ajax({
-			url: '/PHP/Air_waybill/upload_airwaybill.php', // HA DESARROLLAR
-			type: 'POST',
-			data: formData, 
-			processData: false,
-			contentType: false,
-			success: function(response) {
-				var result = JSON.parse(response);
-				console.log(result);
-				j$('#myModal').modal('hide');
-				if (result.status === 'exists') {
-					if (confirm(result.message)) {
-						formData.append('overwrite', true);
-						$.ajax({
-							url: '/PHP/Air_waybill/upload_airwaybill.php', // HA DESARROLLAR
-							type: 'POST',
-							data: formData,
-							processData: false,
-							contentType: false,
-							success: function(response) {
-								handleUploadResponse(response);
-							}
-						});
-					}
-				} else {
-					handleUploadResponse(response);
-					if (result.status === 'success') {
-						$('#fileLink').attr('href', result.fileUrl).text('Abrir archivo');
-						$('#linkContainer').show();
-					}
-				}
-			},
-			error: function() {
-				alert('Error al enviar los datos');
-			}
-		});
-	});*/
-
-	
-//
-
-
-
-/*/Crear link fisico del archivo Air Wil
-function handleUploadResponse(response) {
-	var result = JSON.parse(response);
-	var result = response;
-	if (result.status === 'success') {
-		alert('Datos enviados correctamente');
-		j$('#myModal').modal('hide');
-		var fileLink = '<a href="' + result.url + '" target="_blank">Ver archivo</a>';
-		j$('#fileLinkContainer').html(fileLink);
-	} else {
-		alert('Error: ' + result.message);
-	}
-}
- */
 
 		
 function ver_si_imprimir(origen)
@@ -2073,7 +1692,7 @@ function ver_si_imprimir(origen)
 		{
 		window.print()
 		window.onafterprint = function(event) {
-	    	window.location.href = 'Consulta_Pedidos_Admin.asp'
+	    	window.location.href = 'Consulta_Pedidos_GAGAD.asp'
 			}
 		}
 	
@@ -2092,7 +1711,7 @@ function mostrar_capas_new(capa, plantilla, cliente, anno_pedido, pedido, articu
 	  	{
 		if (plantilla.indexOf('plantilla_rotulacion_1')>=0)
 			{
-			parametros_rotulacion=plantilla.split('--')
+			parametros_rotulacion=plantilla.split('##')
 			fichero_plantilla='Plantilla_Personalizacion_Rotulacion.asp'
 			plantilla_personalizacion=parametros_rotulacion[0]
 			texto_campos='&campos=' + parametros_rotulacion[1]
@@ -2101,7 +1720,7 @@ function mostrar_capas_new(capa, plantilla, cliente, anno_pedido, pedido, articu
 		  	{
 			if (plantilla.indexOf('plantilla_rotulacion_3')>=0)
 				{
-				parametros_rotulacion=plantilla.split('--')
+				parametros_rotulacion=plantilla.split('##')
 				fichero_plantilla='Plantilla_Personalizacion_Rotulacion_3.asp'
 				plantilla_personalizacion=parametros_rotulacion[0]
 				texto_campos='&campos=' + parametros_rotulacion[1]
@@ -2110,7 +1729,7 @@ function mostrar_capas_new(capa, plantilla, cliente, anno_pedido, pedido, articu
 			  	{
 				if (plantilla.indexOf('plantilla_rotulacion_4')>=0)
 					{
-					parametros_rotulacion=plantilla.split('--')
+					parametros_rotulacion=plantilla.split('##')
 					fichero_plantilla='Plantilla_Personalizacion_Rotulacion_4.asp'
 					plantilla_personalizacion=parametros_rotulacion[0]
 					texto_campos='&campos=' + parametros_rotulacion[1]
@@ -2299,7 +1918,7 @@ function guardar_pedido(cadena_articulos_cantidades, accion){
 						if (parseFloat(stock_buscado)<parseFloat(cantidad_control))
 							{
 								permitir_guardar_pedido='NO'
-								texto_error=texto_error + '\n     - Para el Artículo (' + codigo_referencia + ') Solo se Puede Enviar Como M�ximo ' + stock_buscado + ' Unidades, que es Su Stock Actual...'
+								texto_error=texto_error + '\n     - Para el Art�culo (' + codigo_referencia + ') Solo se Puede Enviar Como M�ximo ' + stock_buscado + ' Unidades, que es Su Stock Actual...'
 								//console.log('::::::::::::::::::::::CADENA ERROR DEL ARTICULO a comparar ' + articulo_cantidad[0] + ': ' + texto_error)  
 							}
 				}
@@ -2342,7 +1961,7 @@ function guardar_pedido(cadena_articulos_cantidades, accion){
 	if (pendientes_articulos_listos=='SI')
 		{
 			permitir_guardar_pedido='NO'
-			texto_error=texto_error + '\n     - No se Puede Generar el Albar�n, todavia siguen en Listo o Listo Parcial algunos Artículos.'
+			texto_error=texto_error + '\n     - No se Puede Generar el Albar�n, todavia siguen en Listo o Listo Parcial algunos art�culos.'
 		}
 	if (articulos_para_enviar=='SI')
 		{
@@ -2514,12 +2133,12 @@ function ver_albaran(numero, entorno)
 	if (entorno=='REAL')
 		{//entorno real
 		//document.getElementById('frmalbaran').action='http://intranet.halconviajes.com/GlAlbaran/Glalbaran.aspx?codigo_albaran=' + numero;
-		document.getElementById('frmalbaran').action='http://carrito.globalia-artesgraficas.com/GlAlbaran/Glalbaran.aspx?codigo_albaran=' + numero;
+		document.getElementById('frmalbaran').action='GlAlbaran/Glalbaran.aspx?codigo_albaran=' + numero;
 		
 		}
 	  else
 		{//entorno de pruebas
-		document.getElementById('frmalbaran').action='http://192.168.153.132/GlAlbaran/Glalbaran.aspx?codigo_albaran=' + numero;
+		document.getElementById('frmalbaran').action='GlAlbaran/Glalbaran.aspx?codigo_albaran=' + numero;
 		}
 	//alert(document.getElementById('frmalbaran').action)
 	document.getElementById('frmalbaran').submit()
@@ -2719,7 +2338,7 @@ mostrar_articulo = function (articulo, accion)
 	document.getElementById('ocultoempresas').value='Sin Filtro'
 	document.getElementById('ocultofamilias').value='Sin Filtro'
 	document.getElementById('ocultoautorizacion').value='Sin Filtro'
-	document.getElementById('frmmostrar_articulo').action='Ficha_Articulo_Admin.asp'	
+	document.getElementById('frmmostrar_articulo').action='Ficha_Articulo_GAGAD.asp'	
 
    	document.getElementById('frmmostrar_articulo').submit()	
    }
@@ -2920,9 +2539,7 @@ mostrar_sn_impresoras = function (cantidad, estado)
 }
 
 </script>
-<script language="javascript">
-	console.log('<%=session("usuario_admin")%>');
-</script>
+
 </body>
 <%
 	'articulos.close
